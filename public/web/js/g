@@ -1,0 +1,262 @@
+let apply_btn,
+    duration,
+    time_frame,
+    slider_amount,
+    update_side_amount,
+    result_amount,
+    result_duration,
+    slider_duration,
+    loan_id,
+    loantype,
+    activeLoanType, // Variable to store the active loan type
+    //amount
+    max_loan_amount,
+    min_loan_amount,
+    step_loan_amount,
+    //duration
+    max_loan_duration,
+    min_loan_duration;
+
+//API Handler
+class LoanService {
+    constructor(baseUrl, apiEndpoint) {
+        this.apiUrl = `${baseUrl}${apiEndpoint}`;
+    }
+
+    handleErrors(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    }
+
+    async fetchLoanProducts() {
+        try {
+            const response = await fetch(this.apiUrl);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("Error fetching data:", error.message);
+            throw error;
+        }
+    }
+}
+
+/* LAUNCH CALCULATOR BEHAVIOR */
+document.addEventListener("DOMContentLoaded", async function () {
+    // value formatter
+    function numberFormat(number, decimals, decPoint, thousandsSep) {
+        // ... (number formatting logic)
+        return s.join(dec);
+    }
+
+    // UI VARIABLES
+    apply_btn = document.querySelector("#apply");
+    duration = document.getElementById("duration");
+    time_frame = document.getElementById("time_frame");
+    slider_amount = document.getElementById("slidatious");
+    update_side_amount = document.getElementById("update_side");
+    result_amount = document.getElementById("amountatious");
+    result_duration = document.getElementById("result_duration");
+    slider_duration = document.getElementById("loan_duration");
+
+    let loan_products = document.getElementById("loan_products");
+
+    // BASE URL
+    const baseUrl =
+        window.location.protocol +
+        "//" +
+        window.location.hostname +
+        (window.location.port ? ":" + window.location.port : "") +
+        window.location.pathname;
+
+    // INITIAL UI BEHAVIOR
+    duration.style.display = "block";
+    apply_btn.disabled = true;
+    apply_btn.innerHTML = "INPUT DETAILS ABOVE";
+    duration.style.display = "block";
+
+    // initial values
+
+    // Function to fetch loan products
+    const loanApiEndpoint = "api/get-loan-products";
+
+    const loanService = new LoanService(baseUrl, loanApiEndpoint);
+    try {
+        const loanProducts = await loanService.fetchLoanProducts();
+
+        let radioGroupHtml = "";
+
+        let foundActiveProduct = false;
+
+        if (loanProducts.length === 0) {
+            radioGroupHtml += `
+                <div class="col-12">
+                    <label class="custom-radio">
+                        <div class="radio-btn">
+                            <div class="content">
+                                <div class="mb-2">
+                                    <img width="50px" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='50' height='50' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10' /%3E%3Cline x1='15' y1='9' x2='9' y2='15' /%3E%3Cline x1='15' y1='15' x2='9' y2='9' /%3E%3C/svg%3E" />
+                                </div>
+                                <h2>No Loans Available Yet</h2>
+                                <p class="skill">Not ready!</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>`;
+        } else {
+            localStorage.setItem("loanProducts", JSON.stringify(loanProducts));
+
+            loanProducts.forEach((product) => {
+                if (product.status !== 1) {
+                    radioGroupHtml += `
+                        <div class="col-6">
+                            <label class="custom-radio" style="opacity: 0.5;">
+                                <input disabled type="radio" name="loan_type" value="${
+                                    product.id
+                                }" />
+                                <div class="radio-btn">
+                                    <div class="content">
+                                        <div class="mb-2">
+                                            <img width="50px" src="data:image/svg+xml,${encodeURIComponent(
+                                                product.icon
+                                            )}" />
+                                        </div>
+                                        <h2>${product.name}</h2>
+                                        <p class="skill">${
+                                            product.description
+                                        } (coming soon)</p>
+                                        <span class="check-icon">
+                                            <span class="icon"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>`;
+                } else {
+                    // Check the first active product found
+                    const isChecked = !foundActiveProduct;
+                    if (isChecked) {
+                        foundActiveProduct = true;
+                        //product
+
+                        activeLoanType = product.id; // Set the active loan type
+                        //amount
+                        max_loan_amount = product.max_principal_amount;
+                        min_loan_amount = product.min_principal_amount;
+                        //step_loan_amount = product.step_principal_amount;
+                        //duration
+                        max_loan_duration = product.max_loan_duration;
+                        min_loan_duration = product.min_loan_duration;
+                        //loan_amount = product.name;
+                        // Assign the value inside the loop
+                    }
+
+                    radioGroupHtml += `
+                    <div class="col-6">
+                        <label class="custom-radio">
+                                <input type="radio" name="loan_type" value="${
+                                    product.id
+                                }" onclick="checker()" checked>
+                            <!-- Add the 'checked' attribute here -->
+                            <div class="radio-btn">
+                                    <div class="content">
+                                        <div class="mb-2">
+                                            <img width="50px" src="data:image/svg+xml,${encodeURIComponent(
+                                                product.icon
+                                            )}" />
+                                        </div>
+                                        <h2>${product.name}</h2>
+                                        <p class="skill">${
+                                            product.description
+                                        }</p>
+                                        <span class="check-icon">
+                                            <span class="icon"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>`;
+                }
+            });
+        }
+
+        loan_products.innerHTML = radioGroupHtml;
+
+        // Calculate and display the total number of loan products
+    } catch (error) {
+        // Handle errors if needed
+    }
+
+    // next page
+    // slider
+
+    // set values
+    //slider_amount.step = 50;
+
+    window.populate = function (
+        min_loan_amount,
+        max_loan_amount,
+        min_loan_duration,
+        max_loan_duration,
+        loan_id
+    ) {
+        const storedLoanProducts = localStorage.getItem("loanProducts");
+
+        // Parse the stored data to check the content
+        const parsedLoanProducts = JSON.parse(storedLoanProducts);
+
+        // Find the product that matches the variable
+        const matchingProduct = parsedLoanProducts.find(
+            (product) => product.id === loan_id
+        );
+
+        if (matchingProduct) {
+            // Assign values based on the selected loan type
+            max_loan_amount = matchingProduct.max_principal_amount;
+            min_loan_amount = matchingProduct.min_principal_amount;
+            max_loan_duration = matchingProduct.max_loan_duration;
+            min_loan_duration = matchingProduct.min_loan_duration;
+        } else {
+            // Handle the case when no matching product was found
+            console.error("Product not found");
+        }
+    };
+
+
+   window.checker = function checker() {
+    loantype = document.querySelector('input[name="loan_type"]:checked');
+
+    if (loantype) {
+        // Check if a loan type is selected
+        loan_id = loantype.value;
+
+        // Check if the selected loan type is the active one
+        if (loan_id) {
+            apply_btn.disabled = false;
+            apply_btn.innerHTML = "APPLY NOW";
+
+            // Assign other UI variables based on the selected loan type
+            populate(
+                min_loan_amount,
+                max_loan_amount,
+                min_loan_duration,
+                max_loan_duration,
+                loan_id
+            );
+        } else {
+            apply_btn.disabled = true;
+            apply_btn.innerHTML = "FINISH ENTERING DETAILS!";
+        }
+    } else {
+        // Handle the case when no loan type is selected
+        apply_btn.disabled = true;
+        apply_btn.innerHTML = "SELECT A LOAN TYPE";
+    }
+};
+
+
+    checker();
+});
+
+// alert(apiUrl);

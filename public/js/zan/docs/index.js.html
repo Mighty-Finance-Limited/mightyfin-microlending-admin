@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const WizardStep = require('./WizardStep')
+
+class Zangdar {
+
+    /**
+     * @type {HTMLFormElement}
+     */
+    $form = null
+
+    /**
+     *
+     * @type {NodeListOf|null}
+     * @private
+     */
+    _$prevButtons = null
+
+    /**
+     *
+     * @type {Array}
+     * @private
+     */
+    _steps = []
+
+    /**
+     *
+     * @type {Number|null}
+     * @private
+     */
+    _currentIndex = null
+
+
+    /**
+     * @type {Object}
+     * @type {{step_selector: string, prev_step_selector: string, onStepChange(Object, Object): void, active_step_index: number, onSubmit(Event): boolean, classes: {prev_button: string, next_button: string, form: string, step: string, step_active: string}, next_step_selector: string, customValidation: (function(Object, NodeList): boolean), onValidation(Object, NodeList): void}}
+     * @private
+     */
+    _params = {
+        step_selector: '[data-step]',
+        prev_step_selector: '[data-prev]',
+        next_step_selector: '[data-next]',
+        submit_selector: '[type="submit"]',
+        active_step_index: 0,
+        classes: {
+            form: 'zandgar__wizard',
+            prev_button: 'zandgar__prev',
+            next_button: 'zandgar__next',
+            step: 'zandgar__step',
+            step_active: 'zandgar__step__active',
+        },
+        onSubmit: null,
+        onStepChange: null,
+        onValidation: null,
+        customValidation: null
+    }
+
+    /**
+     * @param {HTMLFormElement|String} element
+     * @param {Object} options
+     */
+    constructor(element, options = {}) {
+        this.$form = element instanceof HTMLFormElement
+            ? element
+            : document.querySelector(element)
+
+        if (this.$form.constructor !== HTMLFormElement)
+            throw new Error(`[Err] Zangdar.constructor - the container must be a valid HTML form element`)
+
+        this._params = {
+            ...this._params,
+            ...options
+        }
+
+        this._init()
+    }
+
+    get currentIndex() {
+        return this._currentIndex
+    }
+
+    get steps() {
+        return this._steps
+    }
+
+    /**
+     * Get a step
+     *
+     * @param {String|Number} key step index or label
+     * @returns {WizardStep|null} WizardStep instance if exists, null otherwise
+     */
+    getStep(key) {
+        if (key.constructor === String)
+            return this._steps.find(step => step.labeled(key))
+        if (key.constructor === Number)
+            return this._steps[key]
+        return null
+    }
+
+    /**
+     * Get the current step
+     *
+     * @returns {WizardStep|null} the current WizardStep instance if exists, null otherwise
+     */
+    getCurrentStep() {
+        return this.getStep(this._currentIndex)
+    }
+
+    /**
+     * Reveal previous step
+     */
+    prev() {
+        this._prevStep()
+    }
+
+    /**
+     * Reveal next step
+     */
+    next() {
+        this._nextStep()
+    }
+
+    /**
+     * Go to a step by label (data-step attribute value)
+     *
+     * @param {String} label
+     */
+    revealStep(label) {
+        const index = this._steps.findIndex(step => step.labeled(label))
+        if (index >= 0) {
+            this._currentIndex = index
+            this._revealStep()
+        } else {
+            throw new Error(`[Err] Zangdar.revealStep - step "${label}" not found`)
+        }
+    }
+
+    /**
+     * Create a wizard from an existing form with a template which is describes it
+     *
+     * @param {Object} template the wizard template
+     */
+    createFromTemplate(template) {
+        let i = 0
+        for (let label in template) {
+            ++i
+            if (template.hasOwnProperty(label)) {
+                const fields = template[label]
+                const $section = this._buildSection(label)
+                fields.forEach(field => {
+                    const el = this.$form.querySelector(field)
+                    if (el !== null) {
+                        const newElm = el.cloneNode(true)
+                        $section.appendChild(newElm)
+                        el.parentNode.removeChild(el)
+                    }
+                })
+                if (i &lt; Object.keys(template).length &amp;&amp; $section.querySelector(this._params.next_step_selector) === null) {
+                    let $nextButton = document.createElement('button')
+                    $nextButton = this._appendSelector(this._params.next_step_selector, null, $nextButton)
+                    $nextButton.innerText = 'Next'
+                    $section.appendChild($nextButton)
+                }
+                if (i === Object.keys(template).length) {
+                    const $submitButton = this.$form.querySelector(this._params.submit_selector)
+                    if ($submitButton !== null) {
+                        const newBtn = $submitButton.cloneNode(true)
+                        $section.appendChild(newBtn)
+                        $submitButton.parentNode.removeChild($submitButton)
+                    }
+                }
+                this.$form.appendChild($section)
+            }
+        }
+        this._init()
+    }
+
+    _init() {
+        if (this.$form.querySelectorAll(this._params.step_selector).length) {
+            this._buildForm()
+            this._buildPrevButton()
+            this._buildSteps()
+        }
+    }
+
+    _buildForm() {
+        const onSubmit = this._params.onSubmit
+        this.$form.classList.add(this._params.classes.form)
+        this.$form.addEventListener('submit', e => {
+            if (this._validateCurrentStep()) {
+                if (onSubmit &amp;&amp; onSubmit.constructor === Function)
+                    onSubmit(e)
+                else e.target.submit()
+            }
+        })
+    }
+
+    /**
+     * @private
+     */
+    _buildPrevButton() {
+        this._$prevButtons = this.$form.querySelectorAll(this._params.prev_step_selector)
+
+        if (!this._$prevButtons || !this._$prevButtons.length) {
+            const $prevBtn = document.createElement('button')
+            $prevBtn.setAttribute('data-prev', '')
+            $prevBtn.innerText = 'Prev.'
+            this.$form.insertBefore($prevBtn, this.$form.firstChild)
+            this._buildPrevButton()
+        } else {
+            Array.from(this._$prevButtons).forEach(btn => {
+                btn.classList.add(this._params.classes.prev_button)
+                btn.addEventListener('click', e => {
+                    e.preventDefault()
+                    this._prevStep()
+                })
+            })
+        }
+    }
+
+    /**
+     * @private
+     */
+    _buildSteps() {
+        let steps = Array.from(this.$form.querySelectorAll(this._params.step_selector))
+
+        if (!steps.length)
+            throw new Error(`[Err] Zangdar._buildSteps - you must have at least one step (a HTML element with "${this._params.step_selector}" attribute)`)
+
+        steps.reduce((acc, item, index) => {
+            const label = item.dataset.step
+            const isActive = index === this._params.active_step_index
+            item.classList.add(this._params.classes.step)
+            if (isActive) {
+                item.classList.add(this._params.classes.step_active)
+                this._currentIndex = index
+            }
+
+            if (index &lt; steps.length - 1 &amp;&amp; item.querySelector(this._params.next_step_selector)) {
+                const $nextButton = item.querySelector(this._params.next_step_selector)
+
+                $nextButton.classList.add(this._params.classes.next_button)
+                $nextButton.addEventListener('click', e => {
+                    e.preventDefault()
+                    if (this._validateCurrentStep())
+                        this._nextStep()
+                })
+            }
+
+            const step = new WizardStep(index, item, label, isActive)
+
+            acc.push(step)
+
+            return acc
+        }, this._steps)
+
+        this._currentIndex = this._params.active_step_index
+        this._revealStep()
+    }
+
+    _buildSection(label) {
+        let $section = document.createElement('section')
+        return this._appendSelector(this._params.step_selector, label, $section)
+    }
+
+    /**
+     * @private
+     */
+    _revealStep() {
+        this._steps.forEach((step, i) => {
+            step.active = this._currentIndex === i
+            if (step.active) {
+                step.element.classList.add(this._params.classes.step_active)
+            } else {
+                step.element.classList.remove(this._params.classes.step_active)
+            }
+        })
+        this._hidePrevBtns()
+    }
+
+    /**
+     * @private
+     */
+    _hidePrevBtns() {
+        if (!this._$prevButtons || !this._$prevButtons.length)
+            this._buildPrevButton()
+        else
+            Array.from(this._$prevButtons).forEach(btn => btn.style.display = this._currentIndex === 0 ? 'none' : '')
+    }
+
+    /**
+     * @private
+     */
+    _prevStep() {
+        const oldStep = this.getCurrentStep()
+        this._currentIndex = this._currentIndex - 1 &lt; 0 ? 0 : this._currentIndex - 1
+        if (this._params.onStepChange &amp;&amp; this._params.onStepChange.constructor === Function)
+            this._params.onStepChange(this.getCurrentStep(), oldStep, -1, this.$form)
+        this._revealStep()
+    }
+
+    /**
+     * @private
+     */
+    _nextStep() {
+        const oldStep = this.getCurrentStep()
+        this._currentIndex = this._currentIndex &lt; this._steps.length - 1
+            ? this._currentIndex + 1
+            : this._steps.length
+        if (this._params.onStepChange &amp;&amp; this._params.onStepChange.constructor === Function)
+            this._params.onStepChange(this.getCurrentStep(), oldStep, 1, this.$form)
+        this._revealStep()
+    }
+
+    /**
+     * @private
+     */
+    _validateCurrentStep() {
+        const currentStep = this.getCurrentStep()
+        const fields = this._formElements(currentStep.element)
+        if (this._params.customValidation &amp;&amp; this._params.customValidation.constructor === Function) {
+            this.$form.setAttribute('novalidate', '')
+            return this._params.customValidation(currentStep, fields, this.$form)
+        }
+        this.$form.removeAttribute('novalidate')
+        currentStep.clearErrors()
+        let isValid = true
+        Array.from(fields)
+            .reverse()
+            .forEach(el => {
+                if (!el.checkValidity()) {
+                    isValid = false
+                    currentStep.addError(el.name, el.validationMessage)
+                    el.reportValidity()
+                }
+            })
+
+        if (this._params.onValidation &amp;&amp; this._params.onValidation.constructor === Function)
+            this._params.onValidation(currentStep, fields, this.$form)
+
+        return isValid
+    }
+
+    /**
+     * Get form inputs
+     * @param {HTMLElement} element
+     * @returns {NodeListOf&lt;HTMLElement>}
+     * @private
+     */
+    _formElements(element) {
+        return element.querySelectorAll(`\
+            ${this._params.step_selector} input:not([type="hidden"]):not([disabled]),\
+            ${this._params.step_selector} select:not([disabled]),\
+            ${this._params.step_selector} textarea:not([disabled])\
+        `)
+    }
+
+    /**
+     * Append a selector to an element
+     *
+     * @param {String} selector
+     * @param {String|null} value
+     * @param {HTMLElement} element
+     * @returns {HTMLElement}
+     * @private
+     */
+    _appendSelector(selector, value, element) {
+        if (selector.startsWith('.')) {
+            element.classList.add(selector.slice(1))
+        } else if (selector.startsWith('#')) {
+            element.id = selector.slice(1)
+        } else {
+            let matches = selector.match(/^.*\[(?&lt;datakey>[a-zA-Z\-]+)(\=['|"]?(?&lt;dataval>[a-zA-Z0-9\-]+)['|"]?)?\]$/)
+            if (matches &amp;&amp; matches.length) {
+                const key = matches.groups.datakey || matches[1] || null
+                const val = value || matches.groups.dataval || matches[3] || ''
+                if (key) element.setAttribute(key, val)
+            }
+
+        }
+        return element
+    }
+}
+
+if (window !== undefined) {
+    !window.hasOwnProperty('Zangdar') &amp;&amp; (window.Zangdar = Zangdar)
+    if(!HTMLFormElement.prototype.zangdar) {
+        HTMLFormElement.prototype.zangdar = function (options) {
+            return new Zangdar(this, options)
+        }
+    }
+} else {
+    module.exports = Zangdar
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Zangdar.html">Zangdar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat May 04 2019 16:56:24 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
