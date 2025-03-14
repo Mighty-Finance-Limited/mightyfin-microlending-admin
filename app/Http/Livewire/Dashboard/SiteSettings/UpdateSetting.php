@@ -37,6 +37,11 @@ class UpdateSetting extends Component
     public $interest_methods, $interest_types, $disbursements, $repayment_cycles;
     public $repayment_orders, $decimal_places, $company_accounts, $service_charges;
 
+    //Loan Product Type
+    public $loan_category_id, $loan_category_name, $loan_category_desc, $loan_type_name, $loan_type_desc, $loan_type_id;
+    public $loan_types = [], $loan_categories = [];
+    public $loan_child_types, $loan_category, $loan_type;
+
     // Loan Product Update Data
     public $new_loan_name, $loan_release_date, $minimum_loan_principal_amount, $loan_interest_type;
     public $default_loan_principal_amount, $maximum_principal_amount, $loan_interest_method, $num_of_steps;
@@ -132,6 +137,11 @@ class UpdateSetting extends Component
         $this->service_charges = ServiceCharge::get();
         $this->institutions = Institution::where('status', 1)->get();
         $this->crb_products = CrbProduct::get();
+    }
+
+    public function get_type_data(){
+        $this->loan_types = LoanType::get();
+        $this->loan_categories = LoanChildType::get();
     }
 
     public function update_loan_product(){
@@ -333,6 +343,7 @@ class UpdateSetting extends Component
     // ---- Setters
     public function set_loan_product_values(){
         // Loan Product
+
         $this->new_loan_name = $this->loan_product->name;
         $this->loan_release_date = $this->loan_product->release_date;
         $this->new_loan_desc = $this->loan_product->description;
@@ -341,6 +352,7 @@ class UpdateSetting extends Component
         $this->add_automatic_payments = $this->loan_product->auto_payment;
         $this->num_of_steps = $this->loan_product->wiz_steps;
 
+        
         // Decimal Places
         $this->loan_decimal_place = $this->loan_product->loan_decimal_places->first()->value;
 
