@@ -215,6 +215,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('system-view-setting', ViewSetting::class)->name('system-view');
     Route::get('test-page', TestPage::class)->name('test-page');
 
+
+    Route::post('create-loan-product', [LoanProductController::class, 'create_loan_product'])->name('create_loan_product');
+    Route::post('update-loan-product', [LoanProductController::class, 'update_loan_product'])->name('update_loan_product');
+
     // ------ KYC Profile
     Route::get('kyc-profile', KYCView::class)->name('kyc');
     Route::post('updating-file-uploads', [LoanApplicationController::class, 'updateFiles'])->name('update-file-uploads');

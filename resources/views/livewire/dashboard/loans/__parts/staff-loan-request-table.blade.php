@@ -45,7 +45,7 @@
                             <div class="separator mb-3 opacity-75"></div>
 
                             <div class="menu-item px-3">
-                                <a href="{{ route('proxy-loan-create') }}" class="menu-link px-3">New Loan</a>
+                                <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary text-white menu-link px-3">Create New Loan</a>
                             </div>
 
                             {{-- <div class="menu-item px-3">
@@ -69,7 +69,7 @@
                 <div class="card-body py-3">
 
                     <div class="table-responsive">
-                        <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                        <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 w-full">
 
                             <thead>
                                 <tr class="fw-bold text-muted">
@@ -78,12 +78,12 @@
                                             <input onclick="showBulkOps()" class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check" />
                                         </div>
                                     </th>
-                                    <th class="min-w-100px">Loan Type</th>
+                                    <th class="min-w-200px">Loan Type</th>
                                     <th class="min-w-140px">Principal</th>
-                                    <th class="w-120px">Date</th>
-                                    <th class="w-100px">Borrower</th>
+                                    <th class="min-w-220px">Date</th>
+                                    <th class="min-w-200px">Borrower</th>
                                     <th class="min-w-120px">Payback</th>
-                                    <th class="min-w-90">Status</th>
+                                    <th class="min-w-190">Status</th>
 
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <th class="min-w-60px"></th>
@@ -185,7 +185,7 @@
                                         <td class="text-center">
                                             @can('processes loans')
                                                 @if(Route::currentRouteName() === 'view-loan-requests')
-                                                <a href="{{ route('loan-details',['id' => $loan->id]) }}" class="btn btn-icon btn-bg-light btn-light btn-sm me-1">
+                                                <a title="Process loan application" href="{{ route('loan-details',['id' => $loan->id]) }}" class="btn btn-icon btn-bg-light btn-light btn-sm me-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16">
                                                         <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
                                                         <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
@@ -207,14 +207,14 @@
                                                     </svg>
                                                 </a>
                                             @endcan --}}
-                                            <a href="{{ route('detailed',['id' => $loan->id]) }}" class="btn btn-icon btn-bg-light btn-primary btn-sm me-1">
+                                            <a title="Show more details" href="{{ route('detailed',['id' => $loan->id]) }}" class="btn btn-icon btn-bg-light btn-primary btn-sm me-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                                                     <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
                                                 </svg>
                                             </a>
                                             @can('update loans')
-                                                <a title="Edit Loan" href="{{ route('edit-loan', ['id'=>$loan->id]) }}" class="btn btn-icon btn-bg-info text-white btn-active-color-white btn-sm">
+                                                <a title="Edit and update loan application" title="Edit Loan" href="{{ route('edit-loan', ['id'=>$loan->id]) }}" class="btn btn-icon btn-bg-info text-white btn-active-color-white btn-sm">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                                     </svg>
