@@ -87,18 +87,9 @@
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                 <!--begin::Header-->
 			    @include('layouts.parts.admin.header')
-                <!--end::Header-->
-                <!--begin::Content-->
 
-				<!-- Hey bremah we will switch between dashboards eg accounts dashboard-->
-
-				{{-- /*if ($variable = $role){
-					echo('switch dashboard but with role based access')
-				}*/ --}}
 			    {{ $slot }}
-
-                <!--end::Content-->
-                <!--begin::Footer-->
+                
 		        @include('layouts.parts.admin.footer')
                 <!--end::Footer-->
             </div>

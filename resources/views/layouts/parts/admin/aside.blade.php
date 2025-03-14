@@ -128,7 +128,7 @@
                                     <div class="separator my-2"></div>
                                     <!--end::Menu separator-->
                                     <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
+                                    {{-- <div class="menu-item px-3">
                                         <div class="menu-content px-3">
                                             <label class="form-check form-switch form-check-custom form-check-solid">
                                                 <input class="form-check-input w-30px h-20px" type="checkbox" value="1"
@@ -137,7 +137,7 @@
                                                     Authentication</span>
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!--end::Menu item-->
                                 </div>
                                 <!--end::Menu sub-->
@@ -182,14 +182,14 @@
         </div>
         <!--end::User-->
         <!--begin::Aside search-->
-        <div class="aside-search py-5">
+        {{-- <div class="aside-search py-5"> --}}
             <!--begin::Search-->
-            <div id="kt_header_search" class="header-search d-flex align-items-center w-100"
+            {{-- <div id="kt_header_search" class="header-search d-flex align-items-center w-100"
                 data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter"
                 data-kt-search-layout="menu" data-kt-search-responsive="false" data-kt-menu-trigger="auto"
-                data-kt-menu-permanent="true" data-kt-menu-placement="bottom-start">
+                data-kt-menu-permanent="true" data-kt-menu-placement="bottom-start"> --}}
                 <!--begin::Tablet and mobile search toggle-->
-                <div data-kt-search-element="toggle" class="search-toggle-mobile d-flex d-lg-none align-items-center">
+                {{-- <div data-kt-search-element="toggle" class="search-toggle-mobile d-flex d-lg-none align-items-center">
                     <div class="d-flex">
                         <i class="ki-duotone ki-magnifier fs-1">
                             <span class="path1"></span>
@@ -230,7 +230,7 @@
                         </i>
                     </span>
                     <!--end::Reset-->
-                </form>
+                </form> --}}
                 <!--end::Form-->
                 <!--begin::Menu-->
                 {{-- <div data-kt-search-element="content"
@@ -906,9 +906,9 @@
                     <!--end::Preferences-->
                 </div> --}}
                 <!--end::Menu-->
-            </div>
+            {{-- </div> --}}
             <!--end::Search-->
-        </div>
+        {{-- </div> --}}
         <!--end::Aside search-->
         <!--end::Aside user-->
     </div>
