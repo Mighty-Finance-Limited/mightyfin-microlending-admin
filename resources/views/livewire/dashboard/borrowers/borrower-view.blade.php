@@ -114,7 +114,7 @@
                             <!--end::Export-->
                             <!--begin::Add customer-->
                             @can('create clientele')
-                            <a href="{{ route('new-borrower') }}" class="btn btn-primary">Add Customer</a>
+                            <a href="" data-bs-toggle="modal" id="create-btn" data-bs-target="#kt_modal_add_customer" class="btn btn-primary">Add Customer</a>
                             @endcan
                             {{-- data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer" --}}
                             <!--end::Add customer-->
@@ -153,7 +153,7 @@
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
-                            
+
                             @forelse($users as $user)
                             <tr>
                                 <td>
@@ -162,7 +162,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    
+
                                     {{-- @if($user->profile_photo_path == null)
                                         @if($user->fname != null && $user->lname != null)
                                             <span>{{ $user->fname[0].' '.$user->lname[0] }}</span>
@@ -211,7 +211,7 @@
                                     <p>No User Found</p>
                                 </div>
                             </div>
-                            @endforelse 
+                            @endforelse
                         </tbody>
                     </table>
                     <!--end::Table-->
@@ -333,4 +333,8 @@
         <!--end::Container-->
     </div>
     <!--end::Post-->
+    <!-- container-fluid -->
+    @include('livewire.dashboard.borrowers.__parts.create')
+    @include('livewire.dashboard.loans.__modals.export-borrowers')
+    @include('livewire.dashboard.loans.__modals.import-borrowers')
 </div>
