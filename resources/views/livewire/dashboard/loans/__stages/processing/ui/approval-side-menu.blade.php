@@ -2,17 +2,6 @@
  <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
     <div class="card border-0 shadow-sm rounded-xl overflow-hidden">
         <div class="card-body p-0">
-            <!-- Status Header -->
-            <div class="bg-gradient-to-r from-green-500 to-green-600 px-6 py-5 text-white">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h2 class="fs-2 fw-bold m-0">Approval</h2>
-                    <div class="approval-badge px-3 py-1 bg-white bg-opacity-25 rounded-pill">
-                        <span class="fs-7 fw-semibold">Approved</span>
-                    </div>
-                </div>
-                <p class="fs-7 text-white text-opacity-75 m-0">Loan application has been successfully approved</p>
-            </div>
-
             <!-- User Profile Section -->
             <div class="d-flex flex-column align-items-center px-6 py-6 border-bottom">
                 <div class="position-relative mb-5">
