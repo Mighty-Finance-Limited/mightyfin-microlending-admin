@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Session;
 class LoanProductController extends Controller
 {
 
-    public function updateLoanStatus(Request $request){
+    public function updateLoanStatus(Request $request)
+    {
         try {
             $data = $request->toArray();
             // dd($data);
@@ -85,10 +86,10 @@ class LoanProductController extends Controller
             }
 
             Session::flash('success', "Loan statuses created successfully.");
-            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-types']);
+            return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
         } catch (\Throwable $th) {
-            Session::flash('error', "Failed. ". $th->getMessage());
-            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-types']);
+            Session::flash('error', "Failed. " . $th->getMessage());
+            return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
         }
     }
 
@@ -196,34 +197,37 @@ class LoanProductController extends Controller
     public function update_loan_product(Request $request)
     {
         try {
-            // Update the loan product
-            LoanProduct::where('id', $request->input('loan_product_id'))->update([
-                'name' => $request->input('new_loan_name'),
-                'release_date' => $request->input('loan_release_date') ?? 0,
-                // 'icon' => $request->input('new_loan_icon'),
-                // 'icon_alt' => $request->input('new_loan_icon_alt'),
-                'wiz_steps' => $request->input('num_of_steps'),
-                'auto_payment' => $request->input('add_automatic_payments'),
-                'loan_duration_period' => $request->input('loan_duration_period'),
-                'loan_interest_period' => $request->input('loan_interest_period'),
-                'min_principal_amount' => $request->input('minimum_loan_principal_amount'),
-                'def_principal_amount' => $request->input('default_loan_principal_amount'),
-                'max_principal_amount' => $request->input('maximum_principal_amount'),
-                'min_loan_duration' => $request->input('minimum_loan_duration'),
-                'def_loan_duration' => $request->input('default_loan_duration'),
-                'max_loan_duration' => $request->input('maximum_loan_duration'),
-                'min_loan_interest' => $request->input('minimum_loan_interest'),
-                'def_loan_interest' => $request->input('default_loan_interest'),
-                'max_loan_interest' => $request->input('maximum_loan_interest'),
-                'min_num_of_repayments' => $request->input('minimum_num_of_repayments'),
-                'def_num_of_repayments' => $request->input('default_num_of_repayments'),
-                'max_num_of_repayments' => $request->input('maximum_num_of_repayments'),
-                'loan_type' => $request->input('loan_type_id'),
-                'loan_child_type_id' => $request->input('loan_child_type_id'),
-            ]);
+            $loanProduct = LoanProduct::find($request->input('loan_product_id'));
 
+            if (!$loanProduct) {
+                Session::flash('error', "Loan product not found.");
+                return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
+            }
+
+            $loanProduct->name = $request->input('new_loan_name');
+            $loanProduct->release_date = $request->input('loan_release_date') ?? 0;
+            $loanProduct->icon = $request->input('new_loan_icon');
+            $loanProduct->icon_alt = $request->input('new_loan_icon_alt');
+            $loanProduct->wiz_steps = $request->input('num_of_steps');
+            $loanProduct->auto_payment = $request->input('add_automatic_payments');
+            $loanProduct->loan_duration_period = $request->input('loan_duration_period');
+            $loanProduct->loan_interest_period = $request->input('loan_interest_period');
+            $loanProduct->min_principal_amount = $request->input('minimum_loan_principal_amount');
+            $loanProduct->def_principal_amount = $request->input('default_loan_principal_amount');
+            $loanProduct->max_principal_amount = $request->input('maximum_principal_amount');
+            $loanProduct->min_loan_duration = $request->input('minimum_loan_duration');
+            $loanProduct->def_loan_duration = $request->input('default_loan_duration');
+            $loanProduct->max_loan_duration = $request->input('maximum_loan_duration');
+            $loanProduct->min_loan_interest = $request->input('minimum_loan_interest');
+            $loanProduct->def_loan_interest = $request->input('default_loan_interest');
+            $loanProduct->max_loan_interest = $request->input('maximum_loan_interest');
+            $loanProduct->min_num_of_repayments = $request->input('minimum_num_of_repayments');
+            $loanProduct->def_num_of_repayments = $request->input('default_num_of_repayments');
+            $loanProduct->max_num_of_repayments = $request->input('maximum_num_of_repayments');
+
+            $loanProduct->save();
             // Delete existing records where loan_product_id matches
-            LoanCrbProduct::where('loan_product_id', $request->input('loan_product_id'))->delete();
+            LoanCrbProduct::where('loan_product_id', $request->input('loan_product_id'))?->delete();
             // Create new records based on input
             foreach ($request->input('crb_selected_products', []) as $value) {
                 LoanCrbProduct::create([
@@ -297,7 +301,6 @@ class LoanProductController extends Controller
 
             Session::flash('success', "Loan product updated successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
-
         } catch (\Throwable $th) {
             dd($th);
             Session::flash('error', "Failed. " . $th->getMessage());
@@ -305,7 +308,25 @@ class LoanProductController extends Controller
         }
     }
 
-    public function deleteStep($loan_step){
+    public function update_status(Request $request)
+    {
+        try {
+            $loanProduct = LoanProduct::find($request->id);
+            if ($loanProduct) {
+                $loanProduct->status = $request->status;
+                $loanProduct->save();
+
+                return response()->json(['success' => true, 'message' => 'Loan Product status updated successfully.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Loan Product not found.']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => $th->getMessage()]);
+        }
+    }
+
+    public function deleteStep($loan_step)
+    {
         $del = LoanStatus::where('id', $loan_step)->first();
         $id = $del->loan_product_id;
         $del->delete();

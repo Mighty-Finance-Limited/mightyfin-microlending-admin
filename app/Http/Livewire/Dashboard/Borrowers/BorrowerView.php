@@ -35,7 +35,7 @@ class BorrowerView extends Component
         $this->authorize('view clientele');
         $this->user_role = Role::pluck('name')->toArray();
         $this->permissions = Permission::get();
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::where('name', 'user')->get();
         $users = User::role('user')->orderBy('created_at', 'desc')->paginate(7);
         return view('livewire.dashboard.borrowers.borrower-view',[
             'users' => $users,
@@ -106,7 +106,7 @@ class BorrowerView extends Component
     }
 
     public function destroy($id){
-        $user = User::find($id); 
+        $user = User::find($id);
         if ($user) {
             try {
                 $user->delete();

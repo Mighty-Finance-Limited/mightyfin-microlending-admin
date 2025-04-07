@@ -8,6 +8,7 @@ use App\Models\BankDetails;
 use App\Models\NextOfKing;
 use App\Models\References;
 use App\Models\User;
+use App\Models\UserPhoto;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Collection;
@@ -33,7 +34,7 @@ trait UserTrait{
                         'terms' => 'accepted'
                     ]);
                     $user->assignRole('user');
-            
+
                     // Get my applications
                     Wallet::create([
                         'email' => $user->email ?? '',
@@ -60,7 +61,7 @@ trait UserTrait{
                     'terms' => 'accepted'
                 ]);
                 $user->assignRole('user');
-        
+
                 // Get my applications
                 Wallet::create([
                     'email' => $user->email ?? '',
@@ -72,7 +73,7 @@ trait UserTrait{
             }
         }
 
-        
+
     }
 
     public function isKYCComplete(){
@@ -81,7 +82,7 @@ trait UserTrait{
         ->where('user_id', auth()->user()->id)
         ->orderBy('created_at', 'desc')
         ->get();
-        $user = User::where('id', auth()->user()->id)->with('uploads')->get()->toArray(); 
+        $user = User::where('id', auth()->user()->id)->with('uploads')->get()->toArray();
         if($loan->first() !== null && !empty($user)){
             if(!empty($user[0]['phone']) && !empty($user[0]['nrc_no']) && !empty($user[0]['dob'])){
                 $files = collect($user[0]['uploads']);
@@ -93,7 +94,7 @@ trait UserTrait{
                     ->where('complete', 0)
                     ->where('user_id',auth()->user()->id)
                     ->update(['complete' => 1]);
-                    
+
                     ApplicationStage::where('application_id', $a->id)->update([
                         'position' => 1
                     ]);
@@ -107,7 +108,7 @@ trait UserTrait{
         ->where('user_id', $id)
         ->orderBy('created_at', 'desc')
         ->get();
-        $user = User::where('id', $id)->with('uploads')->get()->toArray(); 
+        $user = User::where('id', $id)->with('uploads')->get()->toArray();
         if($loan->first() !== null && !empty($user)){
             if(!empty($user['phone']) && !empty($user['nrc_no']) && !empty($user['dob'])){
                 if(
@@ -115,7 +116,7 @@ trait UserTrait{
                     isset($user[0]['uploads'][1]) &&
                     isset($user[0]['uploads'][2]) &&
                     isset($user[0]['uploads'][3]) &&
-                    isset($user[0]['uploads'][4]) 
+                    isset($user[0]['uploads'][4])
                 ){
                     $loan->complete = 1;
                     $loan->save();
@@ -183,20 +184,20 @@ trait UserTrait{
             if(auth()->user()->opt_verified == 0){
                 // Generate otp code
                 $code = str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
-    
+
                 // Save into the database
                 User::where('id', auth()->user()->id)->update([
                     'opt_code' => $code
                 ]);
-    
-                // Send SMS 
+
+                // Send SMS
                 $data = [
                     'message'=>$code.' is your OTP verification code',
                     'phone'=> '26'.auth()->user()->phone,
                 ];
-    
+
                 $this->send_with_server($data);
-                
+
                 // Then redirect the user to go and verify
                 return redirect()->route('otp');
             }else{
@@ -210,15 +211,15 @@ trait UserTrait{
         $message = $data['message'];
         $username = 'gtzm-mightyfin';
         $password = 'Mighty@2';
-    
+
         $type = '0';
         $dlr = '1';
         $destination = $data['phone'];
         $source = 'Mightyfin';
-    
+
         // API endpoint
         $apiEndpoint = "http://rslr.connectbind.com:8080/bulksms/bulksms";
-    
+
         // Build the query parameters
         $queryParams = http_build_query([
             'username' => $username,
@@ -229,31 +230,64 @@ trait UserTrait{
             'source' => $source,
             'message' => $message,
         ]);
-    
+
         // Full API URL with query parameters
         $apiUrl = "{$apiEndpoint}?{$queryParams}";
-    
+
         // Initialize cURL session
         $ch = curl_init();
-    
+
         // Set cURL options for GET request
         curl_setopt($ch, CURLOPT_URL, $apiUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    
+
         // Execute cURL session and get the response
         $response = curl_exec($ch);
-    
+
         // Check for cURL errors
         if (curl_errno($ch)) {
             // Handle cURL error
             echo 'Curl error: ' . curl_error($ch);
         }
-    
+
         // Close cURL session
         curl_close($ch);
-    
+
         // Return the API response
         return $response;
     }
-}
 
+    // New Updates.....
+    public function uploadUserPhotos($request = null, $user)
+    {
+        // Handle Primary Photo Upload
+        if ($request->hasFile('primary_image_path')) {
+            $primaryPhotoPath = $request->file('primary_image_path')->store('users', 'public');
+            UserPhoto::updateOrCreate(
+                ['name' => 'primary', 'user_id' => $user->id],
+                ['path' => $primaryPhotoPath],
+                ['source' => 'admin']
+            );
+        }
+
+        // Handle Secondary Photo Upload
+        if ($request->hasFile('secondary_image_path')) {
+            $secondaryPhotoPath = $request->file('secondary_image_path')->store('users', 'public');
+            UserPhoto::updateOrCreate(
+                ['name' => 'secondary', 'user_id' => $user->id],
+                ['path' => $secondaryPhotoPath],
+                ['source' => 'admin']
+            );
+        }
+
+        // Handle Tertiary Photo Upload
+        if ($request->hasFile('tertiary_image_path')) {
+            $tertiaryPhotoPath = $request->file('tertiary_image_path')->store('users', 'public');
+            UserPhoto::updateOrCreate(
+                ['name' => 'tertiary', 'user_id' => $user->id],
+                ['path' => $tertiaryPhotoPath],
+                ['source' => 'admin']
+            );
+        }
+    }
+}

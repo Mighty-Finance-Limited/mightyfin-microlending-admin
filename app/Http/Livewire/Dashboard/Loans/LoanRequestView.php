@@ -100,24 +100,6 @@ class LoanRequestView extends Component
     }
 
 
-    // This method is the actual approval process - Recommended
-    public function accept($id){
-
-        DB::beginTransaction();
-        try {
-            $x = Application::find($id);
-            // Make the loan
-            $this->make_loan($x, $this->due_date);
-            // $this->isCompanyEnough($x->amount);
-
-            // Do this - If this officer is the last approver
-            $this->final_approval($x);
-        } catch (\Throwable $th) {
-            DB::rollback();
-            session()->flash('error', 'Oops something failed here, please contact the Administrator.'.$th);
-        }
-    }
-
     public function final_approval($x){
         if(true){
             $x->status = 1;
@@ -132,7 +114,7 @@ class LoanRequestView extends Component
                     'email' => $x->email,
                     'duration' => $x->repayment_plan,
                     'amount' => $x->amount,
-                    'payback' => Application::payback($x->amount, $x->repayment_plan),
+                    'payback' => Application::payback($x),
                     'type' => 'loan-application',
                     'msg' => 'Your '.$x->type.' loan application request has been successfully accepted'
                 ];
@@ -162,7 +144,7 @@ class LoanRequestView extends Component
                 'email' => $x->email,
                 'duration' => $x->repayment_plan,
                 'amount' => $x->amount,
-                'payback' => Application::payback($x->amount, $x->repayment_plan),
+                'payback' => Application::payback($x),
                 'type' => 'loan-application',
                 'msg' => 'Your '.$x->type.' loan application is under review'
             ];
@@ -191,7 +173,7 @@ class LoanRequestView extends Component
                 'email' => $x->email,
                 'duration' => $x->repayment_plan,
                 'amount' => $x->amount,
-                'payback' => Application::payback($x->amount, $x->repayment_plan),
+                'payback' => Application::payback($x),
                 'type' => 'loan-application',
                 'msg' => 'Your '.$x->type.' loan application request has been rejected'
             ];
@@ -219,7 +201,7 @@ class LoanRequestView extends Component
                 'email' => $x->email,
                 'duration' => $x->repayment_plan,
                 'amount' => $x->amount,
-                'payback' => Application::payback($x->amount, $x->repayment_plan),
+                'payback' => Application::payback($x),
                 'type' => 'loan-application',
                 'msg' => 'Your '.$x->type.' loan application request has been rejected'
             ];

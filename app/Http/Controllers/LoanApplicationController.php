@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class LoanApplicationController extends Controller
-{     
+{
     use EmailTrait, LoanTrait, UserTrait, WalletTrait, FileTrait, SettingTrait;
     /**
      * Display a listing of the resource.
@@ -42,11 +42,11 @@ class LoanApplicationController extends Controller
      */
     public function getLoan(Request $req)
     {
-        $email = $req->toArray()['email']; 
-        $application = User::where('email', $email)->get()->toArray();  
+        $email = $req->toArray()['email'];
+        $application = User::where('email', $email)->get()->toArray();
         // $application = Application::where('email', $email)
         //                             ->where('status', 0)
-        //                             ->where('can_change', 0)->get()->first();             
+        //                             ->where('can_change', 0)->get()->first();
         if(!empty($application)){
             $data = 1;
             return response()->json($data, 200);
@@ -58,7 +58,7 @@ class LoanApplicationController extends Controller
 
     public function updateExistingLoan(Request $req)
     {
-        $email = $req->toArray()['email']; 
+        $email = $req->toArray()['email'];
         try{
             Application::where('email', $email)->update(['can_change' => 1]);
             $data = 1;
@@ -92,8 +92,8 @@ class LoanApplicationController extends Controller
                 'terms' => 'accepted'
             ];
             $user = $this->registerUser($register);
-            
-            // If the user data exists 
+
+            // If the user data exists
             if($user !== 0){
                 $data = [
                     'lname'=> $form['lname'],
@@ -106,23 +106,23 @@ class LoanApplicationController extends Controller
                     'user_id' =>  $user->id,
                     'complete' => 0
                 ];
-                
+
                 // Apply for the loan
                 $res = $this->apply_loan($data);
-                
+
                 if($res == 'exists'){
                     $loan = Application::where('status', 0)->where('complete', 0)->where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
                     return response()->json([
-                        "status" => 500, 
-                        "success" => false, 
+                        "status" => 500,
+                        "success" => false,
                         "message" => "Already have a Loan.",
                         'fname' => $form['name'],
                         'lname' => $form['lname'],
                         "loan_id" => $loan->id,
                         "amount" => $loan->amount
-                    ]); 
+                    ]);
                 }else{
-                    
+
                     $mail = [
                         'user_id' => $user->id,
                         'name' => $form['name'].' '.$form['lname'],
@@ -132,34 +132,34 @@ class LoanApplicationController extends Controller
                         'amount' => $form['amount'],
                         'type' => 'loan-application',
                         'msg' => 'You have new a '.$form['type'].' loan application request, with an incomplete loan submission form and kyc update'
-                    ];  
-            
+                    ];
+
                     // Send information to the admin
                     $this->send_loan_email($mail);
-                    
+
                     DB::commit();
                     return response()->json([
-                        "status" => 200, 
-                        "success" => true, 
+                        "status" => 200,
+                        "success" => true,
                         'amount' => $form['amount'],
                         'fname' => $form['name'],
                         'lname' => $form['lname'],
                         "message" => "Your loan has been sent."
-                    ]); 
+                    ]);
                 }
-        
+
             }else{
-                
+
                 DB::rollback();
                 dd('failed');
                 return response()->json([
-                    "status" => 500, 
-                    "success" => false, 
+                    "status" => 500,
+                    "success" => false,
                     'amount' => $form['amount'],
                     'fname' => $form['name'],
                     'lname' => $form['lname'],
                     "message" => "Failed to submit your loan request, please try again."
-                ]); 
+                ]);
             }
         } catch (\Throwable $th) {
             dd($th);
@@ -168,30 +168,30 @@ class LoanApplicationController extends Controller
 
     public function updateFiles(Request $request)
     {
-        // DB::beginTransaction();  
+        // DB::beginTransaction();
         try {
             $user = Application::where('user_id',auth()->user()->id)->where('status', 0)->where('complete', 0)->first();
 
             if($request->file('nrc_file') !== null){
-                $nrc_file = $request->file('nrc_file')->store('nrc_file', 'public'); 
+                $nrc_file = $request->file('nrc_file')->store('nrc_file', 'public');
                 $user->nrc_file = $nrc_file;
-                $user->save();      
+                $user->save();
             }
-    
-            if($request->file('tpin_file') !== null){               
-                $tpin_file = $request->file('tpin_file')->store('tpin_file', 'public');   
+
+            if($request->file('tpin_file') !== null){
+                $tpin_file = $request->file('tpin_file')->store('tpin_file', 'public');
                 $user->tpin_file = $tpin_file;
-                $user->save();           
+                $user->save();
             }
-    
-            if($request->file('payslip_file') !== null){               
-                $payslip_file = $request->file('payslip_file')->store('payslip_file', 'public');  
+
+            if($request->file('payslip_file') !== null){
+                $payslip_file = $request->file('payslip_file')->store('payslip_file', 'public');
                 $user->payslip_file = $payslip_file;
-                $user->save();        
+                $user->save();
             }
 
             $this->isKYCComplete();
-            
+
             // DB::commit();
             return redirect()->to('/user/profile');
         } catch (\Throwable $th) {
@@ -241,13 +241,13 @@ class LoanApplicationController extends Controller
         $form = $request->toArray();
         // Remove non-numeric characters
         $amount = intval(str_replace(['K', ',', '$', "'", '"', ' '], '', $form['amount']));
-        
+
         DB::beginTransaction();
         try {
-            
+
             // First Upload the files
             $this->uploadCommonFiles($request);
-    
+
             $data = [
                 'user_id'=> auth()->user()->id,
                 'lname'=> auth()->user()->lname,
@@ -274,12 +274,12 @@ class LoanApplicationController extends Controller
                 'msg' => 'You have new a '.$data['type'].' loan application request, with an incomplete loan submission form and kyc update'
             ];
             $process = $this->send_loan_email($mail);
-            
+
             if($request->wantsJson()){
                 return response()->json([
-                    "status" => 200, 
-                    "success" => true, 
-                    "message" => "Your loan has been sent.", 
+                    "status" => 200,
+                    "success" => true,
+                    "message" => "Your loan has been sent.",
                     "data" => $application
                 ]);
             }else{
@@ -292,12 +292,12 @@ class LoanApplicationController extends Controller
                     Session::flash('success', "Loan created successfully, Email could not be sent to the Borrower. ");
                     return redirect()->route('view-loan-requests');
                 }
-            }  
+            }
         } catch (\Throwable $th) {
             DB::rollback();
             Session::flash('error', "Loan could not be created, check your internet connection and try again. ");
             return redirect()->back();
-        }     
+        }
     }
 
 
@@ -310,7 +310,7 @@ class LoanApplicationController extends Controller
             // First Upload the files
             $this->uploadCommonFiles($request);
             $user = User::where('id', $form['borrower_id'])->first();
-            
+
             // Collect the loan application data
             $data = [
                 'user_id'=> $form['borrower_id'],
@@ -324,7 +324,7 @@ class LoanApplicationController extends Controller
                 'repayment_plan'=> $form['repayment_plan'],
                 'processed_by'=> auth()->user()->id
             ];
-            
+
             $nok = [
                 'nok_email' => $form['nok_email'],
                 'nok_fname' => $form['nok_fname'],
@@ -335,7 +335,7 @@ class LoanApplicationController extends Controller
                 'user_id' => $form['borrower_id']
             ];
             $this->createNOK($nok);
-                
+
             // Create a loan request application and send email to borrower
             $application = $this->apply_loan($data);
 
@@ -351,15 +351,15 @@ class LoanApplicationController extends Controller
                 'type' => 'loan-application',
                 'msg' => 'You have new a '.$form['type'].' loan application request from '.$user->fname.' '.$user->lname.', please visit the site to view more details'
             ];
-    
+
             // Email going to the Administrator
             $process = $this->send_loan_email($mail);
-    
+
             if($request->wantsJson()){
                 return response()->json([
-                    "status" => 200, 
-                    "success" => true, 
-                    "message" => "Your loan has been sent.", 
+                    "status" => 200,
+                    "success" => true,
+                    "message" => "Your loan has been sent.",
                     "data" => $application
                 ]);
             }else{
@@ -370,13 +370,13 @@ class LoanApplicationController extends Controller
                     DB::commit();
                     return redirect()->back();
                 }
-            } 
+            }
             // DB::commit();
         } catch (\Throwable $th) {
             dd($th);
             // DB::rollback();
             // return redirect()->back();
-        }      
+        }
     }
 
     public function updateLoanDetails(Request $request)
@@ -387,7 +387,7 @@ class LoanApplicationController extends Controller
             // Update files
             $this->uploadCommonFiles($request);
             $user = User::where('id', $form['borrower_id'])->first();
-            
+
             $data = [
                 'user_id'=> $form['borrower_id'],
                 'lname'=> $user->lname,
@@ -405,7 +405,7 @@ class LoanApplicationController extends Controller
                 // 'gphone'=> $form['gphone'],
                 // 'g_gender'=> $form['g_gender'],
                 // 'g_relation'=> $form['g_relation'],
-    
+
                 // 'g2lname'=> $form['g2lname'],
                 // 'g2fname'=> $form['g2fname'],
                 // 'g2email'=> $form['g2email'],
@@ -421,12 +421,12 @@ class LoanApplicationController extends Controller
                 // 'complete' => $form['complete'],
                 'processed_by'=> auth()->user()->id
             ];
-            
+
             $this->apply_update_loan($data, $form['loan_id']);
             // if($form['loan_status'] == 1){
             //     // Update borrower wallet
             //     $this->updateUserWallet($form['borrower_id'], $form['amount'], $form['old_amount']);
-                
+
             //     // Delete Withdrawal requests
             //     WithdrawRequest::where('user_id', '=', $form['borrower_id'])->delete();
 
@@ -435,7 +435,7 @@ class LoanApplicationController extends Controller
             //         $this->remake_loan($form['loan_id'], $form['new_due_date']);
             //     }
             // }
-    
+
             // Email going to the Administrator
             // $process = $this->send_loan_email($mail);
             DB::commit();
@@ -444,12 +444,12 @@ class LoanApplicationController extends Controller
             // dd($th);
             DB::rollback();
             return redirect()->back();
-        }      
+        }
     }
     public function continue_loan(Request $request){
         try {
             $data = $request->toArray();
-           
+
             // First Upload the files
             $this->uploadCommonFiles($request);
 
@@ -503,7 +503,7 @@ class LoanApplicationController extends Controller
                     'user_id' => $data['borrower_id'],
                     'application_id' => $data['application_id']
                 ];
-                $this->createRefs($refs);  
+                $this->createRefs($refs);
             }
 
             if (isset($data['bankName'])) {
@@ -532,23 +532,23 @@ class LoanApplicationController extends Controller
                     'amount' => $loan->amount,
                     'type' => 'loan-application',
                     'msg' => $loan->type.' loan submission form and kyc successfully completed.'
-                ];  
-        
+                ];
+
                 // Send information to the admin
                 $this->send_loan_email($mail);
 
                 return view('livewire.dashboard.loans.success-page')
                 ->layout('layouts.dashboard');
             }
-            
+
             if($request->wantsJson()){
                 return response()->json([
-                    "status" => 200, 
+                    "status" => 200,
                     "success" => true
                 ]);
             }else{
                 return redirect()->back();
-            } 
+            }
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -567,11 +567,11 @@ class LoanApplicationController extends Controller
     public function resetLoans(Request $request)
     {
         $loanIds = $request->toArray(); // Assuming $request->toArray() contains an array of loan IDs
-    
+
         foreach ($loanIds as $id) {
             // Assuming 'Application' is the model representing your loans table
             $loan = Application::where('id',$id)->first();
-    
+
             if ($loan) {
                 $loan->status = 2;
                 $loan->save();
@@ -585,26 +585,26 @@ class LoanApplicationController extends Controller
             // $stage->save();
         }
         return response()->json([
-            "status" => 200, 
+            "status" => 200,
             "success" => true
         ]);
     }
     public function deleteLoans(Request $request)
     {
         $loanIds = $request->toArray(); // Assuming $request->toArray() contains an array of loan IDs
-    
+
         foreach ($loanIds as $id) {
             // Assuming 'Application' is the model representing your loans table
             $loan = Application::where('id',$id)->first();
-    
+
             if ($loan) {
                 $loan->delete();
             }
         }
         return response()->json([
-            "status" => 200, 
+            "status" => 200,
             "success" => true
         ]);
     }
-    
+
 }

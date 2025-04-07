@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Loans extends Model
 {
@@ -22,66 +23,70 @@ class Loans extends Model
         'closed'
     ];
 
-    public static function total_loans($user_id){
+    public static function total_loans($user_id)
+    {
         return Application::with('loan')
-        ->where('status', 1)
-        ->where('complete', 1)
-        ->where('user_id', $user_id)->count();
-
+            ->where('status', 1)
+            ->where('complete', 1)
+            ->where('user_id', $user_id)->count();
     }
 
-    public static function total_borrowed($user_id){
+    public static function total_borrowed($user_id)
+    {
         return Application::with('loan')
-        ->where('status', 1)
-        ->where('complete', 1)
-        ->where('continue', 0)
-        ->where('user_id', $user_id)->sum('amount');
-
+            ->where('status', 1)
+            ->where('complete', 1)
+            ->where('continue', 0)
+            ->where('user_id', $user_id)->sum('amount');
     }
 
-    
+
     // Completed kyc and final submission form and given funds
-    public static function customer_total_borrowed($user_id){
+    public static function customer_total_borrowed($user_id)
+    {
         $loans = Application::with('loan')
-        ->where('status', 1)
-        ->where('complete', 1)
-        ->where('continue', 0)
-        ->where('user_id', $user_id)->get();
+            ->where('status', 1)
+            ->where('complete', 1)
+            ->where('continue', 0)
+            ->where('user_id', $user_id)->get();
 
         $total = 0;
         foreach ($loans as $key => $loan) {
             $total += Loans::where('application_id', $loan->id)->first()->principal;
         }
-        
+
         return $total;
     }
 
     // Completed kyc and final submission form
-    public static function customer_total_pending_borrowed($user_id){
+    public static function customer_total_pending_borrowed($user_id)
+    {
         $total = Application::where('status', 0)
-        ->where('complete', 1)
-        ->where('continue', 0)
-        ->where('user_id', $user_id)->sum('amount');
+            ->where('complete', 1)
+            ->where('continue', 0)
+            ->where('user_id', $user_id)->sum('amount');
         return $total;
     }
 
-    public static function customer_total_paid($user_id){
+    public static function customer_total_paid($user_id)
+    {
         $loans = Application::with('loan')
-        ->where('status', 1)
-        ->where('complete', 1)
-        ->where('user_id', $user_id)->get();
+            ->where('status', 1)
+            ->where('complete', 1)
+            ->where('user_id', $user_id)->get();
 
         $amount_paid = 0;
         foreach ($loans as $key => $loan) {
             $amount_paid += Transaction::where('application_id', $loan->id)->first()->amount_settled;
         }
-        
+
         return $amount_paid;
     }
 
     // customer repayment balance
-    public static function customer_balance($user_id){
-        
+    public static function customer_balance($user_id)
+    {
+
         $loans = Application::with('loan')
             ->where('status', 1)
             ->where('complete', 1)
@@ -91,55 +96,67 @@ class Loans extends Model
         $amount_paid = 0;
         foreach ($loans as $key => $loan) {
             // dd($loan);
-            $payback += Application::payback($loan->amount, $loan->repayment_plan);
+            $payback += Application::payback($loan);
             $amount_paid += Transaction::where('application_id', $loan->id)->first()->amount_settled;
         }
-        
+
         return $payback - $amount_paid;
     }
+    
+    public static function loan_balance($application_id)
+    {
+        try {
+            $loan = Application::where('id', $application_id)->where('status', 1)->first();
+            if ($loan !== null) {
+                $paid = Transaction::where('application_id', $application_id)->sum('amount_settled');
+                $payback = Application::payback($loan);
+                $paidStr = number_format((float)$paid, 2, '.', '');
+                $paybackStr = number_format((float)$payback, 2, '.', '');
 
-    public static function loan_balance($application_id){
-        $loan = Application::where('id', $application_id)->first();
-        if($loan->status == 1){
-            $paid = Transaction::where('application_id', $application_id)->sum('amount_settled');
-            $payback = Application::payback($loan->amount, $loan->repayment_plan);
-            return (float)$payback - (float)$paid;
-        }else{
-            return Application::payback($loan->amount, $loan->repayment_plan);
+                $paidStr = number_format((float)$paid, 2, '.', '');
+                $balance = bcsub($paybackStr, $paidStr, 2);
+                return (float)$balance;
+            }
+        } catch (\Throwable $th) {
+            // dd($th);
+            Log::error("Loan Balance Error: " . $th->getMessage(), ['exception' => $th]);
+            return 0;
         }
-
     }
 
-    public static function hasLoan($user_id){
+    public static function hasLoan($user_id)
+    {
         $hasNoOpen = Application::where('user_id', $user_id)
-        ->where('status', 1)->where('complete', 1)
-        ->with(['loan' => function($query){
-            $query->where('closed', 0);
-        }])->get()->toArray();
+            ->where('status', 1)->where('complete', 1)
+            ->with(['loan' => function ($query) {
+                $query->where('closed', 0);
+            }])->get()->toArray();
 
         $hasNoApplication = Application::where('user_id', $user_id)
-                    ->without('loan')->get()->toArray();
+            ->without('loan')->get()->toArray();
 
-        if(empty($hasNoOpen) && empty($hasNoApplication)){
+        if (empty($hasNoOpen) && empty($hasNoApplication)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public static function loan_settled($application_id){
+    public static function loan_settled($application_id)
+    {
         return Transaction::where('application_id', $application_id)->get()->sum('amount_settled');
     }
-    public static function last_payment($application_id){
+    public static function last_payment($application_id)
+    {
         return Transaction::where('application_id', $application_id)->get()->last();
     }
 
-    public function application(){
+    public function application()
+    {
         return $this->belongsTo(Application::class, 'application_id');
     }
-    public function loan_installments(){
+    public function loan_installments()
+    {
         return $this->hasMany(LoanInstallment::class, 'loan_id');
     }
-
-
 }

@@ -4,12 +4,12 @@
     }
 </style>
 
-<div class="card mb-5 mb-xl-8">
+<div class="mb-5 card mb-xl-8">
     <!--begin::Header-->
-    <div class="card-header border-0 pt-5">
+    <div class="pt-5 border-0 card-header">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">Loan Products</span>
-            <span class="text-muted mt-1 fw-semibold fs-7">Over {{ $loan_products->count() }} loan products</span>
+            <span class="mb-1 card-label fw-bold fs-3">Loan Products</span>
+            <span class="mt-1 text-muted fw-semibold fs-7">Over {{ $loan_products->count() }} loan products</span>
         </h3>
         <div class="card-toolbar">
             <a href="{{ route('system-create', ['page' => 'loan-product']) }}" class="btn btn-sm btn-light-primary">
@@ -18,7 +18,7 @@
     </div>
     <!--end::Header-->
     <!--begin::Body-->
-    <div class="card-body py-3">
+    <div class="py-3 card-body">
         @include('livewire.dashboard.__parts.dash-alerts')
         <!--begin::Table container-->
         <div class="table-responsive">
@@ -45,23 +45,68 @@
                                 <div class="symbol symbol-label bg-light-danger symbol-50px me-5">
                                 </div>
                                 <div class="d-flex justify-content-start flex-column">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $product->name }}</a>
-                                    <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->name }}</span>
+                                    <a href="#" class="mb-1 text-dark fw-bold text-hover-primary fs-6">{{ $product->name }}</a>
+                                    <span class="text-muted fw-semibold d-block fs-7">{{ $product->name }}</span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $product->def_loan_interest }}</a>
-                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->interest_types->first()->interest_type->name }}</span>
+                            <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $product->def_loan_interest }}</a>
+                            <span class="text-muted fw-semibold d-block fs-7">{{ $product->interest_types->first()->interest_type->name }}</span>
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $product->default_loan_duration ?? '1' }} month</a>
-                            {{-- <span class="text-muted fw-semibold text-muted d-block fs-7">Insurance</span> --}}
+                            <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $product->default_loan_duration ?? '1' }} month</a>
+                            {{-- <span class="text-muted fw-semibold d-block fs-7">Insurance</span> --}}
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $product->auto_payment == 1 ? 'Automatic' : 'Manual' }}</a>
-                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->auto_payment == 1 ? 'Todate' : 'Set Date' }}</span>
+                            <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $product->auto_payment == 1 ? 'Automatic' : 'Manual' }}</a>
+                            <span class="text-muted fw-semibold d-block fs-7">{{ $product->auto_payment == 1 ? 'Todate' : 'Set Date' }}</span>
                         </td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="statusSwitch{{ $product->id }}" data-id="{{ $product->id }}" {{ $product->status == 1 ? 'checked' : '' }}>
+                                <label class="form-check-label" for="statusSwitch{{ $product->id }}">
+                                    <span id="statusLabel{{ $product->id }}" class="fw-bold {{ $product->status == 1 ? 'bg-success text-white' : 'bg-light' }} p-2 rounded">
+                                        {{ $product->status == 1 ? 'Active' : 'Disabled' }}
+                                    </span>
+                                </label>
+                            </div>
+                        </td>
+                        <script>
+                            $(document).ready(function() {
+                                $('.form-check-input').on('change', function() {
+                                    var productId = $(this).data('id');
+                                    var status = $(this).is(':checked') ? 1 : 0;
+                        
+                                    $.ajax({
+                                        url: '{{ url("api/loan-products/update-status") }}', // Define the route for updating status
+                                        method: 'POST',
+                                        data: {
+                                            _token: '{{ csrf_token() }}',
+                                            id: productId,
+                                            status: status
+                                        },
+                                        success: function(response) {
+                                            console.log(response);
+                                            if(response.success) {
+                                                var statusLabel = $('#statusLabel' + productId);
+                                                if(status == 1) {
+                                                    statusLabel.text('Active').removeClass('bg-light').addClass('bg-success text-white');
+                                                } else {
+                                                    statusLabel.text('Disabled').removeClass('bg-success text-white').addClass('bg-light');
+                                                }
+                                                toastr.success(response.message);
+                                            } else {
+                                                toastr.error(response.message);
+                                            }
+                                        },
+                                        error: function() {
+                                            toastr.error('There was an error updating the status.');
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                         <td>
                             @if ($product->status == 1)
                             <span class="badge badge-light-success fs-7 fw-bold">Active</span>
@@ -70,9 +115,9 @@
                             @endif
                         </td>
                         <td class="text-end">
-                            <a title="Manage loan statuses" href="{{ route('system-edit', ['page' => 'loan-statuses', 'item_id' => $product->id]) }}" class="btn btn-primary">
+                            {{-- <a title="Manage loan statuses" href="{{ route('system-edit', ['page' => 'loan-statuses', 'item_id' => $product->id]) }}" class="btn btn-primary">
                                 Manage Statuses
-                            </a>
+                            </a> --}}
                             <a title="Delete" wire:click="deleteLoanProduct({{ $product->id }})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>

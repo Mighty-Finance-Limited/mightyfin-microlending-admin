@@ -1,7 +1,7 @@
 
 <div id="overlay"></div>
 <div class="modal" style="z-index: 99999" id="continue-loan-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-    
+
         <div class="p-6 modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center ">
@@ -79,7 +79,7 @@
                                             name="id_type"
                                             class="form-control"
                                             {{-- wire:model.defer="state.id_type" --}}
-                                            >  
+                                            >
                                             <option {{ auth()->user()->id_type == null ? 'selected' : ''}} value="">-- ID TYPE --</option>
                                             <option {{ auth()->user()->id_type == 'NRC' ? 'selected' : ''}} value="NRC">NRC</option>
                                             <option {{ auth()->user()->id_type == 'Passport' ? 'selected' : ''}} value="Passport">Passport</option>
@@ -104,7 +104,7 @@
                                         class="form-control"
                                         name="gender"
                                         {{-- wire:model.defer="state.gender" --}}
-                                        >  
+                                        >
                                         <option> -- GENDER --</option>
                                         <option {{ auth()->user()->gender == 'Male' ? 'selected' : ''}} value="Male">Male</option>
                                         <option {{ auth()->user()->gender == 'Female' ? 'selected' : ''}} value="Female">Female</option>
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <button type="button" style="float: right;" class="mt-3 btn btn-primary" onclick="nextStep(1)">
-                                Next 
+                                Next
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                 </svg>
@@ -133,9 +133,9 @@
                             <div class="row col-md-12 col-lg-12" style="">
                                 <div class="file-uploader col-xxl-6 col-xl-6 col-lg-6 border" style="border: 1px #d3d1d1; padding:2%;">
                                     <!-- Use a label for file input and add a Font Awesome icon -->
-                                    
+
                                     <input type="file" value="{{ $meta->uploads->where('name', 'nrc_file')->first()->path }}" class="file-input visually-hidden" id="fileInput" accept=".pdf, .doc, .docx" name="nrc_file">
-                                
+
                                     <label for="fileInput" class="bg-primary p-2 text-white rounded file-input-label">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>
@@ -143,7 +143,7 @@
                                         </svg>
                                         <span>Upload Copy of NRC</span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list" id="fileList"></ul>
@@ -163,7 +163,7 @@
                                         </svg>
                                         <span>Upload Copy of Tpin <span class="badge badge-danger bg-danger">Optional</span></span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list-2" id="fileList-2"></ul>
@@ -182,7 +182,7 @@
                                     Back
                                 </button>
                                 <button type="button" class="btn btn-primary" onclick="nextStep(2)">
-                                    Next 
+                                    Next
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                     </svg>
@@ -216,7 +216,7 @@
                                         <input
                                             id="nextOfKinPhone"
                                             type="text"
-                                            value="{{ $meta->next_of_king->first()->phone }}" 
+                                            value="{{ $meta->next_of_king->first()->phone }}"
                                             name="nextOfKinPhone"
                                             class="form-control"
                                             data-mask='000 000 000'
@@ -243,7 +243,7 @@
                                     Back
                                 </button>
                                 <button type="button" class="btn btn-primary" onclick="nextStep(3)">
-                                    Next 
+                                    Next
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                     </svg>
@@ -252,7 +252,7 @@
                         </div>
                         {{-- <div class="step" id="step3">
                             <h4>Guarantor's Information</h4>
-                            
+
                             <div class="row mb-4">
                                 <div class="form-group col-md-6">
                                     <label for="guarantorName">Guarantor’s Name</label>
@@ -302,7 +302,7 @@
                                     Back
                                 </button>
                                 <button type="button" class="btn btn-primary" onclick="nextStep(3)">
-                                    Next 
+                                    Next
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                     </svg>
@@ -331,7 +331,7 @@
                                     <small id="contactHRError" class="text-danger"></small>
                                 </div>
                             </div>
-    
+
                             <p>Supervisor Details:</p>
                             <div class="row mb-4">
                                 <div class="form-group col-md-4">
@@ -358,14 +358,14 @@
                                     Back
                                 </button>
                                 <button type="button" class="btn btn-primary" onclick="nextStep(4)">
-                                    Next 
+                                    Next
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                     </svg>
                                 </button>
                             </div>
                         </div>
-    
+
                         <!-- Bank Details -->
                         <div class="step" id="step5">
                             <h5>Bank Details</h5>
@@ -402,14 +402,14 @@
                                     Back
                                 </button>
                                 <button type="button" class="btn btn-primary" onclick="nextStep(5)">
-                                    Next 
+                                    Next
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                     </svg>
                                 </button>
                             </div>
                         </div>
-    
+
                         <!-- Bank Details -->
                         <div class="step" id="step6">
                             <div style="width: 90%" class="d-block justify-content-start mb-2">
@@ -436,7 +436,7 @@
                                         </svg>
                                         <span>Upload Latest Payslip</span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list-2" id="fileList-3"></ul>
@@ -456,7 +456,7 @@
                                         </svg>
                                         <span>3 months Bank statement</span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list-3" id="fileList-4"></ul>
@@ -476,7 +476,7 @@
                                         </svg>
                                         <span>Passport size photo</span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list-4" id="fileList-5"></ul>
@@ -496,7 +496,7 @@
                                         </svg>
                                         <span>Pre approval Document</span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list-5" id="fileList-6"></ul>
@@ -516,7 +516,7 @@
                                         </svg>
                                         <span>Letter of Introduction <span class="badge badge-danger bg-danger">Optional</span></span>
                                     </label>
-                                    
+
                                     <!-- Uploaded file list -->
                                     <div class="pt-2">
                                         <ul class="file-list-5" id="fileList-7"></ul>
@@ -535,15 +535,15 @@
                                     Back
                                 </button>
                                 <button type="button" class="btn btn-primary" onclick="nextStep(6)">
-                                    Next 
+                                    Next
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                     </svg>
                                 </button>
                             </div>
                         </div>
-    
-    
+
+
                         <!-- Loan Details -->
                         <div class="step" id="step7">
                             <h5>Loan Summary Details</h5>
@@ -555,11 +555,11 @@
                                     <p>Interest rate: <b>21%</b> </p>
                                     <p>Service Charge:  <b>K3.5</b> </p>
                                     <p>Repayment Period: <b>{{ $activeLoan->repayment_plan }} Months</b> </p>
-                                    
+
                                     <input type="hidden" name="final" value="1">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <p>Payback Amount: <b>K {{ App\Models\Application::payback($activeLoan->amount, $activeLoan->repayment_plan)}}</b> </p>
+                                    <p>Payback Amount: <b>K {{ App\Models\Application::payback($activeLoan)}}</b> </p>
                                     <p>Phone Number: <b>{{ intval($activeLoan->phone)  }}</b> </p>
                                     <p>Email: <b>{{ auth()->user()->email }}</b> </p>
                                 </div>
@@ -585,7 +585,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
@@ -615,7 +615,7 @@
       currentStep.setAttribute('data-aos-duration', '500');
       currentStep.setAttribute('data-aos-once', 'false');
       currentStep.setAttribute('data-aos-mirror', 'true');
-      
+
       // Initialize AOS for the current step
       AOS.init({
           duration: 1000, // You can set a default duration for AOS
@@ -663,9 +663,9 @@
             showStep(currentStep);
           }
           break;
-      
+
         default:
-        
+
           currentStep += 1;
           showStep(currentStep);
           break;
@@ -683,7 +683,7 @@
 
         // Show loading animation and hide finish icon
         document.getElementById('ploading').style.display = 'inline-block';
-        
+
         document.getElementById('finishicon').style.display = 'none';
         document.getElementById('backicon').style.display = 'none';
 
@@ -735,11 +735,11 @@
       }
       if (!genderInput.value) {
           genderError.textContent = 'Gender is required';
-      } 
+      }
       if (!nrc_idInput.value) {
           nrcIDError.textContent = 'Identification Type is required';
-      } 
-      
+      }
+
       if (!employeeNo.value || !jobTitleInput.value || !dobInput.value || !phoneInput.value || !nrcInput.value || !genderInput.value || !nrc_idInput.value) {
           return false;
       } else {
@@ -755,7 +755,7 @@
           formData.append('ministry', ministry.value);
           formData.append('department', department.value);
           formData.append('borrower_id', '{{ auth()->user()->id }}');
-    
+
           // Perform Fetch API request to the Laravel backend
           fetch("{{ route('continue-loan') }}", {
               method: 'POST',
@@ -791,18 +791,18 @@
         //   if (!fileInput2.value && tpinExists === 'null') {
         //     fiileInput2Error.textContent = 'Please upload copy of Tpin';
         //   }
-        // !fileInput2.value && tpinExists === 'null' || 
+        // !fileInput2.value && tpinExists === 'null' ||
       if (!fileInput.value && nrcExists === 'null') {
           return false;
       } else {
-  
+
           // Prepare data to send to the server
           var formData = new FormData();
 
           // Get the files
           formData.append('nrc_file', fileInput.files[0]);
           formData.append('tpin_file', fileInput2.files[0]);
-    
+
           // Perform Fetch API request to the Laravel backend
           fetch("{{ route('continue-loan') }}", {
               method: 'POST',
@@ -820,7 +820,7 @@
           return true;
       }
 
-    } 
+    }
 
     function _validate_step3(){
       // Required
@@ -834,8 +834,8 @@
       var relationError = document.getElementById('relationError');
       // optionals
       var physicalAddress = document.getElementById('physicalAddress');
-      
-      
+
+
 
       // In this example, we'll check if the input is not empty
       if (!nextOfKinFirstName.value) {
@@ -850,7 +850,7 @@
       if (!relationshipInput.value) {
         relationError.textContent = 'Your relation is required';
       }
-      
+
       if (!nextOfKinLastName.value || !nextOfKinFirstName.value || !nextOfKinPhone.value || !relationshipInput.value ) {
           return false;
       } else {
@@ -862,7 +862,7 @@
           formData.append('relationship', relationshipInput.value);
           formData.append('physicalAddress', physicalAddress.value);
           formData.append('borrower_id', '{{ auth()->user()->id }}');
-    
+
           // Perform Fetch API request to the Laravel backend
           fetch("{{ route('continue-loan') }}", {
               method: 'POST',
@@ -880,8 +880,8 @@
           return true;
       }
 
-    } 
-    
+    }
+
     function _validate_step4(){
       var hrFirstName = document.getElementById('hrFirstName');
       var fnHRError = document.getElementById('fnHRError');
@@ -895,7 +895,7 @@
       var supFNError = document.getElementById('supFNError');
       var supervisorContactNumber = document.getElementById('supervisorContactNumber');
       var supContactError = document.getElementById('supContactError');
-      
+
 
       // In this example, we'll check if the input is not empty
       if (!hrFirstName.value) {
@@ -918,7 +918,7 @@
     //   if (!supervisorContactNumber.value) {
     //     supContactError.textContent = 'Supervisor Conact Number';
     //   }
-    // || !supervisorLastName.value || !supervisorFirstName.value || !supervisorContactNumber.value 
+    // || !supervisorLastName.value || !supervisorFirstName.value || !supervisorContactNumber.value
       if (!hrFirstName.value || !hrLastName.value || !hrContactNumber.value ) {
           return false;
       } else {
@@ -932,7 +932,7 @@
           formData.append('supervisorContactNumber', supervisorContactNumber.value);
           formData.append('application_id', '{{ $activeLoan->id }}');
           formData.append('borrower_id', '{{ auth()->user()->id }}');
-    
+
           // Perform Fetch API request to the Laravel backend
           fetch("{{ route('continue-loan') }}", {
               method: 'POST',
@@ -959,7 +959,7 @@
       var accountNumber = document.getElementById('accountNumber');
       var bankAccError = document.getElementById('bankAccError');
       var accountNames = document.getElementById('accountNames');
-      var bankAccNameError = document.getElementById('bankAccNameError');      
+      var bankAccNameError = document.getElementById('bankAccNameError');
 
       // In this example, we'll check if the input is not empty
       if (!bankName.value) {
@@ -985,7 +985,7 @@
           formData.append('accountNames', accountNames.value);
           formData.append('accountNumber', accountNumber.value);
           formData.append('user_id', '{{ auth()->user()->id }}');
-    
+
           // Perform Fetch API request to the Laravel backend
           fetch("{{ route('continue-loan') }}", {
               method: 'POST',
@@ -1003,7 +1003,7 @@
           return true;
       }
     }
-    
+
     function _validate_step6(){
       var fileInput3 = document.getElementById('fileInput3');
       var payslipError = document.getElementById('payslipError');
@@ -1016,7 +1016,7 @@
       var fileInput7 = document.getElementById('fileInput7');
       var letterError = document.getElementById('letterError');
 
-      
+
       var payslipExists = "{{$meta->uploads->where('name', 'nrc_file')->first()->path}}";
       var bankExists = "{{$meta->uploads->where('name', 'bankstatement')->first()->path}}";
       var passportExists = "{{$meta->uploads->where('name', 'passport')->first()->path}}";
@@ -1036,10 +1036,10 @@
       if (!fileInput6.value && preapprovalExists === 'null') {
         preapprovalError.textContent = 'Please upload signed Preapproval form';
       }
-      
-      if (!fileInput3.value && payslipExists === 'null'|| 
-          !fileInput4.value && bankExists === 'null' || 
-          !fileInput5.value && passportExists === 'null'|| 
+
+      if (!fileInput3.value && payslipExists === 'null'||
+          !fileInput4.value && bankExists === 'null' ||
+          !fileInput5.value && passportExists === 'null'||
           !fileInput6.value && preapprovalExists === 'null' ) {
           return false;
       } else {
@@ -1052,7 +1052,7 @@
           formData.append('passport', fileInput5.files[0]);
           formData.append('preapproval', fileInput6.files[0]);
           formData.append('letterofintro', fileInput7.files[0]);
-    
+
           // Perform Fetch API request to the Laravel backend
           fetch("{{ route('continue-loan') }}", {
               method: 'POST',
@@ -1070,7 +1070,7 @@
           return true;
       }
 
-    } 
+    }
 
 
 
@@ -1084,7 +1084,7 @@
 
     // JavaScript to handle file selection and removal
     fileInput.addEventListener('change', function () {
-    const files = this.files; 
+    const files = this.files;
     // Initialize an array to store uploaded file names
 
   if (files.length > 0) {
@@ -1132,14 +1132,14 @@
 
   // JavaScript to handle file selection and removal
   fileInput2.addEventListener('change', function () {
-  const files = this.files; 
+  const files = this.files;
   // Initialize an array to store uploaded file names
 
   if (files.length > 0) {
 
       // Add the uploaded files to the uploadedFiles array
       Array.from(files).forEach(file => {
-      
+
           uploadedFiles2.push(file);
 
           const listItem = document.createElement('li');
@@ -1182,14 +1182,14 @@
 
   // JavaScript to handle file selection and removal
   fileInput3.addEventListener('change', function () {
-  const files = this.files; 
+  const files = this.files;
   // Initialize an array to store uploaded file names
 
   if (files.length > 0) {
 
       // Add the uploaded files to the uploadedFiles array
       Array.from(files).forEach(file => {
-      
+
           uploadedFiles3.push(file);
 
           const listItem = document.createElement('li');
@@ -1230,14 +1230,14 @@
 
   // JavaScript to handle file selection and removal
   fileInput4.addEventListener('change', function () {
-  const files = this.files; 
+  const files = this.files;
   // Initialize an array to store uploaded file names
 
   if (files.length > 0) {
 
       // Add the uploaded files to the uploadedFiles array
       Array.from(files).forEach(file => {
-      
+
           uploadedFiles4.push(file);
 
           const listItem = document.createElement('li');
@@ -1277,14 +1277,14 @@
 
   // JavaScript to handle file selection and removal
   fileInput5.addEventListener('change', function () {
-    const files = this.files; 
+    const files = this.files;
     // Initialize an array to store uploaded file names
 
     if (files.length > 0) {
 
         // Add the uploaded files to the uploadedFiles array
         Array.from(files).forEach(file => {
-        
+
             uploadedFiles5.push(file);
 
             const listItem = document.createElement('li');
@@ -1325,14 +1325,14 @@
 
   // JavaScript to handle file selection and removal
   fileInput6.addEventListener('change', function () {
-    const files = this.files; 
+    const files = this.files;
     // Initialize an array to store uploaded file names
 
     if (files.length > 0) {
 
         // Add the uploaded files to the uploadedFiles array
         Array.from(files).forEach(file => {
-        
+
             uploadedFiles6.push(file);
 
             const listItem = document.createElement('li');
@@ -1373,14 +1373,14 @@
 
   // JavaScript to handle file selection and removal
   fileInput7.addEventListener('change', function () {
-    const files = this.files; 
+    const files = this.files;
     // Initialize an array to store uploaded file names
 
     if (files.length > 0) {
 
         // Add the uploaded files to the uploadedFiles array
         Array.from(files).forEach(file => {
-        
+
             uploadedFiles7.push(file);
 
             const listItem = document.createElement('li');

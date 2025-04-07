@@ -34,7 +34,7 @@
                                 </svg>
                             </button>
                             @hasanyrole('admin')
-                            <a target="_blank" href="{{ route('proxy-loan-create')}}" class="btn btn-square btn-primary">
+                            <a target="_blank" href="{{ route('create.loan')}}" class="btn btn-square btn-primary">
                                 <span class="mx-2">Create New Loan</span>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">

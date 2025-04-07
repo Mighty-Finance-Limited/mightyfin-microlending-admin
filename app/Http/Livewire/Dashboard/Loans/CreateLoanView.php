@@ -14,13 +14,10 @@ class CreateLoanView extends Component
     public $loan_products, $borrowers;
     public function render()
     {
-        
-    // $this->authorize('accept and reject loan requests');
-        
+        // $this->authorize('accept and reject loan requests');
         $this->loan_products = LoanProduct::has('loan_status')->with('loan_status')->get();
         $this->borrowers = User::role('user')->get();
         $this->users = User::role('user')->with('active_loans.loan')->get();
         return view('livewire.dashboard.loans.create-loan-view')->layout('layouts.admin');
     }
-    
 }

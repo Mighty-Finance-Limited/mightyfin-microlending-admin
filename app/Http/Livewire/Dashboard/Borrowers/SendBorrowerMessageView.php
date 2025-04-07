@@ -24,13 +24,13 @@ class SendBorrowerMessageView extends Component
     }
 
     public function sendMessage(){
-        
+
         // dd($this->to);
         try {
             foreach ($this->to as $uid) {
-            
+
                 $user = User::where('id', $uid)->with('active_loans')->get()->first();
-                
+
                 if ($user->active_loans !== "") {
                     $mail = [
                         'user_id' => $user->id,
@@ -40,12 +40,12 @@ class SendBorrowerMessageView extends Component
                         'phone' => $user->phone,
                         'email' => $user->email,
                         'duration' => $user->active_loans->repayment_plan.' Months',
-                        'amount' => Application::payback($user->active_loans->amount, $user->active_loans->repayment_plan),
+                        'amount' => Application::payback($user->active_loans),
                         'type' => 'loan-remainder',
                         'msg' => $this->message,
                         'subject' => $this->subject
                     ];
-                    
+
                     $resp = $this->send_loan_remainder($mail, $user);
                     // dd($resp);
                     if($resp){

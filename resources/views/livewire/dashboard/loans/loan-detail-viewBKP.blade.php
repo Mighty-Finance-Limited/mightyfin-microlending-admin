@@ -1,14 +1,14 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    
+
     <div class="post d-flex flex-column-fluid" id="kt_post">
-        
+
         <div id="kt_content_container" class="container-xxl">
             <div style="margin-top: -4%; z-index: 5; background-image: url( {{ asset('public/mfs/admin/assets/media/product/loan_header.webp') }}); width: 109%;
             left: -5%;"
                 class="card mb-6">
                 <div class="card-body pt-9 pb-0">
                     <div class="d-flex flex-wrap flex-sm-nowrap">
-                        
+
                         <div style="margin-left: 2%;" class="flex-grow-1">
                             <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                                 <div class="d-flex flex-column">
@@ -21,7 +21,7 @@
                                             </i>
                                         </a>
                                     </div>
-                                    
+
                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                         <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                             <i class="ki-duotone ki-profile-circle fs-4 me-1">
@@ -32,7 +32,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                
+
                                 <div class="d-flex">
                                     <div class="row">
                                         <div class="col-4">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div style=" width: 109%; top:-5%; left: -5%;" class="card">
@@ -90,8 +90,8 @@
                                     <li><a href="#w{{ $step->id }}" data-toggle="tab" aria-expanded="false"><span class="nmbr">{{ $key+ 1 }}</span>{{ $step->status->name }}</a></li>
                                 @empty
 
-                                @endforelse                                    
-                                
+                                @endforelse
+
                                 {{-- <li><a href="#w4" data-toggle="tab" aria-expanded="false"><span class="nmbr">2</span>Verification</a></li>
                                 <li><a href="#stateinfo" data-toggle="tab" aria-expanded="false"><span class="nmbr">3</span>Approval</a></li>
                                 <li><a href="#finish" data-toggle="tab" aria-expanded="true"><span class="nmbr">5</span>Disbusements</a></li> --}}
@@ -327,7 +327,7 @@
                                             <div
                                                 class="col-lg-4 border border-gray-300 border-dashed rounded py-3 px-3 mx-4 m-3">
                                                 <div class="fs-4 fw-bold text-gray-700">
-                                                    <span class="w-50px">K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</span>
+                                                    <span class="w-50px">K {{ App\Models\Application::payback($loan) }}</span>
                                                     <i class="ki-duotone ki-usd fs-3 text-danger">
                                                         <span class="path1"></span>
                                                         <span class="path2"></span>
@@ -556,7 +556,7 @@
                     <!--begin::Content-->
                     <div class="flex-lg-row-fluid ms-lg-15">
                         <div class="float-end">
-                            
+
                             @if ($this->my_review_status($loan->id) == 1)
                                 <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click"
                                     data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Action
@@ -568,7 +568,7 @@
                                     <i class="ki-duotone ki-down fs-2 me-0"></i>
                                 </a>
                             @endif
-                                
+
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
                                     {{-- <div class="menu-item px-5">
                                         <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Payments</div>
@@ -589,17 +589,17 @@
                                 <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
                                     href="#kt_customer_view_overview_tab">Overview</a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
                                     href="#kt_customer_view_overview_loan_details">Loan Details</a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
                                     data-bs-toggle="tab" href="#kt_customer_view_documents">Documents</a>
                             </li>
-                            
+
                             {{-- <li class="nav-item">
                                 <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
                                     data-bs-toggle="tab" href="#kt_customer_view_activity">Activity Log</a>
@@ -741,7 +741,7 @@
                                                             <!--end::Menu-->
                                                         </td>
                                                     </tr>
-                                                @empty  
+                                                @empty
                                                 @endforelse
                                             </tbody>
                                             <!--end::Table body-->
@@ -778,7 +778,7 @@
                                         <!--begin::Option-->
                                         <div class="py-0" data-kt-customer-payment-method="row">
                                             <!--begin::Header-->
-                                            
+
                                             <!--end::Header-->
                                             <!--begin::Body-->
                                             <div id="kt_customer_view_payment_method_1"
@@ -809,14 +809,14 @@
                                                     </div>
                                                     <!--end::Col-->
                                                     <!--begin::Col-->
-                                                    
+
                                                     <!--end::Col-->
                                                 </div>
                                                 <!--end::Details-->
                                             </div>
                                             <!--end::Body-->
                                         </div>
-                                        
+
                                     </div>
                                     <!--end::Card body-->
                                 </div>
@@ -892,43 +892,43 @@
                                                                 class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">
                                                                 Quick Actions</div>
                                                         </div>
-                                                        
+
                                                         <div class="separator mb-3 opacity-75"></div>
-                                                    
+
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 New Ticket
                                                             </a>
                                                         </div>
-                                                        
+
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 New Customer
                                                             </a>
                                                         </div>
-                                                        
+
                                                         <div class="menu-item px-3" data-kt-menu-trigger="hover"
                                                             data-kt-menu-placement="right-start">
-                                                            
+
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-title">New Group</span>
                                                                 <span class="menu-arrow"></span>
                                                             </a>
-                                                            
+
                                                             <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                                            
+
                                                                 <div class="menu-item px-3">
                                                                     <a href="#" class="menu-link px-3">
                                                                         Admin Group
                                                                     </a>
                                                                 </div>
-                                                                
+
                                                                 <div class="menu-item px-3">
                                                                     <a href="#" class="menu-link px-3">
                                                                         Staff Group
                                                                     </a>
                                                                 </div>
-                                                                
+
                                                                 <div class="menu-item px-3">
                                                                     <a href="#" class="menu-link px-3">
                                                                         Member Group
@@ -936,15 +936,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 New Contact
                                                             </a>
                                                         </div>
-                                                    
+
                                                         <div class="separator mt-3 opacity-75"></div>
-                                                    
+
                                                         <div class="menu-item px-3">
                                                             <div class="menu-content px-3 py-3">
                                                                 <a class="btn btn-primary  btn-sm px-4"
@@ -954,10 +954,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="card-body pt-2">
                                                 <div class="d-flex align-items-center mb-7">
                                                     {{-- <div class="symbol symbol-50px me-5">
@@ -970,12 +970,12 @@
                                                         <span class="text-muted d-block fw-bold">ZMW {{ $loan->amount }}</span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="d-flex align-items-center mb-7">
                                                     {{-- <div class="symbol symbol-50px me-5">
                                                         <img src="{{ asset('public/mfs/admin/assets/avatars/blank.png') }}" class="" alt="">
                                                     </div> --}}
-                                                    
+
                                                     <div class="flex-grow-1">
                                                         <a href="#" class="text-gray-900 fw-bold text-hover-primary fs-6">
                                                             KYC information
@@ -985,7 +985,7 @@
                                                                 <span class="text-white bg-success p-2 rounded">{{ 'Completed' }}</span>
                                                             @else
                                                                 <span class="text-primary bg-danger p-2 rounded">{{ 'Incomplete' }}</span>
-                                                            @endif        
+                                                            @endif
                                                         </span>
                                                     </div>
                                                 </div>
@@ -1752,7 +1752,7 @@
                                                                 <span class="path1"></span>
                                                                 <span class="path2"></span>
                                                             </i>
-                                                            
+
                                                             <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
                                                             <input type="hidden" name="avatar_remove" />
                                                         </label>

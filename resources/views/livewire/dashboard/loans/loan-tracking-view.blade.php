@@ -5,8 +5,8 @@
             <h1>Loan Repayment Tracker</h1>
             <h3>{{ $loan->application->type}} Loan</h3>
             <p>{{ $loan->application->fname.' '.$loan->application->lname}}
-            | Total Collectable K {{ App\Models\Application::payback($loan->application->amount, $loan->application->repayment_plan)}}
-                
+            | Total Collectable K {{ App\Models\Application::payback($loan)}}
+
                 @if($loan->closed == 1)
                     <span class="badge badge-xxl light badge-info">
                         Paid & Closed
@@ -17,7 +17,7 @@
                     </span>
                 @endif
             </p>
-            <p>Outstanding Balance  K{{ App\Models\Loans::loan_balance($loan->application->id) }} </p>
+            <p>Outstanding Balance  K{{ App\Models\Application::loan_balance($loan->application->id) }} </p>
             <p>Repayment Duration {{ $loan->application->repayment_plan }} Month{{ $loan->application->repayment_plan > 1 ? 's' : '' }}</p>
         </div>
         <div style="
@@ -29,7 +29,7 @@
                 @forelse ($loan->loan_installments as $key => $installment)
                     <li class="tl-item" ng-repeat="item in retailer_history">
                         <div class="timestamp">
-                            @php 
+                            @php
                                 $date_str = $installment->next_dates;
                                 $date = DateTime::createFromFormat('Y-m-d H:i:s', $date_str);
                                 echo $date->format('F j, Y, g:i a');
@@ -56,7 +56,7 @@
                         </div>
                     </li>
                 @empty
-                    
+
                 @endforelse
                 {{-- <li class="tl-item" ng-repeat="item in retailer_history">
                   <div class="timestamp">
@@ -73,7 +73,7 @@
                   <div class="item-detail">Also, throw that Gollum too</div>
                 </li> --}}
               </ul>
-            
+
             </div>
         </div>
 

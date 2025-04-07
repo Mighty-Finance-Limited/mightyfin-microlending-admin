@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-xl-8 col-lg-8">
                             <p>{{ $my_loan->type }} Repayment</p>
-                            <h3> <strong><b>K{{ App\Models\Loans::loan_balance($my_loan->id) }}</b></strong> </h3>
+                            <h3> <strong><b>K{{ App\Models\Application::loan_balance($my_loan->id) }}</b></strong> </h3>
                             <small>
 
                                 @if ($my_loan->status == 1)

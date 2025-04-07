@@ -174,7 +174,7 @@
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">Loan Product</td>
                                             <td class="text-gray-800">{{ $loan_product->name }}</td>
-                                        </tr>
+                                        {{-- </tr>
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">KYC</td>
                                             <td>
@@ -184,7 +184,7 @@
                                                     <span class="badge bg-danger p-2">Incomplete</span>
                                                 @endif
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">Created On</td>
                                             <td class="text-dark fw-bold">

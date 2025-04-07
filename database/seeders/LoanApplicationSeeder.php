@@ -21,18 +21,18 @@ class LoanApplicationSeeder extends Seeder
     {
 
         $user = User::create([
-            'fname' => 'Kenobi',
-            'lname' => 'Wobby',
-            'email' => 'georgemunganga@gmail.com',
+            'fname' => 'John',
+            'lname' => 'Doe',
+            'email' => 'jd@gmail.com',
             'phone' => '0772147755',
             'password' => bcrypt('mighty4you'),
         ])->assignRole('user');
 
         $app = Application::create([
-            'lname' => 'Ken',
-            'fname' => 'Mobby',
-            'email' => 'georgemunganga@gmail.com',
-            'phone' => '0771235431',
+            'lname' => 'John',
+            'fname' => 'Doe',
+            'email' => 'jd@gmail.com',
+            'phone' => '0771235678',
             'gender' => 'male',
             'type' => 'ABX Loan',
             'repayment_plan' => 1,
@@ -59,5 +59,3 @@ class LoanApplicationSeeder extends Seeder
         ]);
     }
 }
-
-

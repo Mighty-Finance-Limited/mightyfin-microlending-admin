@@ -5,9 +5,9 @@
     <div id="statementtoPrint" class="bg-white container" style="
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding:2%;
-    border-top: 2px solid 
+    border-top: 2px solid
     ">
-      
+
       <h2 class="text-primary">Loan Statement</h2>
         <div class="row">
           <div class="col-md-6">
@@ -20,9 +20,9 @@
           <div class="col-md-6">
             <h6>Loan Information</h6>
             <p>Loan Amount: K{{ $loan->amount }}</p>
-            <p>Payback Amount: K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan)  }}</p>
-            <p>Total Balance: K{{ App\Models\Loans::loan_balance($loans->id) }}</p>
-            <p>Interest Rate: 
+            <p>Payback Amount: K{{ App\Models\Application::payback($loan)  }}</p>
+            <p>Total Balance: K{{ App\Models\Application::loan_balance($loans->id) }}</p>
+            <p>Interest Rate:
               @if($loan->repayment_plan > 1)
               44%
               @else
@@ -48,9 +48,9 @@
             <tr>
               <td style="text-align: center;">{{ $data->created_at->toFormattedDateString() }}</td>
               <td style="text-align: center;">K{{ $loan->amount }}</td>
-              <td style="text-align: center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan)  }}</td>
+              <td style="text-align: center;">K{{ App\Models\Application::payback($loan)  }}</td>
               <td style="text-align: center;">K{{ $data->amount_settled }}</td>
-              <td style="text-align: center;">K{{ App\Models\Loans::loan_balance($loan->id) }}</td>
+              <td style="text-align: center;">K{{ App\Models\Application::loan_balance($loan->id) }}</td>
             </tr>
             @empty
             <div>No Payments Recorded</div>
@@ -60,7 +60,7 @@
         @else
         <div>No Payments Recorded</div>
         @endif
-    </div>    
+    </div>
   </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>

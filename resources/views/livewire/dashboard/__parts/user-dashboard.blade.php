@@ -339,7 +339,7 @@
                             {{ session('error') }}
                         </div>
                     @else
-                        
+
                     @endif
                 </div>
             </div>
@@ -352,7 +352,7 @@
                     {{-- <div class="col-xxl-12 col-xl-12">
                         <div class="card home-chart"
                             style="background-image: linear-gradient(to right, #662d91, #912d73); color:#fff">
-                          
+
                             <div class="card-body">
                                 <h4 class="card-title home-chart text-white">Your Balance</h4>
                                 <div class="home-chart-height">
@@ -362,7 +362,7 @@
                                                 <h1 class="text-white" style="font-weight: 900;">0.00 ZMW</h1>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                     <div id="chartx"></div>
                                 </div>
@@ -520,7 +520,7 @@
                       <strong class="text-primary">
                         Wallet Information</strong>
                   </p>
-                   
+
                     <div class="col-xxl-4 col-xl-12">
                         <div class="row">
                             <div class="col-xxl-12 col-xl-4 col-lg-6">
@@ -638,7 +638,7 @@
                       <strong class="text-primary">
                         Loan History</strong>
                   </p>
-                    
+
                     <div class="col-xxl-12 col-xl-12">
                         <div class="card">
                             <div class="card-header">
@@ -674,10 +674,10 @@
                                                         <td class="text-primary">
                                                             {{ $loan->amount }} ZMW</td>
                                                         <td class="text-danger">
-                                                            {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan) }}
+                                                            {{ App\Models\Application::payback($loan) }}
                                                             ZMW</td>
                                                         {{-- <td>0.02%</td> --}}
-                                                        <td><strong>{{ App\Models\Loans::loan_balance($loan->id) }}
+                                                        <td><strong>{{ App\Models\Application::loan_balance($loan->id) }}
                                                                 ZMW</strong></td>
                                                     </tr>
                                                 @empty
@@ -725,7 +725,7 @@
                                                 href="{{ route('profile.show', ['view' => 'kyc']) }}">
                                                 <span class="not-verified"><i class="icofont-close-line"></i></span>
                                                 Update Profile (KYC)
-                                                <div data-hint="Please continue to update and upload neccessary 
+                                                <div data-hint="Please continue to update and upload neccessary
                             profile information, to allow quick loan processing and review"
                                                     data-hint-position="top-left"></div>
                                             </a>

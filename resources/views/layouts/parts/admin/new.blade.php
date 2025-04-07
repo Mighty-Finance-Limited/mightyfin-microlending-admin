@@ -987,7 +987,7 @@
                         
                         @can('create loan')
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('proxy-loan-create') }}">
+                            <a class="menu-link" href="{{ route('create.loan') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

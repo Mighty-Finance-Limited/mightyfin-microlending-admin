@@ -169,7 +169,7 @@
                                                 </div>
                                                 <div class="balance_info">
                                                     <span class="text-danger">Current Loan Owing Balance</span>
-                                                    <h4>K {{ App\Models\Loans::loan_balance($data->loans->first()->id) }}</h4>
+                                                    <h4>K {{ App\Models\Application::loan_balance($data->loans->first()->id) }}</h4>
                                                 </div>
                                             </div>
                                             @endif
