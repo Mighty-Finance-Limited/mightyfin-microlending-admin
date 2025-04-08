@@ -17,16 +17,18 @@ class LoanRequestController extends Controller
 {
     use EmailTrait, WalletTrait, LoanTrait;
 
-    public function getMyLoans($id){
+    public function getMyLoans($id)
+    {
         $data = Application::with('loan')
-        ->where('user_id', $id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->where('user_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json(['data' => $data]);
     }
-    
-    public function makeWithdrawalRequest(Request $request){
+
+    public function makeWithdrawalRequest(Request $request)
+    {
         try {
             $uuid = Str::orderedUuid();
             WithdrawRequest::create([
@@ -41,48 +43,64 @@ class LoanRequestController extends Controller
                 'card_number' => $request['card_number'],
                 'user_id' =>  $request['user_id']
             ]);
-    
+
             return response()->json(['message' => 'Your withdraw request has been sent']);
-        } catch (\Throwable $th) {    
+        } catch (\Throwable $th) {
             return response()->json(['message' => 'Failed']);
         }
     }
-    
-    public function getWithdrawalRequests($id){
+
+    public function getWithdrawalRequests($id)
+    {
         $requests = $this->getWithdrawRequests();
         return response()->json(['data' => $requests]);
     }
-    
-    public function getWallets($id){
+
+    public function getWallets($id)
+    {
         $wallet = $this->getUserWallet($id);
         return response()->json(['amount' => $wallet]);
     }
 
-    public function loanBalance($id){
-        return Loans::loan_balance($id);
+    public function loanBalance($id)
+    {
+        return Application::loan_balance($id);
     }
 
-    public function customerBalance($user_id){
+    public function customerBalance($user_id)
+    {
         return Loans::customer_balance($user_id);
     }
 
-    public function interestAmount($duration, $amount){
+    public function interestAmount($duration, $amount)
+    {
         return Application::interest_amount($amount, $duration);
     }
 
-    public function loanMonthlyInstallments($duration, $amount){
-        return Application::monthly_installment($amount, $duration);
+    public function loanMonthlyInstallments($id)
+    {
+        $loan = Application::where('id', $id)->first();
+        if (!$loan) {
+            return response()->json(['error' => 'Missing required parameters'], 400);
+        }
+
+        $paybackAmount = Application::monthInstallment($loan);
+
+        return response()->json(['installment' => $paybackAmount]);
     }
 
-    public function interestRate($duration){
+    public function interestRate($duration)
+    {
         // return (Application::interest_rate($duration) * 100).'%';
     }
 
-    public function totalCollectable($duration, $amount){
+    public function totalCollectable($duration, $amount)
+    {
         return Application::payback($amount, $duration);
     }
 
-    public function createLoan(Request $request){
+    public function createLoan(Request $request)
+    {
         $data = $request->all();
         return $this->apply_loan($data);
     }

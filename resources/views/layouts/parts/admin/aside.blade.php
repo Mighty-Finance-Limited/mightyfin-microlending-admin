@@ -6,22 +6,18 @@
     <div class="aside-toolbar flex-column-auto" id="kt_aside_toolbar">
         <!--begin::Aside user-->
         <!--begin::User-->
-        <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
+        <div class="py-5 aside-user d-flex align-items-sm-center justify-content-center">
             <!--begin::Symbol-->
             <div class="symbol symbol-50px">
-                @if (auth()->user()->profile_photo_path)
-                    @if ($route == 'profile.show' || $route == 'loan-details' || $route == 'loan-statement')
-                    <img src="{{ '../public/'.Storage::url(auth()->user()->profile_photo_path) }}" alt=""/>
-                    @else
-                    <img src="{{ 'public/'.Storage::url(auth()->user()->profile_photo_path) }}" alt=""/>
-                    @endif
-                @else
-                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg" alt=""/>
-                @endif
+                <img
+                    src="{{ Storage::url(auth()->user()->profile_photo_path) }}"
+                    alt="Profile Picture"
+                    onerror="this.onerror=null; this.src='https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg';"
+                />
             </div>
             <!--end::Symbol-->
             <!--begin::Wrapper-->
-            <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
+            <div class="flex-wrap aside-user-info flex-row-fluid ms-5">
                 <!--begin::Section-->
                 <div class="d-flex">
                     <!--begin::Info-->
@@ -32,13 +28,13 @@
                         </a>
                         <!--end::Username-->
                         <!--begin::Description-->
-                        <span class="text-warning fw-semibold d-block fs-8 mb-1">
+                        <span class="mb-1 text-warning fw-semibold d-block fs-8">
                             {{ preg_replace('/[^A-Za-z0-9. -]/', '',  Auth::user()->roles->pluck('name')) ?? 'Guest' }}
                         </span>
                         <!--end::Description-->
                         <!--begin::Label-->
                         <div class="d-flex align-items-center text-success fs-9">
-                            <span class="bullet capitalize bullet-dot bg-success me-1"></span>online
+                            <span class="capitalize bullet bullet-dot bg-success me-1"></span>online
                         </div>
                         <!--end::Label-->
                     </div>
@@ -55,11 +51,11 @@
                             </i>
                         </a>
                         <!--begin::User account menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
+                        <div class="py-4 menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold fs-6 w-275px"
                             data-kt-menu="true">
                             <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <div class="menu-content d-flex align-items-center px-3">
+                            <div class="px-3 menu-item">
+                                <div class="px-3 menu-content d-flex align-items-center">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
                                         <img alt="Logo" src="{{ asset('public/mfs/admin/assets/media/avatars/blank.png')}}" />
@@ -69,7 +65,7 @@
                                     <div class="d-flex flex-column">
                                         <div class="fw-bold d-flex align-items-center fs-5">
                                             {{ auth()->user()->fname.' '.auth()->user()->lname }}
-                                            <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">
+                                            <span class="px-2 py-1 badge badge-light-success fw-bold fs-8 ms-2">
                                                 {{ preg_replace('/[^A-Za-z0-9. -]/', '',  Auth::user()->roles->pluck('name')) ?? 'Staff' }}
                                             </span>
                                         </div>
@@ -80,16 +76,16 @@
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu separator-->
-                            <div class="separator my-2"></div>
+                            <div class="my-2 separator"></div>
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5">
-                                <a href="{{ route('my-profile', ['view' => 'profile']) }}" class="menu-link px-5">My Profile</a>
+                            <div class="px-5 menu-item">
+                                <a href="{{ route('my-profile', ['view' => 'profile']) }}" class="px-5 menu-link">My Profile</a>
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5">
-                                <a href="{{ route('settings') }}" class="menu-link px-5">
+                            <div class="px-5 menu-item">
+                                <a href="{{ route('settings') }}" class="px-5 menu-link">
                                     <span class="menu-text">System Settings</span>
                                     <span class="menu-badge">
                                         <span class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
@@ -98,38 +94,38 @@
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                            <div class="px-5 menu-item" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                                 data-kt-menu-placement="right-start" data-kt-menu-offset="-15px, 0">
-                                <a href="#" class="menu-link px-5">
+                                <a href="#" class="px-5 menu-link">
                                     <span class="menu-title">Security</span>
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <!--begin::Menu sub-->
-                                <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                <div class="py-4 menu-sub menu-sub-dropdown w-175px">
                                     <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="{{ route('profile.show', ['view'=>'privacy-security']) }}" class="menu-link px-5">Change Password</a>
+                                    <div class="px-3 menu-item">
+                                        <a href="{{ route('profile.show', ['view'=>'privacy-security']) }}" class="px-5 menu-link">Change Password</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
-                                    {{-- <div class="menu-item px-3">
-                                        <a href="account/billing.html" class="menu-link px-5">Devices</a>
+                                    {{-- <div class="px-3 menu-item">
+                                        <a href="account/billing.html" class="px-5 menu-link">Devices</a>
                                     </div> --}}
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
-                                    {{-- <div class="menu-item px-3">
-                                        <a href="account/statements.html" class="menu-link px-5">Activity Log</a>
+                                    {{-- <div class="px-3 menu-item">
+                                        <a href="account/statements.html" class="px-5 menu-link">Activity Log</a>
                                     </div> --}}
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
 
                                     <!--end::Menu item-->
                                     <!--begin::Menu separator-->
-                                    <div class="separator my-2"></div>
+                                    <div class="my-2 separator"></div>
                                     <!--end::Menu separator-->
                                     <!--begin::Menu item-->
-                                    {{-- <div class="menu-item px-3">
-                                        <div class="menu-content px-3">
+                                    {{-- <div class="px-3 menu-item">
+                                        <div class="px-3 menu-content">
                                             <label class="form-check form-switch form-check-custom form-check-solid">
                                                 <input class="form-check-input w-30px h-20px" type="checkbox" value="1"
                                                     checked="checked" name="notifications" />
@@ -147,21 +143,21 @@
 
                             <!--end::Menu item-->
                             <!--begin::Menu separator-->
-                            <div class="separator my-2"></div>
+                            <div class="my-2 separator"></div>
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
 
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
-                            {{-- <div class="menu-item px-5 my-1">
-                                <a href="#" class="menu-link px-5">Account Settings</a>
+                            {{-- <div class="px-5 my-1 menu-item">
+                                <a href="#" class="px-5 menu-link">Account Settings</a>
                             </div> --}}
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
 
-                            <form method="POST" action="{{ route('logout') }}" class="menu-item px-5">
+                            <form method="POST" action="{{ route('logout') }}" class="px-5 menu-item">
                                 @csrf
-                                <button type="submit" class="menu-link px-5 btn">
+                                <button type="submit" class="px-5 menu-link btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
                                         <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
@@ -182,7 +178,7 @@
         </div>
         <!--end::User-->
         <!--begin::Aside search-->
-        {{-- <div class="aside-search py-5"> --}}
+        {{-- <div class="py-5 aside-search"> --}}
             <!--begin::Search-->
             {{-- <div id="kt_header_search" class="header-search d-flex align-items-center w-100"
                 data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter"
@@ -217,7 +213,7 @@
                     <!--begin::Spinner-->
                     <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5"
                         data-kt-search-element="spinner">
-                        <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                        <span class="text-gray-400 align-middle spinner-border h-15px w-15px"></span>
                     </span>
                     <!--end::Spinner-->
                     <!--begin::Reset-->
@@ -234,7 +230,7 @@
                 <!--end::Form-->
                 <!--begin::Menu-->
                 {{-- <div data-kt-search-element="content"
-                    class="menu menu-sub menu-sub-dropdown py-7 px-7 overflow-hidden w-300px w-md-350px">
+                    class="overflow-hidden menu menu-sub menu-sub-dropdown py-7 px-7 w-300px w-md-350px">
                     <!--begin::Wrapper-->
                     <div data-kt-search-element="wrapper">
                         <!--begin::Recently viewed-->
@@ -242,10 +238,10 @@
                             <!--begin::Items-->
                             <div class="scroll-y mh-200px mh-lg-350px">
                                 <!--begin::Category title-->
-                                <h3 class="fs-5 text-muted m-0 pb-5" data-kt-search-element="category-title">Users</h3>
+                                <h3 class="pb-5 m-0 fs-5 text-muted" data-kt-search-element="category-title">Users</h3>
                                 <!--end::Category title-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <img src="{{ asset('public/mfs/admin/assets/media/avatars/300-6.jpg')}}" alt="" />
@@ -260,7 +256,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <img src="{{ asset('public/mfs/admin/assets/media/avatars/300-2.jpg')}}" alt="" />
@@ -275,7 +271,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <img src="{{ asset('public/mfs/admin/assets/media/avatars/300-9.jpg')}}" alt="" />
@@ -290,7 +286,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <img src="{{ asset('public/mfs/admin/assets/media/avatars/300-14.jpg')}}" alt="" />
@@ -305,7 +301,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <img src="{{ asset('public/mfs/admin/assets/media/avatars/300-11.jpg')}}" alt="" />
@@ -321,11 +317,11 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Category title-->
-                                <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">
+                                <h3 class="pt-5 pb-5 m-0 fs-5 text-muted" data-kt-search-element="category-title">
                                     Customers</h3>
                                 <!--end::Category title-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -343,7 +339,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -361,7 +357,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -379,7 +375,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -397,7 +393,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -415,11 +411,11 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Category title-->
-                                <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">
+                                <h3 class="pt-5 pb-5 m-0 fs-5 text-muted" data-kt-search-element="category-title">
                                     Projects</h3>
                                 <!--end::Category title-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -442,7 +438,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -464,7 +460,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -486,7 +482,7 @@
                                 </a>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                <a href="#" class="mb-5 d-flex text-dark text-hover-primary align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -513,7 +509,7 @@
                         <!--begin::Recently viewed-->
                         <div class="" data-kt-search-element="main">
                             <!--begin::Heading-->
-                            <div class="d-flex flex-stack fw-semibold mb-4">
+                            <div class="mb-4 d-flex flex-stack fw-semibold">
                                 <!--begin::Label-->
                                 <span class="text-muted fs-6 me-2">Recently Searched:</span>
                                 <!--end::Label-->
@@ -543,7 +539,7 @@
                             <!--begin::Items-->
                             <div class="scroll-y mh-200px mh-lg-325px">
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -556,7 +552,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">BoomApp
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">BoomApp
                                             by Keenthemes</a>
                                         <span class="fs-7 text-muted fw-semibold">#45789</span>
                                     </div>
@@ -564,7 +560,7 @@
                                 </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -579,7 +575,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"Kept
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">"Kept
                                             API Project Meeting</a>
                                         <span class="fs-7 text-muted fw-semibold">#84050</span>
                                     </div>
@@ -587,7 +583,7 @@
                                 </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -600,7 +596,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"KPI
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">"KPI
                                             Monitoring App Launch</a>
                                         <span class="fs-7 text-muted fw-semibold">#84250</span>
                                     </div>
@@ -608,7 +604,7 @@
                                 </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -621,7 +617,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">Project
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">Project
                                             Reference FAQ</a>
                                         <span class="fs-7 text-muted fw-semibold">#67945</span>
                                     </div>
@@ -629,7 +625,7 @@
                                 </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -642,7 +638,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"FitPro
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">"FitPro
                                             App Development</a>
                                         <span class="fs-7 text-muted fw-semibold">#84250</span>
                                     </div>
@@ -650,7 +646,7 @@
                                 </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -663,7 +659,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">Shopix
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">Shopix
                                             Mobile App</a>
                                         <span class="fs-7 text-muted fw-semibold">#45690</span>
                                     </div>
@@ -671,7 +667,7 @@
                                 </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-5">
+                                <div class="mb-5 d-flex align-items-center">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <span class="symbol-label bg-light">
@@ -684,7 +680,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"Landing
+                                        <a href="#" class="text-gray-800 fs-6 text-hover-primary fw-semibold">"Landing
                                             UI Design" Launch</a>
                                         <span class="fs-7 text-muted fw-semibold">#24005</span>
                                     </div>
@@ -699,7 +695,7 @@
                         <div data-kt-search-element="empty" class="text-center d-none">
                             <!--begin::Icon-->
                             <div class="pt-10 pb-10">
-                                <i class="ki-duotone ki-search-list fs-4x opacity-50">
+                                <i class="opacity-50 ki-duotone ki-search-list fs-4x">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
@@ -708,7 +704,7 @@
                             <!--end::Icon-->
                             <!--begin::Message-->
                             <div class="pb-15 fw-semibold">
-                                <h3 class="text-gray-600 fs-5 mb-2">No result found</h3>
+                                <h3 class="mb-2 text-gray-600 fs-5">No result found</h3>
                                 <div class="text-muted fs-7">Please try again with a different query</div>
                             </div>
                             <!--end::Message-->
@@ -741,21 +737,21 @@
                                 <label>
                                     <input type="radio" class="btn-check" name="type" value="users" />
                                     <span
-                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Users</span>
+                                        class="px-4 btn btn-sm btn-color-muted btn-active btn-active-primary">Users</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
                                     <input type="radio" class="btn-check" name="type" value="orders" />
                                     <span
-                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Orders</span>
+                                        class="px-4 btn btn-sm btn-color-muted btn-active btn-active-primary">Orders</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
                                     <input type="radio" class="btn-check" name="type" value="projects" />
                                     <span
-                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Projects</span>
+                                        class="px-4 btn btn-sm btn-color-muted btn-active btn-active-primary">Projects</span>
                                 </label>
                                 <!--end::Option-->
                             </div>
@@ -791,7 +787,7 @@
                                 <label>
                                     <input type="radio" class="btn-check" name="attachment" value="any" />
                                     <span
-                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Any</span>
+                                        class="px-4 btn btn-sm btn-color-muted btn-active btn-active-primary">Any</span>
                                 </label>
                                 <!--end::Option-->
                             </div>
@@ -811,7 +807,7 @@
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
-                        <div class="row mb-8">
+                        <div class="mb-8 row">
                             <!--begin::Col-->
                             <div class="col-6">
                                 <input type="number" name="date_number"
@@ -852,7 +848,7 @@
                         <div class="pb-4 border-bottom">
                             <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">Projects</span>
+                                <span class="text-gray-700 form-check-label fs-6 fw-semibold ms-0 me-2">Projects</span>
                                 <input class="form-check-input" type="checkbox" value="1" checked="checked" />
                             </label>
                         </div>
@@ -861,7 +857,7 @@
                         <div class="py-4 border-bottom">
                             <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">Targets</span>
+                                <span class="text-gray-700 form-check-label fs-6 fw-semibold ms-0 me-2">Targets</span>
                                 <input class="form-check-input" type="checkbox" value="1" checked="checked" />
                             </label>
                         </div>
@@ -870,7 +866,7 @@
                         <div class="py-4 border-bottom">
                             <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">Affiliate
+                                <span class="text-gray-700 form-check-label fs-6 fw-semibold ms-0 me-2">Affiliate
                                     Programs</span>
                                 <input class="form-check-input" type="checkbox" value="1" />
                             </label>
@@ -880,7 +876,7 @@
                         <div class="py-4 border-bottom">
                             <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">Referrals</span>
+                                <span class="text-gray-700 form-check-label fs-6 fw-semibold ms-0 me-2">Referrals</span>
                                 <input class="form-check-input" type="checkbox" value="1" checked="checked" />
                             </label>
                         </div>
@@ -889,7 +885,7 @@
                         <div class="py-4 border-bottom">
                             <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">Users</span>
+                                <span class="text-gray-700 form-check-label fs-6 fw-semibold ms-0 me-2">Users</span>
                                 <input class="form-check-input" type="checkbox" value="1" />
                             </label>
                         </div>
@@ -914,7 +910,7 @@
     </div>
 
     <div class="aside-menu flex-column-fluid">
-        <div class="hover-scroll-overlay-y mx-3 my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true"
+        <div class="mx-3 my-5 hover-scroll-overlay-y my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true"
             data-kt-scroll-height="auto"
             data-kt-scroll-dependencies="{default: '#kt_aside_toolbar, #kt_aside_footer', lg: '#kt_header, #kt_aside_toolbar, #kt_aside_footer'}"
             data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="5px">
@@ -936,7 +932,7 @@
                     </a>
                 </div>
 
-                <div class="menu-item pt-5">
+                <div class="pt-5 menu-item">
                     <div class="menu-content">
                         <span class="menu-heading fw-bold text-uppercase fs-7">MODULES</span>
                     </div>
@@ -1025,7 +1021,7 @@
                         @endcan
                         {{-- @can('create loan') --}}
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('proxy-loan-create') }}">
+                            <a class="menu-link" href="{{ route('create.loan') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1158,7 +1154,7 @@
                 @endcan
 
                 @can('view operations')
-                    <div class="menu-item pt-5">
+                    <div class="pt-5 menu-item">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Operations & Staff</span>
                         </div>
@@ -1238,7 +1234,7 @@
                         </span>
 
                         <div class="menu-sub menu-sub-accordion">
-                            <div  class="menu-item menu-accordion mb-1">
+                            <div  class="mb-1 menu-item menu-accordion">
                                 <a class="menu-link" href="{{ route('employees') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -1265,7 +1261,7 @@
 
                         <div class="menu-sub menu-sub-accordion">
                             @can('view transactions')
-                            <div class="menu-item menu-accordion mb-1">
+                            <div class="mb-1 menu-item menu-accordion">
                                 <a href="{{ route('make-payment') }}" class="menu-link">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -1303,7 +1299,7 @@
                         </span>
 
                         <div class="menu-sub menu-sub-accordion">
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                            <div data-kt-menu-trigger="click" class="mb-1 menu-item menu-accordion">
                                 <span class="menu-link">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -1319,7 +1315,7 @@
 
 
                 @can('system settings')
-                <div class="menu-item pt-5">
+                <div class="pt-5 menu-item">
                     <!--begin:Menu content-->
                     <div class="menu-content">
                         <span class="menu-heading fw-bold text-uppercase fs-7">Settings</span>
@@ -1344,7 +1340,7 @@
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
                         <!--begin:Menu item-->
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                        <div data-kt-menu-trigger="click" class="mb-1 menu-item menu-accordion">
                             <!--begin:Menu link-->
                             <span class="menu-link">
                                 <span class="menu-bullet">

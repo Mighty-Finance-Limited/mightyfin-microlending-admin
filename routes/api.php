@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\UserAuthenticationController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\LoanApplicationController;
+use App\Http\Controllers\LoanProductController;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +48,7 @@ Route::get('get-my-balance/{user_id}', [LoanRequestController::class, 'customerB
 Route::get('get-loan-interest-rate/{duration}/{principal}', [LoanRequestController::class, 'interestRate']);
 Route::get('get-loan-interest-amount/{duration}/{principal}', [LoanRequestController::class, 'interestAmount']);
 Route::get('get-loan-monthly-installment-amount/{duration}/{principal}', [LoanRequestController::class, 'loanMonthlyInstallments']);
+Route::get('/v2/loan-monthly/{loan_id}', [LoanRequestController::class, 'loanMonthlyInstallments']);
 Route::get('get-total-payback-amount/{duration}/{principal}', [LoanRequestController::class, 'totalCollectable']);
 
 
@@ -68,4 +71,31 @@ Route::post('make-withdrawal-request', [LoanRequestController::class, 'makeWithd
 // Admin Settings
 Route::get('/get-approvers-users', [SettingController::class, '__get_approvers']);
 Route::post('/set-auto-approvers', [SettingController::class, '__set_approvers']);
+Route::post('/loan-products/update-status', [LoanProductController::class, 'update_status']);
 
+//payback
+Route::get('/v2/payback', function (Request $request) {
+    $id = $request->query('loan');
+    $loan = Application::where('id', $id)->first();
+    if (!$loan) {
+        return response()->json(['error' => 'Missing required parameters'], 400);
+    }
+
+    $paybackAmount = Application::payback($loan);
+
+    return response()->json(['payback' => $paybackAmount]);
+});
+
+
+//loan_repayment_schedule
+Route::get('/v2/loan-repayment-schedule', function (Request $request) {
+    $id = $request->query('loan');
+    $loan = Application::where('id', $id)->first();
+    if (!$loan) {
+        return response()->json(['error' => 'Missing required parameters'], 400);
+    }
+
+    $paybackAmount = Application::payback($loan);
+
+    return response()->json(['payback' => $paybackAmount]);
+});

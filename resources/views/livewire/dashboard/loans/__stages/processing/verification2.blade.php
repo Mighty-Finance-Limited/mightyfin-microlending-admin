@@ -63,7 +63,7 @@
                                         <div
                                             class="col-lg-4 border border-gray-300 border-dashed rounded py-3 px-3 mx-4 m-3">
                                             <div class="fs-4 fw-bold text-gray-700">
-                                                <span class="w-50px">K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</span>
+                                                <span class="w-50px">K {{ App\Models\Application::payback($loan) }}</span>
                                                 <i class="ki-duotone ki-usd fs-3 text-danger">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>

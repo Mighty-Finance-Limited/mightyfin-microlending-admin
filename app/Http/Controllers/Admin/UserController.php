@@ -35,49 +35,30 @@ class UserController extends Controller
         return view('admin.users.index');
     }
 
-    public function store(User $user, Request $request) 
+    public function store(User $user, Request $request)
     {
         DB::beginTransaction();
-        try {     
-            if ($request->file('image_path')) {
-                $url = Storage::put('public/users', $request->file('image_path'));
+        try {
+            if ($request->file('primary_image_path')) {
+                $url = Storage::put('public/users', $request->file('primary_image_path'));
             }
-            
+
             $u = $user->create(array_merge($request->all(), [
                 'password' => bcrypt('mighty.@2023@'),
                 'active' => 1,
-                'profile_photo_path' => $url ?? ''
+                'profile_photo_path' => $url ?? '',
+                'jobTitle'=> $request->input('JobTitle') ?? '',
+                'occupation'=> $request->input('JobTitle') ?? '',
             ]));
-            
-            $u->syncRoles($request->assigned_role);
 
-            // Onyl users with Emails
-            if($u->email != null){ 
-                $mail = [
-                    'name' => $u->fname.' '.$u->lname,
-                    'to' => $u->email,
-                    'from' => 'admin@mightyfinance.co.zm',
-                    'phone' => $u->phone,
-                    'subject' => 'Your Might Finance Account',
-                    'message' => 'Hello '.$u->fname.' '.$u->lname.' Your Might Finance account is now ready, Click on login to goto your dashboard. Your password is mighty.@2023@  -  feel free to change your password.',
-                ];
-            }
-            
+            $this->uploadUserPhotos($request, $u);
+            $u->syncRoles($request->assigned_role);
             try {
-                // Send Email to User with Email only about their New Account Created
-                if($u->email != null){
-                    $eMail = new BTFAccount($mail);
-                    Mail::to($u->email)->send($eMail);
-                }
                 if($request->assigned_role == 'user'){
-                    $url = '/apply-for-a-loan/ '.$u->id;
                     Wallet::create([
                         'user_id' => $u->id
                     ]);
-                    // $link = new HtmlString('<a target="_blank" href="' . $url . '">Create a loan for '.$u->fname.' '.$u->lname.'</a>');
-                    $msg = '<a target="_blank" href="'.$url.'">Apply for Loan on Behalf</a>';
                     Session::flash('success', "Borrower created successfully. ");
-                    Session::flash('borrower_id', $u->id);
                 }else{
                     Session::flash('success', "User created successfully.");
                 }
@@ -86,8 +67,7 @@ class UserController extends Controller
                 return back();
             } catch (\Throwable $th) {
                 Session::flash('error', "Email not sent. Check your internet connection. You may contact '.$u->fname.' '.$u->lname,.' and provide them with their account login information. ");
-                // DB::rollback();
-                DB::commit();
+                DB::rollback();
                 return back();
             }
         } catch (\Throwable $th) {
@@ -104,7 +84,7 @@ class UserController extends Controller
 
     }
 
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -125,17 +105,17 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user, Request $request) 
+    public function update(User $user, Request $request)
     {
         DB::beginTransaction();
         try {
             // Role::firstOrCreate(['name' => 'employee']);
             //For demo purposes only. When creating user or inviting a user
-            // you should create a generated random password and email it to the user        
+            // you should create a generated random password and email it to the user
             if ($request->file('image_path')) {
                 $url = Storage::put('public/users', $request->file('image_path'));
             }
-            
+
             $user = User::find($request->user_edit_id);
             // dd($user);
             // $user->update(array_merge($request->all(), [
@@ -164,7 +144,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             // dd($th);
             DB::rollback();
-            
+
             if($request->assigned_role == 'user'){
                 Session::flash('error_msg', 'Oops.. There is a borrower account already using this email.');
             }elseif($request->assigned_role == 'employee'){
@@ -190,21 +170,21 @@ class UserController extends Controller
 
     public function updatePic(Request $request)
     {
-        
+
         try {
             $request->validate([
                 'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-    
+
             if ($request->hasFile('photo')) {
                 // Process and save the file
                 $url = Storage::put('public/users', $request->file('photo'));
-    
+
                 // Update user's profile_photo_path
                 auth()->user()->update([
                     'profile_photo_path' => $url,
                 ]);
-    
+
                 return redirect()->back()->with('success', 'Profile photo updated successfully.');
             } else {
                 return redirect()->back()->with('error', 'No photo uploaded.');

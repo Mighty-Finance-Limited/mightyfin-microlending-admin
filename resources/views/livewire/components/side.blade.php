@@ -40,7 +40,7 @@
                 </a>
                 <ul aria-expanded="false">
                     @can('accept and reject loan requests')
-                    <li><a href="{{ route('proxy-loan-create') }}">Create Loan</a></li>
+                    <li><a href="{{ route('create.loan') }}">Create Loan</a></li>
                     @endcan
                     @can('view loan requests')
                     <li><a href="{{ route('view-loan-requests') }}">View Loans</a></li>

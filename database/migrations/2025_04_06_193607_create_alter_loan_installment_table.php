@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('mname')->nullable();
-            $table->string('phone2')->nullable();
+        Schema::table('loan_installments', function (Blueprint $table) {
+            $table->string('application_id')->nullable();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alter_user2');
+        Schema::dropIfExists('alter_loan_installment');
     }
 };

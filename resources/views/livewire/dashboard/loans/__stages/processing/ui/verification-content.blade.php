@@ -3,12 +3,12 @@
     <div class="d-flex">
         <div class="loan-tabs-container">
             <nav class="loan-tabs">
-                <div class="loan-tab active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">
+                {{-- <div class="loan-tab active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                     </svg>
                     <span class="loan-tab-text">CRB Checks & Assessments</span>
-                </div>
+                </div> --}}
 
                 <div class="loan-tab" data-bs-toggle="tab" href="#kt_customer_view_overview_risk">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
@@ -104,7 +104,7 @@
     </div>
 
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="kt_customer_view_overview_tab" role="tabpanel">
+        <div class="tab-pane fade" id="kt_customer_view_overview_tab" role="tabpanel">
             <div class="card shadow-sm border-0 p-4 rounded">
                 <div class="card-header border-bottom pb-3">
                     <h4 class="fw-bold mb-0 text-primary">Check CRB information</h4>
@@ -130,13 +130,7 @@
                                     @endforelse
                                 </select>
                                 <br>
-                                <!-- Show loading spinner while the action is processing -->
-                                <button class="btn btn-primary" wire:click="CheckCRB()" wire:loading.attr="disabled">
-                                    <span wire:loading.remove>Submit</span>
-                                    <span wire:loading>Loading...</span>
-                                </button>
-                                <!-- Preloader icon to display while the action is processing -->
-                                <div wire:loading wire:target="CheckCRB()">
+                                <div>
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
@@ -199,12 +193,10 @@
 
         </div>
 
-        <div class="tab-pane fade" id="kt_customer_view_overview_risk" role="tabpanel">
-
+        <div class="tab-pane fade show active" id="kt_customer_view_overview_risk" role="tabpanel">
             <div class="row g-5 g-xl-12">
                 <div class="col-xl-12">
                     <div class="card shadow-sm border-0 p-4 rounded">
-
                         <div class="card-header border-bottom pb-3">
                             <h4 class="fw-bold mb-0 text-primary">Loan Risk Assessment</h4>
                         </div>
@@ -237,7 +229,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -260,7 +251,7 @@
                                             <td class="text-muted fw-semibold w-50">Loan Product</td>
                                             <td class="text-gray-800">{{ $loan_product->name }}</td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td class="text-muted fw-semibold w-50">KYC</td>
                                             <td>
                                                 @if($loan->complete == 1)
@@ -269,7 +260,7 @@
                                                     <span class="badge bg-danger p-2">Incomplete</span>
                                                 @endif
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">Created On</td>
                                             <td class="text-dark fw-bold">

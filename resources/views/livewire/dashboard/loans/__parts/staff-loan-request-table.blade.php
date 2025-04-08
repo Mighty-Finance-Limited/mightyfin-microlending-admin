@@ -1,12 +1,12 @@
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="content d-flex flex-column flex-column-fluid w-full" id="kt_content">
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container">
-            <div class="card mb-5 mb-xl-8">
+            <div class="mb-5 card mb-xl-8">
 
-                <div class="card-header border-0 pt-5">
+                <div class="pt-5 border-0 card-header">
                     <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label fw-bold fs-3 mb-1">{{ $this->title }}</span>
-                        <span class="text-muted mt-1 fw-semibold fs-7">Over {{$requests->count()}} loans</span>
+                        <span class="mb-1 card-label fw-bold fs-3">{{ $this->title }}</span>
+                        <span class="mt-1 text-muted fw-semibold fs-7">Over {{$requests->count()}} loans</span>
                     </h3>
 
                     <div class="card-toolbar">
@@ -19,7 +19,7 @@
                                 <span class="path3"></span>
                             </i>Reset
                         </button>
-                        <button onclick="deleteBulk()" type="button" id="deleteBtn" class="btn mx-2 btn-sm btn-flex btn-light-danger"
+                        <button onclick="deleteBulk()" type="button" id="deleteBtn" class="mx-2 btn btn-sm btn-flex btn-light-danger"
                             data-bs-toggle="modal" data-bs-target="#kt_modal_add_payment">
                             <i class="ki-duotone ki-plus-cross fs-3">
                                 <span class="path1"></span>
@@ -35,41 +35,30 @@
                                 <span class="path4"></span>
                             </i>
                         </button>
-
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-
-                            <div class="menu-item px-3">
-                                <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
+                            <div class="px-3 menu-item">
+                                <div class="px-3 py-4 menu-content fs-6 text-dark fw-bold">Quick Actions</div>
                             </div>
-
-                            <div class="separator mb-3 opacity-75"></div>
-
-                            <div class="menu-item px-3">
-                                <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary text-white menu-link px-3">Create New Loan</a>
+                            <div class="mb-3 opacity-75 separator"></div>
+                            <div class="px-3 menu-item">
+                                <a href="{{ route('create.loan') }}" class="px-3 text-white btn btn-primary menu-link">Create New Loan</a>
                             </div>
-
-                            {{-- <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3">New Customer</a>
-                            </div> --}}
-
-                            <div class="menu-item px-3">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#export_loans_panel" class="menu-link px-3">Export</a>
+                            <div class="px-3 menu-item">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#export_loans_panel" class="px-3 menu-link">Export</a>
                             </div>
-
-                            <div class="menu-item px-3">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#import_loans_panel" class="menu-link px-3">Import</a>
+                            <div class="px-3 menu-item">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#import_loans_panel" class="px-3 menu-link">Import</a>
                             </div>
-
-                            <div class="separator mt-3 opacity-75"></div>
+                            <div class="mt-3 opacity-75 separator"></div>
                         </div>
 
                     </div>
                 </div>
 
-                <div class="card-body py-3">
+                <div class="py-3 card-body">
 
                     <div class="table-responsive">
-                        <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 w-full">
+                        <table class="table w-full align-middle table-row-bordered table-row-gray-100 gs-0 gy-3">
 
                             <thead>
                                 <tr class="fw-bold text-muted">
@@ -78,9 +67,10 @@
                                             <input onclick="showBulkOps()" class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check" />
                                         </div>
                                     </th>
-                                    <th class="min-w-200px">Loan Type</th>
+                                    <th class="min-w-90px">Loan No.</th>
+                                    <th class="min-w-190px">Loan Type</th>
                                     <th class="min-w-140px">Principal</th>
-                                    <th class="min-w-220px">Date</th>
+                                    <th class="min-w-200px">Date</th>
                                     <th class="min-w-200px">Borrower</th>
                                     <th class="min-w-120px">Payback</th>
                                     <th class="min-w-190">Status</th>
@@ -105,31 +95,39 @@
                                         </td>
                                         <td>
                                             <a href="#" class="text-dark fw-bold text-hover-primary ">
+                                                M{{ $loan->loan_number }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-dark fw-bold text-hover-primary ">
                                                 {{ $loan->loan_product->name }}
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">
-                                                {{ number_format($loan->amount, 2, '.', ',') }}
+                                            <a href="#" class="mb-1 text-success fw-bold text-hover-primary d-block fs-6">
+                                                K{{ number_format($loan->amount, 2, '.', ',') }}
                                             </a>
-                                            <span class="text-muted fw-semibold text-muted d-block fs-7">
+                                            <span class="text-muted fw-semibold d-block fs-7">
                                                 Upto {{ $loan->repayment_plan }} Months
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $loan->created_at->toFormattedDateString() }}</a>
-                                            <span class="text-muted fw-semibold text-muted d-block fs-7">last update: {{ $loan->updated_at->toFormattedDateString() }}</span>
+                                            <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $loan->created_at->toFormattedDateString() }}</a>
+                                            <span class="text-muted fw-semibold d-block fs-7">last update: {{ $loan->updated_at->toFormattedDateString() }}</span>
                                         </td>
                                         <td>
-                                            <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id])}}" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">
+                                            <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id])}}" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">
                                                 {{ $loan->user->fname.' '. $loan->user->lname }}
                                             </a>
-                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $loan->phone??' '. $loan->user->phone.', '.$loan->user->gender }}</span>
+                                            <span class="text-muted fw-semibold d-block fs-7">{{ $loan->phone??' '. $loan->user->phone.', '.$loan->user->gender }}</span>
                                         </td>
-                                        <td class="text-dark fw-bold text-hover-primary fs-6">
-                                            {{
-                                                number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan), 2, '.', ',')
+                                        <td class="text-info fw-bold text-hover-primary fs-6">
+                                            K{{
+                                                number_format(App\Models\Application::payback($loan), 2, '.', ',')
                                             }}
+                                            <span class="text-muted fw-semibold d-block fs-7">
+                                                ZMW
+                                            </span>
                                         </td>
                                         <td>
                                             @if($loan->status == 0)
@@ -214,7 +212,7 @@
                                                 </svg>
                                             </a>
                                             @can('update loans')
-                                                <a title="Edit and update loan application" title="Edit Loan" href="{{ route('edit-loan', ['id'=>$loan->id]) }}" class="btn btn-icon btn-bg-info text-white btn-active-color-white btn-sm">
+                                                <a title="Edit and update loan application" title="Edit Loan" href="{{ route('edit-loan', ['id'=>$loan->id]) }}" class="text-white btn btn-icon btn-bg-info btn-active-color-white btn-sm">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                                     </svg>

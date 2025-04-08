@@ -33,7 +33,7 @@
                                         <span class="text-info fw-bold">
                                             Processing
                                         </span>
-                                    @endif  
+                                    @endif
                                     @if ($loan->status == 3)
                                         <span class="text-danger fw-bold">
                                             Loan Request Rejected
@@ -79,7 +79,7 @@
                             >
                             <div class="chart-price-value">
                                 <span>Paying Back</span>
-                                <h5>K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan) }}</h5>
+                                <h5>K {{ App\Models\Application::payback($loan) }}</h5>
                             </div>
                             </div>
                         </div>

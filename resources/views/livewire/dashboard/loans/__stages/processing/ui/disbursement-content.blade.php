@@ -3,12 +3,12 @@
     <div class="d-flex">
         <div class="loan-tabs-container">
             <nav class="loan-tabs">
-                <div class="loan-tab active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">
+                {{-- <div class="loan-tab active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                     </svg>
                     <span class="loan-tab-text">CRB Checks & Assessments</span>
-                </div>
+                </div> --}}
 
                 <div class="loan-tab" data-bs-toggle="tab" href="#kt_customer_view_overview_risk">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
@@ -60,6 +60,7 @@
                 </button>
             @endif
 
+
             <!-- Action Dropdown Menu -->
             <div class="action-dropdown-menu" data-kt-menu="true">
                 <div class="action-dropdown-item" onclick="location.href='#'" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})">
@@ -88,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="action-dropdown-item" onclick="location.href='#'" wire:click="accept({{$loan->id}})">
+                <div class="action-dropdown-item" onclick="location.href='#'" wire:click="accept({{$loan->id}}, 'disburse')">
                     <div class="action-icon bg-light-success">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
@@ -104,7 +105,7 @@
     </div>
 
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="kt_customer_view_overview_tab" role="tabpanel">
+        <div class="tab-pane fade" id="kt_customer_view_overview_tab" role="tabpanel">
             <div class="card shadow-sm border-0 p-4 rounded">
                 <div class="card-header border-bottom pb-3">
                     <h4 class="fw-bold mb-0 text-primary">Check CRB information</h4>
@@ -260,7 +261,7 @@
                                             <td class="text-muted fw-semibold w-50">Loan Product</td>
                                             <td class="text-gray-800">{{ $loan_product->name }}</td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td class="text-muted fw-semibold w-50">KYC</td>
                                             <td>
                                                 @if($loan->complete == 1)
@@ -269,7 +270,7 @@
                                                     <span class="badge bg-danger p-2">Incomplete</span>
                                                 @endif
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">Created On</td>
                                             <td class="text-dark fw-bold">

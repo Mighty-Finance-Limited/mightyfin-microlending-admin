@@ -13,9 +13,9 @@
                             </div>
                             @if($loan->status !== 2 && $loan->status !== 1)
                             <div class="shopping-cart mb-2 me-3">
-                                <button 
-                                    class="btn btn-square btn-outline-primary" 
-                                    wire:click.prevent="stall({{ $loan->id }})" 
+                                <button
+                                    class="btn btn-square btn-outline-primary"
+                                    wire:click.prevent="stall({{ $loan->id }})"
                                     data-toggle="modal" data-target=".bd-example-modal-sm"
                                     onclick="confirm('Are you sure you want to hold this loan application for review?') || event.stopImmediatePropagation();"
                                 >
@@ -26,9 +26,9 @@
 
                             @if($loan->status !== 1)
                             <div class="shopping-cart mb-2 me-3">
-                                <button 
+                                <button
                                     data-toggle="modal" data-target="#updateDueDateView"
-                                    class="btn btn-square btn-primary" 
+                                    class="btn btn-square btn-primary"
                                     onclick="confirm('Are you sure you want to approve and accept this loan application') || event.stopImmediatePropagation();"
                                 >
                                 <i class="fa fa-check me-2"></i>Accept Loan
@@ -38,9 +38,9 @@
 
                             @if($loan->status !== 3 && $loan->status !== 1)
                             <div class="shopping-cart mb-2 me-3">
-                                <button 
-                                    class="btn btn-square btn-outline-danger" 
-                                    wire:click.prevent="reject({{ $loan->id }})" 
+                                <button
+                                    class="btn btn-square btn-outline-danger"
+                                    wire:click.prevent="reject({{ $loan->id }})"
                                     onclick="confirm('Are you sure you want to disapprove and reject this loan application?') || event.stopImmediatePropagation();"
                                 >
                                 <i class="fa fa-cancel me-2"></i>Reject Loan
@@ -62,10 +62,10 @@
                                 </div>
                                 <div class="product-detail-content">
                                     <div class="new-arrival-content pr">
-                                        <p> Borrower: 
+                                        <p> Borrower:
                                             <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
                                                 <span class="item">{{  $loan->fname ?? $loan->user->fname  }} {{ $loan->lname ?? $loan->user->lname }}</span>
-                                            </a> 
+                                            </a>
                                         </p>
                                         <p>Address: <span class="item">{{ $loan->user->address ?? 'None'}}</span></p>
                                         <p>Phone No.: <span class="item">{{ $loan->phone ?? '' }}</span></p>
@@ -90,7 +90,7 @@
                                             <p class="price float-start d-block"></p>
                                         </div> --}}
                                         <p>
-                                            Borrowed Amount: 
+                                            Borrowed Amount:
                                             <span class="item">
                                                 K{{ $loan->amount ?? 0 }}
                                             </span>
@@ -105,14 +105,14 @@
                                             {{-- per month --}}
                                         </span>
                                         </p>
-                                        
+
                                         @if($loan->status == 1 || preg_replace('/[^A-Za-z0-9. -]/', '',  Auth::user()->roles->pluck('name')) == 'admin')
-                                            <p>Last Payment: 
-                                                <span class="item">  
+                                            <p>Last Payment:
+                                                <span class="item">
                                                 {{ App\Models\Loans::last_payment($loan->id)->created_at != null ? App\Models\Loans::last_payment($loan->id)->created_at->toFormattedDateString() : 'No record'  }}
                                                 </span>
                                             </p>
-                                            <p>Payback Amount: <span class="item"><b>K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan) }}</b></span></p>
+                                            <p>Payback Amount: <span class="item"><b>K {{ App\Models\Application::payback($loan) }}</b></span></p>
                                             {{-- <p>Monthly Installments: <span class="item"><b>K {{ App\Models\Application::monthly_installment($loan->amount, preg_replace('/[^0-9]/','', $loan->repayment_plan)) }}</b></span></p> --}}
                                             {{-- <p>Total Interest Rate: <span class="item">
                                             @if($loan->repayment_plan > 1)
@@ -122,21 +122,21 @@
                                             @endif
                                             </span></p> --}}
                                         @endif
-                                        
-                                        {{-- <p>Credit Score: 
+
+                                        {{-- <p>Credit Score:
                                             <span class="item">
                                             @if(App\Models\Application::loan_assemenent_table($loan)['credit_score'])
                                             <a target="_blank" href="{{ route('score', ['id' => $loan->id]) }}">
                                                 <span class="badge badge-success">Eligible</span>
                                             </a>
-                                            @else 
+                                            @else
                                             <a target="_blank" href="{{ route('score', ['id' => $loan->id]) }}">
                                                 <span class="badge badge-danger">Not Eligible</span>
                                             </a>
                                             @endif
                                             </span>
                                         </p> --}}
-                                        
+
                                         <p>Loan Progress:&nbsp;&nbsp;
                                             @if ($loan->status == 0)
                                                 @if($loan->complete == 0)
@@ -166,10 +166,10 @@
                                             @else
                                             <span class="badge badge-light">Rejected</span>
                                             @endif
-                                            
+
                                         </p>
                                         <p class="text-content">
-                                            
+
                                         </p>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -317,7 +317,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div wire:ignore.self class="modal fade" id="updateDueDateView" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -333,7 +333,7 @@
                         <h5>Duration: {{ $loan->repayment_plan }} Months</h5>
                         <h6>Submitted on {{ $loan->created_at->toFormattedDateString() }}</h6>
                     </div>
-                    
+
                 </div>
                 @endif
                 <div class="col-xl-12">

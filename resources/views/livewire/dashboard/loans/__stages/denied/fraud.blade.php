@@ -10,7 +10,7 @@
                                 <div class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">
                                     <h1 class="text-white font-bold">Fraud</h1>
                                 </div>
-                                
+
                                 <div class="symbol symbol-100px symbol-circle mb-7">
                                     @if ($loan->user->profile_photo_path)
                                         <img src="{{ '../public/'.Storage::url($loan->user->profile_photo_path) }}" alt=""/>
@@ -21,7 +21,7 @@
                                 <a href="#" class="fs-3 text-gray-100 text-hover-primary fw-bold mb-1">
                                     {{ $loan->user->fname.' '.$loan->user->lname }}
                                 </a>
-                                
+
                                 <div class="fs-5 fw-semibold text-muted mb-6">{{ $loan->user->occupation }}</div>
 
                                 <div class="d-flex flex-wrap flex-center">
@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-lg-4 bg-info text-white border border-gray-300 border-dashed rounded py-3 px-3 mx-4 m-3">
                                             <div class="fs-4 fw-bold text-gray-700">
-                                                <span class="w-50px text-white">K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</span>
+                                                <span class="w-50px text-white">K {{ App\Models\Application::payback($loan) }}</span>
                                                 <i class="ki-duotone ki-usd fs-3 text-danger">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex flex-stack fs-4 py-3">
                                 <div class="fw-bold rotate collapsible text-white" data-bs-toggle="collapse"
                                     href="#kt_customer_view_details" role="button" aria-expanded="false"
@@ -103,12 +103,12 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="flex-lg-row-fluid ms-lg-15">
                     <div class="float-end">
-                        
+
                         @if ($this->my_review_status($loan->id) == 1)
                             <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click"
                                 data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Action
@@ -120,7 +120,7 @@
                                 <i class="ki-duotone ki-down fs-2 me-0"></i>
                             </a>
                         @endif
-                            
+
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
                                 {{-- <div class="menu-item px-5">
                                     <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Payments</div>
@@ -141,32 +141,32 @@
                                 <small>CRB</small>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
                                 href="#kt_credit_assement_tab">
                                 <small>Risk Assement</small>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
                                 href="#kt_customer_view_overview_loan_details">
                                 <small>Loan Info</small></a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
                                 data-bs-toggle="tab" href="#kt_customer_view_documents">
                                 <small>Uploads</small></a>
                         </li>
-                        
+
                         {{-- <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
                                 data-bs-toggle="tab" href="#kt_customer_view_activity">Activity Log</a>
                         </li> --}}
                     </ul>
-                    
+
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="kt_customer_view_overview_tab" role="tabpanel">
                             <div class="card pt-4 mb-6 mb-xl-9">
@@ -175,7 +175,7 @@
                                         <h4 class="fw-bold mb-0">CRB </h4>
                                     </div>
                                 </div> --}}
-                                
+
                                 <div id="kt_customer_view_payment_method" class="card-body pt-0">
                                     <div class="py-0" data-kt-customer-payment-method="row">
                                         <div id="kt_customer_view_payment_method_1"
@@ -225,7 +225,7 @@
                                                             Invalid report reason
                                                         @break
                                                         @default
-                                                            
+
                                                     @endswitch
                                                 </h6>
                                             </div>
@@ -258,7 +258,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tab-pane fade" id="kt_credit_assement_tab"
                             role="tabpanel">
                             <div class="card pt-4 mb-6 mb-xl-9">
@@ -267,7 +267,7 @@
                                         <h4 class="fw-bold mb-0">Risk Assement</h4>
                                     </div>
                                 </div> --}}
-                                
+
                                 <div id="kt_customer_view_payment_method" class="card-body pt-0">
                                     <div class="py-0" data-kt-customer-payment-method="row">
                                         <div id="kt_customer_view_payment_method_1"
@@ -278,17 +278,17 @@
                                                     <span>Debt Ratio</span>
                                                     <input type="number" class="form-control" wire:model.defer="debt_ratio" placeholder="{{$debt_ratio}}" id="amo2">
                                                 </div>
-                                                
+
                                                 <div class="w-full">
                                                     <span>Gross Pay</span>
                                                     <input type="number" class="form-control" wire:model.defer="gross_pay" placeholder="{{$gross_pay}}" id="amo3">
                                                 </div>
-                                                
+
                                                 <div class="w-full">
                                                     <span>Net Pay</span>
                                                     <input type="number" class="form-control" wire:model.defer="net_pay" placeholder="{{$net_pay}}" id="amo4">
                                                 </div>
-                                                
+
                                                 <div class="w-full">
                                                     <span>Results</span>
                                                     <input type="number" disabled class="form-control" wire:model.defer="result_amount" placeholder="{{$result_amount}}" id="amo6">
@@ -297,7 +297,7 @@
                                             <button wire:click="checkRisk()" class="btn btn-sm btn-primary">Check</button>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -341,7 +341,7 @@
                                                                                 <small class="text-white bg-success p-2 rounded">{{ 'Completed' }}</small>
                                                                             @else
                                                                                 <small class="text-white bg-danger p-2 rounded">{{ 'Incomplete' }}</small>
-                                                                            @endif        
+                                                                            @endif
                                                                         </small>
                                                                     </td>
                                                                 </tr>
@@ -350,7 +350,7 @@
                                                                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                                     <td class="text-gray-800">
                                                                         <small class="text-dark d-block fw-bold mt-2">
-                                                                                {{ $loan->created_at->toFormattedDateString() }}      
+                                                                                {{ $loan->created_at->toFormattedDateString() }}
                                                                         </small>
                                                                     </td>
                                                                 </tr>
@@ -368,7 +368,7 @@
                                                 <h4 class="fw-bold mb-0">Repayment Methods</h4>
                                             </div>
                                         </div>
-                                        
+
                                         <div id="kt_customer_view_payment_method" class="card-body pt-0">
                                             <div class="py-0" data-kt-customer-payment-method="row">
                                                 <div id="kt_customer_view_payment_method_1"
@@ -425,7 +425,7 @@
                                             </i>Download Report</button>
                                     </div>
                                 </div> --}}
-                                
+
                                 <div class="card-body py-0">
 
                                     <div class="row g-6 g-xl-9 mb-6 mb-xl-9">
@@ -436,10 +436,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">NRC uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">NRC uploaded on
+                                                            {{
                                                                 $loan->user->uploads != null ?
-                                                                $loan->user->uploads->where('name', 'nrc_file')->first()->created_at->toFormattedDateString() : '' 
+                                                                $loan->user->uploads->where('name', 'nrc_file')->first()->created_at->toFormattedDateString() : ''
                                                             }}
                                                         </p>
                                                     </div>
@@ -449,10 +449,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Tpin uploaded on 
-                                                            {{ 
-                                                                $loan->user->uploads != null ? 
-                                                                $loan->user->uploads->where('name', 'tpin_file')->first()->created_at->toFormattedDateString() : '' 
+                                                        <p class="file-list">Tpin uploaded on
+                                                            {{
+                                                                $loan->user->uploads != null ?
+                                                                $loan->user->uploads->where('name', 'tpin_file')->first()->created_at->toFormattedDateString() : ''
                                                             }}
                                                         </p>
                                                     </div>
@@ -464,10 +464,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'preapproval')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Preapproval uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">Preapproval uploaded on
+                                                            {{
                                                                 $loan->user->uploads != null ?
-                                                                $loan->user->uploads->where('name', 'preapproval')->first()->created_at->toFormattedDateString() :'' 
+                                                                $loan->user->uploads->where('name', 'preapproval')->first()->created_at->toFormattedDateString() :''
                                                             }}</p>
                                                     </div>
                                                 @endif
@@ -476,10 +476,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'letterofintro')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Letter of Introduction uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">Letter of Introduction uploaded on
+                                                            {{
                                                             $loan->user->uploads != null ?
-                                                            $loan->user->uploads->where('name', 'letterofintro')->first()->created_at->toFormattedDateString() : '' 
+                                                            $loan->user->uploads->where('name', 'letterofintro')->first()->created_at->toFormattedDateString() : ''
                                                         }}</p>
                                                     </div>
                                                 @endif
@@ -490,10 +490,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'bankstatement')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Bank Statement uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">Bank Statement uploaded on
+                                                            {{
                                                                 $loan->user->uploads != null ?
-                                                                $loan->user->uploads->where('name', 'bankstatement')->first()->created_at->toFormattedDateString() : '' 
+                                                                $loan->user->uploads->where('name', 'bankstatement')->first()->created_at->toFormattedDateString() : ''
                                                             }}
                                                         </p>
                                                     </div>
@@ -503,7 +503,7 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'payslip_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Payslip uploaded on {{ 
+                                                        <p class="file-list">Payslip uploaded on {{
                                                         $loan->user->uploads != null ?
                                                         $loan->user->uploads->where('name', 'payslip_file')->first()->created_at->toFormattedDateString() :''
                                                         }}</p>
@@ -514,10 +514,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'passport')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Passport Size photo uploaded on 
-                                                            {{ 
-                                                                $loan->user->uploads != null ? 
-                                                                $loan->user->uploads->where('name', 'passport')->first()->created_at->toFormattedDateString() : '' 
+                                                        <p class="file-list">Passport Size photo uploaded on
+                                                            {{
+                                                                $loan->user->uploads != null ?
+                                                                $loan->user->uploads->where('name', 'passport')->first()->created_at->toFormattedDateString() : ''
                                                             }}</p>
                                                     </div>
                                                 @endif
@@ -525,7 +525,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <!--end:::Tab pane-->

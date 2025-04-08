@@ -40,12 +40,12 @@
         <div
             class="container-xxl py-6 py-lg-0 d-flex flex-column flex-lg-row align-items-lg-stretch justify-content-lg-between">
             <!--begin::Page title-->
-            <div class="page-title d-flex justify-content-center flex-column me-5">
+            <div class="page-title flex row d-flex justify-content-between space-x-4 flex-column me-6">
                 <!--begin::Title-->
-                <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">Dashboard</h1>
+                {{-- <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">Dashboard</h1> --}}
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-2 mt-4 ml-6">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
                         <a href="{{ route('home') }}" class="text-muted text-hover-primary">Home</a>
@@ -70,6 +70,7 @@
                     </li>
                     <!--end::Item-->
                 </ul>
+
                 <!--end::Breadcrumb-->
             </div>
             <!--end::Page title-->

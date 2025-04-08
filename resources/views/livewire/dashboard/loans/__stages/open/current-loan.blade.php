@@ -10,7 +10,7 @@
                                 <div class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">
                                     <h1 class="text-primary font-bold">Open</h1>
                                 </div>
-                                
+
                                 <div class="symbol symbol-100px symbol-circle mb-7">
                                     @if ($loan->user->profile_photo_path)
                                         <img src="{{ '../public/'.Storage::url($loan->user->profile_photo_path) }}" alt=""/>
@@ -21,7 +21,7 @@
                                 <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">
                                     {{ $loan->user->fname.' '.$loan->user->lname }}
                                 </a>
-                                
+
                                 <div class="fs-5 fw-semibold text-muted mb-6">{{ $loan->user->occupation }}</div>
 
                                 <div class="d-flex flex-wrap flex-center">
@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-lg-4 bg-info text-white border border-gray-300 border-dashed rounded py-3 px-3 mx-4 m-3">
                                             <div class="fs-4 fw-bold text-gray-700">
-                                                <span class="w-50px text-white">K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</span>
+                                                <span class="w-50px text-white">K {{ App\Models\Application::payback($loan) }}</span>
                                                 <i class="ki-duotone ki-usd fs-3 text-danger">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex flex-stack fs-4 py-3">
                                 <div class="fw-bold rotate collapsible" data-bs-toggle="collapse"
                                     href="#kt_customer_view_details" role="button" aria-expanded="false"
@@ -103,12 +103,12 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="flex-lg-row-fluid ms-lg-15">
                     <div class="float-end">
-                        
+
                         @if ($this->my_review_status($loan->id) == 1)
                             <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click"
                                 data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Action
@@ -120,7 +120,7 @@
                                 <i class="ki-duotone ki-down fs-2 me-0"></i>
                             </a>
                         @endif
-                            
+
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
                                 {{-- <div class="menu-item px-5">
                                     <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Payments</div>
@@ -141,29 +141,29 @@
                             <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
                                 href="#kt_customer_view_overview_tab">Overview</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
                                 href="#kt_customer_view_overview_loan_details">Loan Details</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
                                 data-bs-toggle="tab" href="#kt_customer_view_documents">Documents</a>
                         </li>
-                        
+
                         {{-- <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
                                 data-bs-toggle="tab" href="#kt_customer_view_activity">Activity Log</a>
                         </li> --}}
                     </ul>
-                    
+
                     <div class="tab-content" id="myTabContent">
                         <!--begin:::Tab pane-->
                         <div class="tab-pane fade show active" id="kt_customer_view_overview_tab"
                             role="tabpanel">
                             <!--begin::Card-->
-                            
+
                             <div class="card pt-4 mb-6 mb-xl-9">
                                 <!--begin::Card header-->
                                 <div class="card-header border-0">
@@ -231,7 +231,7 @@
                                                         <!--end::Menu-->
                                                     </td>
                                                 </tr>
-                                            @empty  
+                                            @empty
                                             @endforelse
                                         </tbody>
                                         <!--end::Table body-->
@@ -268,7 +268,7 @@
                                     <!--begin::Option-->
                                     <div class="py-0" data-kt-customer-payment-method="row">
                                         <!--begin::Header-->
-                                        
+
                                         <!--end::Header-->
                                         <!--begin::Body-->
                                         <div id="kt_customer_view_payment_method_1"
@@ -299,14 +299,14 @@
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
-                                                
+
                                                 <!--end::Col-->
                                             </div>
                                             <!--end::Details-->
                                         </div>
                                         <!--end::Body-->
                                     </div>
-                                    
+
                                 </div>
                                 <!--end::Card body-->
                             </div>
@@ -382,43 +382,43 @@
                                                             class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">
                                                             Quick Actions</div>
                                                     </div>
-                                                    
+
                                                     <div class="separator mb-3 opacity-75"></div>
-                                                
+
                                                     <div class="menu-item px-3">
                                                         <a href="#" class="menu-link px-3">
                                                             New Ticket
                                                         </a>
                                                     </div>
-                                                    
+
                                                     <div class="menu-item px-3">
                                                         <a href="#" class="menu-link px-3">
                                                             New Customer
                                                         </a>
                                                     </div>
-                                                    
+
                                                     <div class="menu-item px-3" data-kt-menu-trigger="hover"
                                                         data-kt-menu-placement="right-start">
-                                                        
+
                                                         <a href="#" class="menu-link px-3">
                                                             <span class="menu-title">New Group</span>
                                                             <span class="menu-arrow"></span>
                                                         </a>
-                                                        
+
                                                         <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                                        
+
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     Admin Group
                                                                 </a>
                                                             </div>
-                                                            
+
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     Staff Group
                                                                 </a>
                                                             </div>
-                                                            
+
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     Member Group
@@ -426,15 +426,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="menu-item px-3">
                                                         <a href="#" class="menu-link px-3">
                                                             New Contact
                                                         </a>
                                                     </div>
-                                                
+
                                                     <div class="separator mt-3 opacity-75"></div>
-                                                
+
                                                     <div class="menu-item px-3">
                                                         <div class="menu-content px-3 py-3">
                                                             <a class="btn btn-primary  btn-sm px-4"
@@ -444,10 +444,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        
+
                                         <div class="card-body pt-2">
                                             <div class="d-flex align-items-center mb-7">
                                                 {{-- <div class="symbol symbol-50px me-5">
@@ -460,12 +460,12 @@
                                                     <span class="text-muted d-block fw-bold">ZMW {{ $loan->amount }}</span>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="d-flex align-items-center mb-7">
                                                 {{-- <div class="symbol symbol-50px me-5">
                                                     <img src="{{ asset('public/mfs/admin/assets/avatars/blank.png') }}" class="" alt="">
                                                 </div> --}}
-                                                
+
                                                 <div class="flex-grow-1">
                                                     <a href="#" class="text-gray-900 fw-bold text-hover-primary fs-6">
                                                         KYC information
@@ -475,7 +475,7 @@
                                                             <span class="text-white bg-success p-2 rounded">{{ 'Completed' }}</span>
                                                         @else
                                                             <span class="text-primary bg-danger p-2 rounded">{{ 'Incomplete' }}</span>
-                                                        @endif        
+                                                        @endif
                                                     </span>
                                                 </div>
                                             </div>
@@ -510,7 +510,7 @@
                                             </i>Download Report</button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card-body py-0">
 
                                     <div class="row g-6 g-xl-9 mb-6 mb-xl-9">
@@ -521,10 +521,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">NRC uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">NRC uploaded on
+                                                            {{
                                                                 $loan->user->uploads != null ?
-                                                                $loan->user->uploads->where('name', 'nrc_file')->first()->created_at->toFormattedDateString() : '' 
+                                                                $loan->user->uploads->where('name', 'nrc_file')->first()->created_at->toFormattedDateString() : ''
                                                             }}
                                                         </p>
                                                     </div>
@@ -534,10 +534,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Tpin uploaded on 
-                                                            {{ 
-                                                                $loan->user->uploads != null ? 
-                                                                $loan->user->uploads->where('name', 'tpin_file')->first()->created_at->toFormattedDateString() : '' 
+                                                        <p class="file-list">Tpin uploaded on
+                                                            {{
+                                                                $loan->user->uploads != null ?
+                                                                $loan->user->uploads->where('name', 'tpin_file')->first()->created_at->toFormattedDateString() : ''
                                                             }}
                                                         </p>
                                                     </div>
@@ -549,10 +549,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'preapproval')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Preapproval uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">Preapproval uploaded on
+                                                            {{
                                                                 $loan->user->uploads != null ?
-                                                                $loan->user->uploads->where('name', 'preapproval')->first()->created_at->toFormattedDateString() :'' 
+                                                                $loan->user->uploads->where('name', 'preapproval')->first()->created_at->toFormattedDateString() :''
                                                             }}</p>
                                                     </div>
                                                 @endif
@@ -561,10 +561,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'letterofintro')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Letter of Introduction uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">Letter of Introduction uploaded on
+                                                            {{
                                                             $loan->user->uploads != null ?
-                                                            $loan->user->uploads->where('name', 'letterofintro')->first()->created_at->toFormattedDateString() : '' 
+                                                            $loan->user->uploads->where('name', 'letterofintro')->first()->created_at->toFormattedDateString() : ''
                                                         }}</p>
                                                     </div>
                                                 @endif
@@ -575,10 +575,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'bankstatement')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Bank Statement uploaded on 
-                                                            {{ 
+                                                        <p class="file-list">Bank Statement uploaded on
+                                                            {{
                                                                 $loan->user->uploads != null ?
-                                                                $loan->user->uploads->where('name', 'bankstatement')->first()->created_at->toFormattedDateString() : '' 
+                                                                $loan->user->uploads->where('name', 'bankstatement')->first()->created_at->toFormattedDateString() : ''
                                                             }}
                                                         </p>
                                                     </div>
@@ -588,7 +588,7 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'payslip_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Payslip uploaded on {{ 
+                                                        <p class="file-list">Payslip uploaded on {{
                                                         $loan->user->uploads != null ?
                                                         $loan->user->uploads->where('name', 'payslip_file')->first()->created_at->toFormattedDateString() :''
                                                         }}</p>
@@ -599,10 +599,10 @@
                                                         <a href="{{ 'public/'.Storage::url($loan->user->uploads->where('name', 'passport')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                                                             <img width="90" src="{{ asset('public/mfs/admin/assets/media/svg/files/pdf.svg') }}">
                                                         </a>
-                                                        <p class="file-list">Passport Size photo uploaded on 
-                                                            {{ 
-                                                                $loan->user->uploads != null ? 
-                                                                $loan->user->uploads->where('name', 'passport')->first()->created_at->toFormattedDateString() : '' 
+                                                        <p class="file-list">Passport Size photo uploaded on
+                                                            {{
+                                                                $loan->user->uploads != null ?
+                                                                $loan->user->uploads->where('name', 'passport')->first()->created_at->toFormattedDateString() : ''
                                                             }}</p>
                                                     </div>
                                                 @endif
@@ -610,7 +610,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="kt_customer_view_activity" role="tabpanel">

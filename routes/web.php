@@ -104,7 +104,7 @@ use Illuminate\Support\Facades\Route;
 //     Artisan::call('storage:link');
 // });
 Route::get('/', function () {
-  return redirect()->route('login');
+    return redirect()->route('login');
 })->name('home');
 Route::get('/welcome', function () {
     return redirect()->route('login');
@@ -117,7 +117,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('otp-verification', [OTPController::class, 'index'])->name('otp');
     Route::get('/dashboard', DashboardView::class)->name('dashboard');
     Route::get('/search', SearchEngineView::class)->name('search');
-    // Administrator
+
+    // ---- Administrator
     Route::get('view-all-loans', LoanViewAllView::class)->name('loans');
     Route::get('open-loans', ApprovedLoansView::class)->name('approved-loans');
     Route::get('due-loans', ApprovedLoansView::class)->name('due-loans');
@@ -127,7 +128,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('track-repayments/{id}', LoanTrackingView::class)->name('track-repayments');
     Route::get('closed-loans', ClosedLoanView::class)->name('closed-loans');
     Route::get('edit-loan-details/{id}', UpdateLoanView::class)->name('edit-loan');
-    Route::get('new-loan', CreateLoanView::class)->name('proxy-loan-create');
+    Route::get('new-loan', CreateLoanView::class)->name('create.loan');
     Route::get('withdraw-requests', WithdrawRequestView::class)->name('withdraw-requests');
     Route::get('client-loan-history', LoanHistoryView::class)->name('view-loan-history');
     Route::get('loan-rates', LoanRatesView::class)->name('view-loan-rates');
@@ -230,7 +231,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // ------- Loan Continue Completion
     Route::post('continue-loan', [LoanApplicationController::class, 'continue_loan'])->name('continue-loan');
-
 });
 
 // Route::resource('posts', PostController::class);

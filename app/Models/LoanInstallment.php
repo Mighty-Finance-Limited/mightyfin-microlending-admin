@@ -10,12 +10,20 @@ class LoanInstallment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'loan_id', 
-        'next_dates', 
-        'type', //manual or auto
-        'paid_at', 
+        'loan_id',
+        'txn_id',
+        'next_dates',
+        'type', // manual or auto
+        'paid_at',
+        'penalty',
+        'is_cleared',
         'payment_method',
-        'amount'
+        'amount',
+        'due_date',
+        'principal',
+        'interest',
+        'remaining_balance',
+        'status'
     ];
 
     public function loans(){

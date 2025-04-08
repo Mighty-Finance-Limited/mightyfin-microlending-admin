@@ -33,7 +33,7 @@
                             </svg>
                         </div>
                         <div class="loan-metric-content">
-                            <span class="loan-metric-value">ZMW {{ $loan->amount}}</span>
+                            <span class="loan-metric-value">ZMW {{ number_format($loan->amount, 2, '.', ',') }}</span>
                             <span class="loan-metric-label">Principal Amount</span>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             </svg>
                         </div>
                         <div class="loan-metric-content">
-                            <span class="loan-metric-value">K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</span>
+                            <span class="loan-metric-value">K {{ number_format(App\Models\Application::payback($loan),2,'.',',') }}</span>
                             <span class="loan-metric-label">Total Repayment</span>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                             </svg>
                         </div>
                         <div class="loan-metric-content">
-                            <span class="loan-metric-value">K {{ App\Models\Application::monthly_installment($loan->amount, $loan->repayment_plan) }}</span>
+                            <span class="loan-metric-value">K {{ number_format(App\Models\Application::monthInstallment($loan),2,'.',',') }}</span>
                             <span class="loan-metric-label">Monthly Repayment</span>
                         </div>
                     </div>
