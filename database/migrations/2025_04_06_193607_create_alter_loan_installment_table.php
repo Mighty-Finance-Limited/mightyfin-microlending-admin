@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('loan_installments', function (Blueprint $table) {
-            $table->string('application_id')->nullable();
-        });
+        if (!Schema::hasColumn('loan_installments', 'application_id')) {
+            Schema::table('loan_installments', function (Blueprint $table) {
+                $table->integer('application_id')->nullable();
+            });
+        }
     }
 
     /**
