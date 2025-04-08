@@ -127,7 +127,8 @@ trait LoanTrait{
     public function getOpenLoanRequests($type){
         $userId = auth()->user()->id;
         if(auth()->user()->hasRole('admin')){
-            return Application::with('loan_product')->where('complete', 1)->where('status', 1)->get();
+            $app = Application::with('loan_product')->where('complete', 1)->where('status', 1)->get();
+            return $app;
         }else{
             switch ($type) {
                 case 'spooling':

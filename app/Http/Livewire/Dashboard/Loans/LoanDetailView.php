@@ -240,6 +240,7 @@ class LoanDetailView extends Component
     {
         try {
             $application->status = 1;
+            $application->complete = 1;
             $application->save();
 
             // Enter statement entry
