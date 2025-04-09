@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         User::create([
             'fname' => 'Mighty',
             'lname' => 'Finance',
-            'email' => 'info@mightyfinance.co.zm',
-            'password' => bcrypt('@mighty.@2022'),
+            'email' => 'admin@mightyfinance.co.zm',
+            'password' => bcrypt('@mighty.@2025'),
         ])->assignRole('admin');
     }
 }

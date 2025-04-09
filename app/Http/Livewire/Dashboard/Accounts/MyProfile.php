@@ -13,6 +13,6 @@ class MyProfile extends Component
         $this->data = User::where('id', auth()->user()->id)
         ->with('loans')->with('wallet')->with('blacklist')->get()->first();
         return view('livewire.dashboard.accounts.my-profile')
-        ->layout('layouts.dashboard');
+        ->layout('layouts.admin');
     }
 }
