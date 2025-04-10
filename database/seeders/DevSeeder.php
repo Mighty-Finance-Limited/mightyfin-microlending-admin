@@ -15,7 +15,6 @@ class DevSeeder extends Seeder
      */
     public function run()
     {
-
         User::create([
             'fname' => 'John',
             'lname' => 'Doe',
@@ -25,5 +24,14 @@ class DevSeeder extends Seeder
             'opt_verified' => 1,
             'password' => bcrypt('mighty4you'),
         ])->assignRole('user');
+        User::create([
+            'fname' => 'Dev',
+            'lname' => 'Mode',
+            'email' => 'dev@gmail.com',
+            'phone' => '0772327900',
+            'opt_code' => '77777',
+            'opt_verified' => 1,
+            'password' => bcrypt('mighty4you'),
+        ])->assignRole('admin');
     }
 }
