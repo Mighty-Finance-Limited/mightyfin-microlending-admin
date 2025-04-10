@@ -9,6 +9,7 @@ use App\Http\Controllers\LoanApplicationController;
 use App\Http\Controllers\LoanProductController;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +87,18 @@ Route::get('/v2/payback', function (Request $request) {
     return response()->json(['payback' => $paybackAmount]);
 });
 
+
+//loan_monthly_installment
+Route::get('/v2/monthly', function (Request $request) {
+    $id = $request->query('loan');
+    Log::info('Data is: ' . $id);
+    $loan = Application::where('id', $id)->first();
+    if (!$loan) {
+        return response()->json(['error' => 'Missing required parameters loan'], 400);
+    }
+    $paybackInstall = Application::monthInstallment($loan);
+    return response()->json(['month' => $paybackInstall]);
+});
 
 //loan_repayment_schedule
 Route::get('/v2/loan-repayment-schedule', function (Request $request) {
