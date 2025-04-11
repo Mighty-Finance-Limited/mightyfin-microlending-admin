@@ -10,7 +10,7 @@
                     <span class="loan-tab-text">CRB Checks & Assessments</span>
                 </div> --}}
 
-                <div class="loan-tab" data-bs-toggle="tab" href="#kt_customer_view_overview_risk">
+                <div class="loan-tab active" data-bs-toggle="tab" href="#kt_customer_view_overview_risk">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
                         <polygon points="12 2 22 20 2 20"></polygon>
                         <line x1="12" y1="9" x2="12" y2="13"></line>

@@ -32,7 +32,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+    background: linear-gradient(135deg, #6a3093 0%, #8E54E9 100%);
     color: white;
     border: none;
     border-radius: 0.5rem;
@@ -186,16 +186,16 @@
 }
 
 .loan-tab.active {
-    color: #4776E6;
+    color: #6a3093;
 }
 
 .loan-tab.active::after {
-    background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+    background: linear-gradient(90deg, #6a3093 0%, #8E54E9 100%);
     transform: scaleX(1);
 }
 
 .loan-tab:hover {
-    color: #4776E6;
+    color: #6a3093;
 }
 
 .loan-tab-icon {

@@ -99,7 +99,7 @@ class Application extends Model
         return User::where('id', $this->processed_by)->first();
     }
 
-    
+
     public function getLoanNumberAttribute()
     {
         return str_pad($this->id, 6, '0', STR_PAD_LEFT);
@@ -247,80 +247,29 @@ class Application extends Model
     }
 
 
-    // Deprecating
-    public static function interest_amount($principal, $duration)
-    {
-        // 1 month
-        if ($duration == 1) {
-            $interest = ($principal * 0.21);
-            return number_format($interest, 2, '.', '');
-        }
+    public static function paybackStatement($loan_id){
+        try {
+            $instance = new self();
+            $schedule = $instance->loanStatement($loan_id);
+            $statement = [];
+            foreach ($schedule as $i => $entry) {
+                $statement[] = (object) [
+                    'id' => $entry['id'],
+                    'payment_date' => $entry['created_at'],
+                    'description' => $entry['description'],
+                    'debit' => $entry['debit'], // No new loan charges
+                    'credit' => $entry['credit'], // Total installment paid
+                    'principal_paid' => 0,
+                    'interest_paid' => 0,
+                    'balance_after_payment' => $entry['balance'],
+                    'payment_method' => "Bank Transfer", // Example, can be dynamic
+                ];
+            }
 
-        // 2 months
-        if ($duration == 2) {
-            $interest = ($principal * 1.2 *  1.1) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
+            return $statement;
 
-        // 3 months
-        if ($duration == 3) {
-            $interest = ($principal * 1.2 * 1.15) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 4 months
-        if ($duration == 4) {
-            $interest = ($principal * 1.2 * 1.2) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 5 months
-        if ($duration == 5) {
-            $interest = ($principal * 1.2 * 1.25) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 6 months
-        if ($duration == 6) {
-            $interest = ($principal * 1.2 * 1.3) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-
-        // 7 months
-        if ($duration == 7) {
-            $interest = ($principal * 1.2 * 1.35) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 8 months
-        if ($duration == 8) {
-            $interest = ($principal * 1.2 * 1.4) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 9 months
-        if ($duration == 9) {
-            $interest = ($principal * 1.2 * 1.45) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 10 months
-        if ($duration == 10) {
-            $interest = ($principal * 1.2 * 1.5) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 11 months
-        if ($duration == 11) {
-            $interest = ($principal * 1.2 * 1.55) - $principal;
-            return number_format($interest, 2, '.', '');
-        }
-
-        // 12 months
-        if ($duration == 12) {
-            $interest = ($principal * 1.2 * 1.6) - $principal;
-            return number_format($interest, 2, '.', '');
+        } catch (\Throwable $th) {
+            return [];
         }
     }
 
@@ -426,5 +375,37 @@ class Application extends Model
             'credit_score' => $credit_score
         ];
         return $data;
+    }
+
+    public static function loanPaidSofar($application_id)
+    {
+        try {
+            $loan = Application::where('id', $application_id)->first();
+            if ($loan !== null && $loan->status == 1) {
+                $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
+                return (float)$paid;
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    public static function loanBalance($application_id)
+    {
+        try {
+            $loan = Application::where('id', $application_id)->first();
+            if ($loan !== null && $loan->status == 1) {
+                $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
+                $payback = (string) Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan);
+
+                return (float) bcsub($payback, $paid, 2);
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 }

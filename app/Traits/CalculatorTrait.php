@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\LoanBalanceStatement;
 use App\Models\LoanInstallment;
 use App\Models\LoanProduct;
 use App\Models\UserFile;
@@ -382,5 +383,10 @@ trait CalculatorTrait
                 'trace' => $th->getTraceAsString()
             ];
         }
+    }
+
+    public function loanStatement($id)
+    {
+        return LoanBalanceStatement::where('loan_id', $id)->get();
     }
 }
