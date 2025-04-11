@@ -957,7 +957,7 @@
         }
     </style>
     <?php include 'public/web/components/preloader.php' ?>
-    @include('layouts.menu')
+    {{-- @include('layouts.menu') --}}
 
     @livewireStyles
 
