@@ -212,10 +212,10 @@
                         <a href="#" class="shadow-sm card border-hover-success h-100 rounded-3">
                             <div class="card-body p-9">
                                 <div class="d-flex flex-column">
-                                    <div class="mb-2 d-flex align-items-center">
+                                    {{-- <div class="mb-2 d-flex align-items-center">
                                         <span class="badge badge-light-success fs-7 fw-bold me-2">COMPLETED</span>
                                         <span class="text-gray-500 fs-7">Last Payment: Feb 28, 2025</span>
-                                    </div>
+                                    </div> --}}
                                     <p class="mt-1 text-gray-800 fw-bold fs-3 mb-7">Interest & Fees</p>
                                     <div class="flex-wrap mb-5 d-flex">
                                         <div class="px-3 py-2 mb-2 border border-gray-300 border-dashed rounded me-3">
