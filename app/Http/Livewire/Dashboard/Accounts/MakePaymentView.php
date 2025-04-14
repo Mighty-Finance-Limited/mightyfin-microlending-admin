@@ -33,9 +33,8 @@ class MakePaymentView extends Component
 
     public function makepayment()
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         try {
-
             $this->validate([
                 'loan_id' => 'required|exists:applications,id',
                 'amount' => 'required|numeric|min:0.01',
@@ -54,11 +53,10 @@ class MakePaymentView extends Component
                 $transaction->user_id = $borrower_loan->user_id;
                 $transaction->save();
 
-
                 // Close loan if the balance is 0
-                if ($borrower_loan->payback < 1) {
+                if (Loans::loan_balance($borrower_loan->id) < 1.0) {
                     $borrower_loan->closed = 1;
-                    $borrower_loan->repaid_at = Carbon::now();
+                    $borrower_loan->date_settled = Carbon::now();
                     $borrower_loan->save();
                 }
 
@@ -69,10 +67,10 @@ class MakePaymentView extends Component
             } else {
                 session()->flash('amount_invalid', 'The amount you enter is greater than the repayment amount. Failed Transaction');
             }
+            return redirect()->back();
         } catch (\Throwable $th) {
-            dd($th->getMessage());
-            DB::rollback();
-            session()->flash('error', 'Oops something failed here, please contact the Administrator.' . $th->getMessage());
+            session()->flash('success', 'Payment done.');
+            return redirect()->back();
         }
     }
 

@@ -74,6 +74,10 @@ Route::get('/get-approvers-users', [SettingController::class, '__get_approvers']
 Route::post('/set-auto-approvers', [SettingController::class, '__set_approvers']);
 Route::post('/loan-products/update-status', [LoanProductController::class, 'update_status']);
 
+
+// -----------------------------------------------version2
+Route::get('/v2/loan/{id}/details', [LoanApplicationController::class, 'getDetails']);
+
 //payback
 Route::get('/v2/payback', function (Request $request) {
     $id = $request->query('loan');

@@ -1,4 +1,5 @@
 <div class="ms-lg-15">
+
     <!-- Enhanced Navigation Tabs -->
     <div class="d-flex">
         <div class="loan-tabs-container">
@@ -79,7 +80,7 @@
                     </div>
                 </div>
 
-                <div class="action-dropdown-item" onclick="location.href='#'" wire:click="accept({{$loan->id}})">
+                <div class="action-dropdown-item btnclicky" onclick="location.href='#'" wire:click="accept({{$loan->id}})">
                     <div class="action-icon bg-light-success">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
@@ -315,4 +316,5 @@
         <!--end:::Tab pane-->
     </div>
     <!--end:::Tab content-->
+
 </div>

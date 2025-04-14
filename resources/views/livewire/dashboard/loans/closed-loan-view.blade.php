@@ -19,8 +19,6 @@
                         <div id="pm_table_print_view" class="table-responsive patient">
                             <div wire:ignore class="actions-btns col-xl-12">
                                 <div class="alert alert-dark alert-dismissible fade show">
-                                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="btn-close"><span><i class="fa-solid fa-xmark"></i></span>
-                                    </button>
                                     <div class="media">
                                         <div class="media-body">
                                             <small class="mb-0">List of loan which have been paid back & closed.</small>
@@ -28,20 +26,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div wire:ignore  class="actions-btns row py-2">
-                                @can('accept and reject loan requests')
-                                {{-- <div class="col-xl-3 center">
-                                    <select multiple wire:model.lazy="type" class="default-select form-control wide mt-3" aria-placeholder="Loan" placeholder="Loan Types">
-                                        <option value="Personal">Personal</option>
-                                        <option value="Education">Education</option>
-                                        <option value="Asset Financing">Asset Financing</option>
-                                        <option value="Home Improvement">Home Improvements</option>
-                                        <option value="Agri Business">Agri Business</option>
-                                        <option value="Women in Business (Femiprise) Soft">Women in Business</option>
-                                    </select>
-                                </div> --}}
-                                @endcan
-                            </div>
+
                             <table wire:ignore.self wire:poll.1000000ms id="example3" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                                 <thead>
                                     <tr class="fw-bold text-muted">
@@ -59,39 +44,32 @@
                                 <tbody style="top:0; padding-bottom:20px">
 
                                     @forelse($loan_requests as $loan)
-                                        @if($loan->application->type != null)
+
                                         <tr>
-                                            <td style="">#{{ $loan->application->id }}</td>
-                                            <td style="">{{ $loan->application->fname.' '. $loan->application->lname }}</td>
-                                            <td style="">{{ $loan->application->type }} Loan</td>
-                                            <td style="">K{{ $loan->application->amount }}</td>
-                                            <td style="">K{{ App\Models\Application::payback($loan) }}</td>
-                                            <td style="">K{{ App\Models\Loans::loan_settled($loan->application->id) }}</td>
+                                            <td style=""><b>#M{{ $loan->loan_number }}</b></td>
+                                            <td style="">{{ $loan->user->fname.' '. $loan->user->lname }}</td>
+                                            <td style=""><b>{{ $loan->loan_product->name }} Loan</b></td>
+                                            <td style="">K{{ number_format($loan->amount, 2,'.',',') }}</td>
+                                            <td style="">K{{ number_format(App\Models\Application::payback($loan),2,'.',',') }}</td>
+                                            <td style=""><b>K{{ number_format(App\Models\Loans::loan_settled($loan->id),2,'.',',') }}</b></td>
                                             <td>
-                                                <span class="badge badge-sm light badge-success">
-                                                    <i class="fa fa-circle text-info me-1"></i>
+                                                <span class="badge badge-sm light badge-info">
+                                                    <i class="fa fa-circle text-white me-1"></i>
                                                     Closed
                                                 </span>
                                             </td>
                                             <td style="">
-                                                @php
-                                                    $date_str = $loan->repaid_at;
-                                                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $date_str);
-                                                    echo $date->format('F j, Y, g:i a');
-                                                @endphp
+                                            {{ $loan->date_settled }}
                                             </td>
                                             <td class="actions-btns d-flex">
-                                                <div class="btn sharp btn-primary tp-btn ms-auto">
-                                                    <a href="{{ route('loan-details',['id' => $loan->application->id]) }}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                    <a class="btn" href="{{ route('detailed',['id' => $loan->id]) }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                                             <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                                                             <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                                                         </svg>
                                                     </a>
-                                                </div>
                                             </td>
                                         </tr>
-                                        @endif
                                     @empty
                                     <div class="intro-y col-span-12 md:col-span-6">
                                         <div class="box text-center">

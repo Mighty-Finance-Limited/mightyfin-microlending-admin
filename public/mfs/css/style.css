@@ -3,10 +3,10 @@
     Author: Qkit_
     Author Portfolio : https://themeforest.net/user/qkit_/portfolio
     Email: qkit.inc@gmail.com
-    Skype: sporsho9 
+    Skype: sporsho9
 
 
-    Table of Content: 
+    Table of Content:
 
     1. Abstract
     2. Bootstrap CSS
@@ -14,7 +14,7 @@
     4. Layout
     5. Component
     6. Pages
-    
+
 */
 /*!
  * Bootstrap v5.0.0-beta1 (https://getbootstrap.com/)
@@ -96,7 +96,7 @@ body {
   background-position: center;
   background-blend-mode: multiply;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
@@ -7635,7 +7635,7 @@ textarea.form-control-lg {
   line-height: 2 !important; }
 
 .bg-primary {
-  background-color: #613de6 !important; }
+  background-color: #6a3093 !important; }
 
 .bg-secondary {
   background-color: #eff2f7 !important; }
@@ -7644,7 +7644,7 @@ textarea.form-control-lg {
   background-color: #36b37e !important; }
 
 .bg-info {
-  background-color: #00b8d9 !important; }
+  background-color: #6a3093 !important; }
 
 .bg-warning {
   background-color: #ffab00 !important; }
@@ -9953,7 +9953,7 @@ textarea.form-control-lg {
 
 body.dashboard {
   /* background: #f6f9fc; */
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 #main-wrapper {
@@ -9997,7 +9997,7 @@ strong {
 
 /* Editable */
 @media (min-width: 1400px) {
-  
+
   .container-fluid,
   .container-sm,
   .container-md,
@@ -10097,7 +10097,7 @@ strong {
     -webkit-transform: translate3d(-60px, 0, 0); } }
 
 .section-padding {
-  padding:0; 
+  padding:0;
 }
   @media only screen and (max-width: 1199px) {
     .section-padding {

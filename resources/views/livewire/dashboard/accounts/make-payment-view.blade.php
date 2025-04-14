@@ -43,15 +43,15 @@
                 background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA8FBMVEXuHCf////uHCjvFyP//v/97e7ojJDuBBjfOEDSa3HtER7qEx/oDBvkio7pY2v///3QY2nhbnTvABb/+PnVUVjjkZX/9ffiT1XfABLkAA/xztLvoabfEh/cABXkX2Xilpv74+bfHyrrbHL3x8ngeH7vur3gfoPZISv85+neYmjqp6vaMDjmWmDWABP729/KNDzhLTXvtLfaPUXVSFDUKDHSWmHLOkLgJC/dAAHaPET1ur/2y87tm6DRKjTldHjaeHz2sbXpOELltbnlRlDbjJDVf4TQCRnjAADpVlzxoqbzkZbqx8njqq39ub7sgYbnQEmSnPoLAAAMq0lEQVR4nO2d+2PathbHsWUHYotRSjA22DxGeD9GIGuaQNO02brbu97u//9vriVLsmyMgbQYO9Nn+yElsdHXR4+jI+k4lxMIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCDgkc9dAMGPIMyXWYCGAeDcBTkFOrTMRe2y3/94+ebq3ragfu4S/Qxoa9Ph+0W51R0ODQlTUYfr1tSBr8OUQDPt6XhekcIo6rhgMkNmtusB0J5+G4bFlUrkh+7UybYdARx8r/tGC6r06uvNbYbbI8gPqm1emhKSh2lfWecu6Etx9akBXZwNS9xPlX42a6rWwfYrcdYK9jOc3pZ57tIeCNcdArPc3iEtimJWJCJkGXUwy/UR+lyDluG5y30gnhV1u7o9+sVjLEFGRkRkQHNa3y8pzDo79RTMNscaEDPKyrAIC8e1QMbcOXfRD8Msq6TEO4eJXVxnorMxW2yUO0Ygfhr1DLRE4PSOtBuPsUq9ZwM63eNMF6KvnVtBHDIR+COM355bRTzAufkxgdI65V2N2UClVPbJiAbX7Xkn1Q0Rll8ozmd4m2aFYLIVqdhlqp2fYoWpdU7Ng8YJ6gVU2uu/61u+XeU3kFp9OW0k7WuDzMdpt2q249Lpq8G/SLVCe+90t+QpNLplB+pubXT/tybBOUia2yHs7xPoYdysLDqsu+bSbod825wP0qvQnh8k8Oad6WtAFRJe879e2+dTsAetfIA8Zb2ywjYCA75299IbVYTRHWlgbGg/OhFup8VPJov55It+GEFLRGJsBpGrMG/HEuuDld9T63mDd/vcme79jlWmfIOz8l3C5T4UOadd7ZSGK6raf7+rk3zb8G3YTW8zjFGI6N2jOUP0WI5rKeHP9E4tdin0DHgdtyhh+X1UZZLe0TCmHSoPH2ItA9fsUfSs1LpsMuj4A35Q67BsxhoGIKdGUrDCVMdLSY/oeZ6+xkpjsqdp4frtXdBOdbgULNrMtWZK3R4GGVCOqXuy5Xc0RZjaSuoi68thaHZrdK8sNBeKK7YMbg1Wn1M7ryAK9A+BWP5wvLT0/dN1c8M63Yv0DhUEYF+vPYNU1uPyZMvHjrxmwqbA7RRPnBia+WE1Go1WH+y8dlhxTd9le4TpDdBwAHDUjjVQc41ewj1p18zK+igHK/DOztTs0kaYgRWLKLz1fJcdIzk3v6+mvpvZAYCLX4vV6rQTpREU2EjRQ4N95iopWs4vNDwR89H2yiCwWZytnWKXOw5gXqikmUnK41Y1pP1oyW2EaXZIdwPsHpGHfDijEPq1xcKP3E6a7FRU1MUsfB8HySxqgeLDEdvL17f46zKCW9IO78S5EhuBagprzJmpZmDxPgozvBpc5BRiP52wyZ5A3C1ykyIP457rLvVbFnxsZE8gbkpaM7xwxm+V0SZt2jozKBADOuFtbWMuTqjfs5BHprZc8mjhhagxF6CArA0qH7MqMPclFOMfc9EoeEV9NXWU3gDwHgILUaWgQPOaCpwvM+lty+5/wHzYZUFgbhSyv7s7OCDIkVK46BInEKnRbbSlCOkrtbK5Od+Dr6QlV2DOM607larNicAhaoJZtaDbl2y4uGLvPf0YzC6obXv74sRpxp3Xm0++Bbt4YR4Z0GJ79w10fCS7BnQVOr7PTaK8ci5/26BeTreQYQN6OL7TTaK8cNCno/wwo+d/Ajh+LZ1qqH7axTbdtDDOcgv0cNsXvCD6SlL/vWV2WkOJbq5sxi+1ZQUUQ6P78z5/qyvUtRlem9kd5APIZtRW4Xa1k/kKisAmwustbEjEa4nz4iCf5TE+jL4K7Ko0Hspf8q+iAfro9w/Ef1HaD9e3Zmq3Or0c4CzLj98fH8vTgakB+RXVTx+gaRBCttYmx63mC1LOv8d2/x6lAoFAIBAIBKnm9btlr1/hawe4E94D981mEzi5+Lq5HngBw9dWX5Eep4gjT8Z3vCVhZ8TiJ0g/w9NDcswijRw+xm4zlHPxxy/irtv+MUFAgW0QSnnehxcC6Lo2Cm8/xysEQIem6dwdYwpyzaczPjx/5b4kTeN3wy5qv44/zxXpzeFBYvlu+Uv1c70ijc4XWOb3JsQq1Js03H+4QvCJbhIrp0KhUYirSpD2SMoRCgv0qZQTO+m91YZAh202vIk9YscUHmNDpvDifApljS42zeN33fMKD+1rzqEwYkzSaz13yFefJvH9zE4bxgySSSqUY0qiO4XpdAJjkq/gLBgxtdS/MlgNErchwESUDOj6rhrKrthWGHoiEXdIUiEA0LEnz8/PhcEMRtgAnVzLhQutwVlnMZksOih1t6cQ9UgfLZjPB0vs3n3W+TJzQlOU5BQCOFtePM2HRsVQ2+tNc0aanCdIy1vObDAts/Qr3n5vczD6Wm8PXdrri3tAbViS6puLfv+ayxIBzMJFb+7S21wX+E0pSSnUzOUmkHJcWV9ZftqqzrQ4fpirisqfBNXM1Zhf0L/QsELuuDBz8YC16vp7Ng0vCUOiCvWr3nYq7o3NCrgiH6v+gA/gO3xNiWpSb4HfDr2n9Ey2vYHZJnj7ygUbV5NRqEfnzH2ixfCyRiglTiGwq0bwrxtWjleI3HTi4oEBPSLlw06aJKQwvPmelKZKDu+yvBhMoY5zXCncnyvvQC5kQ6nsKbSj0i3SExoJ1VKWYaeCYKWgh1u3FOorPj0duka5gTJR6FfIJlZocSlq/N8bgyQVAlhF3zmvjhb2e6fwByv+k8UUljiFgNsypN70n+/Mzh3qZf2+VO26jDv4adSYtPoffyLfyJM4NhNU6LaU4bC1Mr0TvW7HR79U/YLTQoRtqF1SJdJ4wr2og4yH7seXf1ku+ENzTSq98dGE0Fq12dNKUmEu93zrpUHCfpvZoC2x5im6UiIVui3V4nc8R3ltGjuJ6B1E1JYKeThevtbEFAY8NTwhxBofcSm036NtKEm/6Lk9ClkKnjnJtGR+Jnb2kiqdZW6R02oVorD4lineVljyFPpEKPQSR+BTpqTzhN+pZByYSVihl+4QaEvan1axwny0QrfgexX65q6RKaM2JR8Y7xJT6H0zgKZjLwou//ynSHf+xio8xIYW3m6LUtvc53VMHvWt+P44fVty7RAuyp/boXRQirTJxyiUkEJ+qhGh0GZnFz42CVX6ST+foEJ9UI1MMesdYI5TyN8lQmEnJqVk462cmELYJE5Nyfekf4pC8CGUpJXnM2oCySiEZdKzlEohB/mHFf4Wk48Qp8JMRKG+qux6D8DRCktHKOyaSSm0577l6t9HzdGIHUb/STZUUO7kOabO+HsDE1KIM+h6j1ot21DTtLdN+uSPU6j/ukOhy6bjYTMc3A8nodBk3d2QZAjEPg3ma1AhelnMCxX+F26F8fDu8AQU+l8h9emslCkMjYeV2rEKb72bl1yFoe8lm98TUKj9ztKQ0EgaeN7htR2v0B0PyXRwx4pHEgovJRJPqtPTu74NX6jQX3uC1Kf5+4wKUcIq/JzXNEXAD9vQV5in3XL7zl8SwBVUjlB4mlV87Q2tpfNdCrUX11LcBrz7N6NXdcCCuovo/R4nkQieaViw4rCPAgrlg234y5ZCf7ANJ/MmV+I80/gZfDvFG0zwI/NHC7cvxR2cL/pIG7KgU5XJ8b2AEZfe053K0PVylmWj+/5UZ8Ahmc6UpCHOWQ1AfsRK6imk/96jEDzTO6mrPCAB7w6thWrN9IZEoDnLjUrG1tyMpoJRrk52xm/gZ6gczVy+NOvYTS0xhVcHKuywrCfD8peZgy1Czw27EosDfPvCNYopSjd4hJThV3bNo3vNSRRit428NHTtoiokTdmxCnPQD/4q6vwBrT3JOcczEnpmqqq26yppAl4UQwY1hVpeUtf/m57EjpEnexG9DghkLN+nEGfjldjzevZ+S9JGbU1ext4AaAaSTvW1UzRGMIh8WZxanOGnHIjqo5FsVyTK7WumRkih+/f6si1FvN+k8l0j3467OoUpPAWgM2bPnvlw37z8D/L2ugV1g7ZsiDK1kY4FbxEjv9XuA7EMPBWtjOlvyTIPeW/paWyIth826/xTVoYNbqV2V1Q/QmFO72xUeqc7cvMcmBWDYSDjhl8I5pfqLg/ep3IsulVr1YeqYajojdpNk3/XAVj80Wo1Wq1WseN9cF9tefwTcSfoNFvjXrfb5bYXAeiUn+a4jzGG83HZtoLzKGiXW73uut19mpxCHCuFZX+qrQoLZ/ut6JCw699BdGhZbGWGfWiZk9Xl9ZvVnRmV0xVf85d1+uxZ4JQvtvfyEJ/u/vuRX7TD95j7p4YTFUU+4b0Fgp+KqKcCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAg+NfxfzeB+y+L1mUwAAAAAElFTkSuQmCC");
             }
       </style>
-
-
         <div class="container-fluid">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="mb-1 card-label fw-bold fs-3">Recent Loan Requests</span>
-                            <span class="mt-1 text-muted fw-semibold fs-7">Over {{$transactions->count()}} loans</span>
+                            <span class="mb-1 card-label fw-bold fs-3">Recent Transactions</span>
+                            <span class="mt-1 text-muted fw-semibold fs-7">
+                                Over {{$transactions->count()}} {{ Str::plural('Transaction', $transactions->count()) }}
+                            </span>
                         </h3><div class="card-toolbar">
                             <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                 <i class="ki-duotone ki-category fs-6">
@@ -80,20 +80,12 @@
                                 </div>
 
                                 <div class="px-3 menu-item">
-                                    <button data-bs-toggle="modal" data-bs-target="#makeLoanRepayment"  href="#" title="Make a loan repayment" class="px-3 btn btn-sm">
+                                    <button data-bs-toggle="modal" data-bs-target="#makeLoanRepayment"  href="#" title="Make a loan repayment" class="px-3 text-white btn btn-primary btn-sm">
                                         Make Loan Repayment &nbsp;
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
                                             <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
                                         </svg>
                                     </button>
-                                </div>
-
-                                <div class="mt-3 opacity-75 separator"></div>
-
-                                <div class="px-3 menu-item">
-                                    <div class="px-3 py-3 menu-content">
-                                        <a class="px-4 btn btn-primary btn-sm" href="#">Generate Reports</a>
-                                    </div>
                                 </div>
 
                             </div>
@@ -105,8 +97,6 @@
                         <div class="table-responsive patient">
                             <div class="col-xl-12">
                                 <div class="alert alert-dark alert-dismissible fade show">
-                                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="btn-close"><span><i class="fa-solid fa-xmark"></i></span>
-                                    </button>
                                     <div class="media">
                                         <div class="media-body">
                                             <small class="mb-0">List of payment and repayment transactions. Record loan repayments</small>
@@ -155,13 +145,13 @@
                                         @if ($data?->application)
                                         <tr>
                                             {{-- <td style="">{{ $data->id }}</td> --}}
-                                            <td style="text-align:center;">{{ $data->ref_no ?? $data->application_id }}</td>
-                                            <td style="text-align:center;">{{ $data?->application?->type }} Loan</td>
-                                            <td style="text-align:center;">{{ $data?->application?->fname.' '.$data?->application?->lname }}</td>
-    
+                                            <td style="text-align:center;"><b>#M{{ $data?->application?->loan_number }}</b></td>
+                                            <td style="text-align:center;">{{ $data?->application?->loan_product->name }} Loan</td>
+                                            <td style="text-align:center;"><b>{{ $data?->application?->fname.' '.$data?->application?->lname }}</b></td>
+
                                             <td style="text-align:center;">K{{ number_format(App\Models\Application::payback($data?->application), 2, '.',',') }}</td>
                                             <td style="text-align:center;">K{{ number_format( $data->amount_settled, 2, '.',',') }}</td>
-                                            <td style="text-align:center;">K{{ number_format(App\Models\Application::loan_balance( $data?->application?->id), 2, '.',',') }}</td>
+                                            <td style="text-align:center;"><b>K{{ number_format(App\Models\Application::loan_balance( $data?->application?->id), 2, '.',',') }}</b></td>
                                             <td style="text-align:center;">{{ $data->proccess_by ?? 'MFS' }}</td>
                                             <td style="text-align:center;">{{ $data->created_at->toFormattedDateString() }}</td>
                                             <td class="d-flex">
@@ -192,47 +182,197 @@
         </div>
 
         <div wire:ignore class="modal fade" id="makeLoanRepayment" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-                <form wire:submit.prevent="makepayment()" class="modal-content">
-                    <div class="modal-header ">
-                        <h5 class="modal-title">Make Loan Repayment</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 650px;">
+                <form wire:submit.prevent="makepayment()" class="modal-content shadow">
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-light">
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-credit-card me-2 text-primary"></i>Make Loan Repayment
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <p class="fs-5 fw-bold">Payment Method</p>
-                        <div class="flex gap-3 form-group">
-                            <input type="radio" wire:model.defer="payment_method" id="checkbox1">
-                            <label for="checkbox1" class="checkbox"></label>
 
-                            <input type="radio" wire:model.defer="payment_method" id="checkbox2">
-                            <label for="checkbox2" class="checkbox"></label>
-
-                            <input type="radio" wire:model.defer="payment_method" id="checkbox3">
-                            <label for="checkbox3" class="checkbox"></label>
+                    <!-- Modal Body -->
+                    <div class="modal-body p-4">
+                        <!-- Payment Method Section -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-3">Payment Method</label>
+                            <div class="row gx-3">
+                                <div class="col-md-4">
+                                    <div class="card payment-option mb-2">
+                                        <input type="radio" wire:model.defer="payment_method" id="checkbox1" name="payment_method" value="bank" class="position-absolute invisible">
+                                        <label for="checkbox1" class="card-body py-3 text-center payment-label">
+                                            <i class="fas fa-university fs-4 mb-2 d-block"></i>
+                                            <span class="fw-medium">Bank Transfer</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card payment-option mb-2">
+                                        <input type="radio" wire:model.defer="payment_method" id="checkbox2" name="payment_method" value="card" class="position-absolute invisible">
+                                        <label for="checkbox2" class="card-body py-3 text-center payment-label">
+                                            <i class="fas fa-credit-card fs-4 mb-2 d-block"></i>
+                                            <span class="fw-medium">Credit Card</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card payment-option mb-2">
+                                        <input type="radio" wire:model.defer="payment_method" id="checkbox3" name="payment_method" value="mobile" class="position-absolute invisible">
+                                        <label for="checkbox3" class="card-body py-3 text-center payment-label">
+                                            <i class="fas fa-mobile-alt fs-4 mb-2 d-block"></i>
+                                            <span class="fw-medium">Mobile Money</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <br>
-                        <p class="fs-5 fw-bold">Loan Application</p>
-                        <div class="form-group">
-                            <select wire:model.defer="loan_id" class="mb-3 uppercase form-select form-control wide" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
-                                <option value="">--select--</option>
+
+                        <!-- Loan Application Section -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-2">Loan Application</label>
+                            <select wire:model.defer="loan_id" class="form-select py-2" id="loanSelect">
+                                <option value="">--Select a loan application--</option>
                                 @forelse ($loans as $item)
-                                <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Application::loan_balance($item->id).' - '.$item->type.' Loan'.' | Duration '.$item->repayment_plan}}</option>
+                                    <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Application::loan_balance($item->id).' - '.$item->loan_product?->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
                                 @empty
-                                <option>No Active Loans Found</option>
+                                    <option disabled>No Active Loans Found</option>
                                 @endforelse
                             </select>
+                            <div class="loan-details mt-3 p-3 bg-light rounded d-none" id="loanDetails">
+                                <div class="row mb-2">
+                                    <div class="col-6 text-muted">Loan Balance:</div>
+                                    <div class="col-6 text-end fw-bold loan-balance">K0.00</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-6 text-muted">Next Payment:</div>
+                                    <div class="col-6 text-end loan-payment">-</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 text-muted">Status:</div>
+                                    <div class="col-6 text-end"><span class="badge loan-status bg-secondary">-</span></div>
+                                </div>
+                            </div>
+
                         </div>
-                        <br>
-                        <p class="fs-5 fw-bold">Amount</p>
-                        <div class="form-group">
-                            <input wire:model.defer="amount" type="text" class="form-control" required>
+
+                        <!-- Amount Section -->
+                        <div class="mb-2">
+                            <label class="form-label fw-bold mb-2">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">K</span>
+                                <input wire:model.defer="amount" type="number" step="0.01" class="form-control py-2" id="amountInput" required placeholder="Enter payment amount">
+                            </div>
                         </div>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" data-dismiss="modal" class="btn btn-primary">Make Payment</button>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">
+                            <i class="fas fa-check me-1"></i> Make Payment
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
+
+        <style>
+            /* Custom styles for payment method cards */
+            .payment-option {
+                border: 1px solid #dee2e6;
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+            .payment-option:hover {
+                border-color: #adb5bd;
+            }
+
+            input[type="radio"]:checked + .payment-label {
+                color: #6a3093;
+                background-color: rgba(197, 13, 253, 0.1);
+            }
+
+            input[type="radio"]:checked + .payment-label i {
+                color: #6a3093;
+            }
+
+            .payment-option input[type="radio"]:checked ~ .card {
+                border-color: #6a3093;
+                box-shadow: 0 0 0 1px #6a3093;
+            }
+
+
+        </style>
+        <script>
+            document.getElementById('loanSelect').addEventListener('change', function() {
+                var loanDetails = document.getElementById('loanDetails');
+                if (this.value) {
+                    loanDetails.classList.remove('d-none');
+                    loanDetails.classList.add('d-block');
+                } else {
+                    loanDetails.classList.add('d-none');
+                    loanDetails.classList.remove('d-block');
+                }
+            });
+
+
+            let maxLoanBalance = 0;
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const loanSelect = document.getElementById("loanSelect");
+                const loanDetails = document.getElementById("loanDetails");
+                const amountInput = document.getElementById("amountInput");
+
+                loanSelect.addEventListener("change", function () {
+                    const loanId = this.value;
+
+                    if (!loanId) {
+                        loanDetails.classList.add('d-none');
+                        maxLoanBalance = 0;
+                        amountInput.value = '';
+                        return;
+                    }
+
+                    fetch(`api/v2/loan/${loanId}/details`)
+                        .then(response => response.json())
+                        .then(data => {
+                            loanDetails.classList.remove('d-none');
+
+                            // Update loan details
+                            loanDetails.querySelector(".loan-balance").innerText = 'K' + parseFloat(data.balance).toLocaleString();
+                            loanDetails.querySelector(".loan-payment").innerText = data.next_payment;
+                            const statusBadge = loanDetails.querySelector(".loan-status");
+                            statusBadge.innerText = data.status;
+                            statusBadge.className = 'badge ' + (data.status_class ?? 'bg-secondary');
+
+                            // Set max value
+                            maxLoanBalance = parseFloat(data.balance);
+                        });
+                });
+
+                amountInput.addEventListener('input', function () {
+                    let value = this.value;
+
+                    // Allow only digits and one decimal point
+                    value = value.replace(/[^0-9.]/g, '');
+
+                    // Remove extra decimals
+                    const parts = value.split('.');
+                    if (parts.length > 2) value = parts[0] + '.' + parts[1];
+
+                    // Enforce max balance
+                    if (parseFloat(value) > maxLoanBalance) {
+                        value = maxLoanBalance;
+                    }
+
+                    this.value = value;
+                });
+            });
+        </script>
+
 </div>

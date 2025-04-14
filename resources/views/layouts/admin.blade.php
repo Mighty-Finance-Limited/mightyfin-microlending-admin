@@ -89,8 +89,9 @@
 			    @include('layouts.parts.admin.header')
 
 			    {{ $slot }}
-                
+
 		        @include('layouts.parts.admin.footer')
+		        @include('layouts.parts.preloader')
                 <!--end::Footer-->
             </div>
             <!--end::Wrapper-->
