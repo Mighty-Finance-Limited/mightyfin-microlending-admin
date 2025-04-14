@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -58,8 +58,8 @@ return [
         'custom_public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            // 'url' => env('APP_CUSTOM_STORAGE_URL', 'https://app.mightyfinance.co.zm/public/storage'),
-            'url' => env('APP_CUSTOM_STORAGE_URL', 'http://localhost/mfs-app/public/storage'),
+            'url' => env('APP_CUSTOM_STORAGE_URL', 'https://app.mightyfinance.co.zm/public/storage'),
+            // 'url' => env('APP_CUSTOM_STORAGE_URL', 'http://localhost/mfs-app/public/storage'),
             'visibility' => 'public',
         ],
 
