@@ -56,6 +56,31 @@ class LoanApplicationController extends Controller
         }
     }
 
+    public function getDetails($id)
+    {
+        $loan = Application::where('id',$id)->first();
+
+        return response()->json([
+            'balance' => Application::loan_balance($loan->id),
+            'next_payment' => optional(now())->format('F d, Y') ?? 'N/A',
+            'status' => match ($loan->status) {
+                0 => 'Pending',
+                2 => 'Under review',
+                1 => 'Open (Active)',
+                3 => 'Declined',
+                default => 'bg-secondary',
+            },
+            'status_class' => match ($loan->status) {
+                0 => 'bg-warning',
+                2 => 'bg-warning',
+                1 => 'bg-success',
+                3 => 'bg-danger',
+                default => 'bg-secondary',
+            },
+        ]);
+    }
+
+
     public function updateExistingLoan(Request $req)
     {
         $email = $req->toArray()['email'];
@@ -589,6 +614,8 @@ class LoanApplicationController extends Controller
             "success" => true
         ]);
     }
+
+
     public function deleteLoans(Request $request)
     {
         $loanIds = $request->toArray(); // Assuming $request->toArray() contains an array of loan IDs

@@ -63,7 +63,7 @@ class Application extends Model
 
         'processed_by',
         'approved_by',
-
+        'date_settled',
         'complete',
         'doa',
 

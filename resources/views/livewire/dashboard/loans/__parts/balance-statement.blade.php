@@ -92,7 +92,8 @@
                     <h5 class="modal-title">Add Balance Statement</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('balance-statement.store') }}" method="POST">
+                <form action="" method="POST">
+                {{-- <form action="{{ route('balance-statement.store') }}" method="POST"> --}}
                     @csrf
                     <input type="hidden" name="loan_id" value="{{ $loan->id }}">
                     <input type="hidden" name="user_id" value="{{ $loan->user->id }}">
@@ -140,7 +141,8 @@
                         <h5 class="modal-title">Edit Balance Statement</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('balance-statement.update', $entry->id) }}" method="POST">
+                    <form action="" method="POST">
+                    {{-- <form action="{{ route('balance-statement.update', $entry->id) }}" method="POST"> --}}
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="loan_id" value="{{ $loan->id }}">
@@ -190,7 +192,8 @@
                         <h5 class="modal-title">Delete Confirmation</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('balance-statement.destroy', $entry->id) }}" method="POST">
+                    <form action="" method="POST">
+                    {{-- <form action="{{ route('balance-statement.destroy', $entry->id) }}" method="POST"> --}}
                         @csrf
                         @method('DELETE')
                         <div class="modal-body">

@@ -127,13 +127,12 @@ trait LoanTrait{
     public function getOpenLoanRequests($type){
         $userId = auth()->user()->id;
         if(auth()->user()->hasRole('admin')){
-            $app = Application::with('loan_product')->where('complete', 1)->where('status', 1)->get();
+            $app = Application::with('loan_product')->where('closed', 0)->where('status', 1)->get();
             return $app;
         }else{
             switch ($type) {
                 case 'spooling':
-                    return Application::with('loan_product')->where('complete', 1)
-                    ->where('status', 1)->get();
+                    return Application::with('loan_product')->where('closed', 0)->where('status', 1)->get();
                     break;
                 case 'manual':
                     return Application::with('loan_product')->with(['manual_approvers' => function ($query) use ($userId) {
@@ -143,8 +142,7 @@ trait LoanTrait{
                         $query->where('user_id', $userId);
                         $query->where('is_active', 1);
                     })
-                    ->where('status', 1)
-                    ->where('complete', 1)
+                    ->where('closed', 0)->where('status', 1)
                     ->get();
 
                     break;
@@ -429,7 +427,7 @@ trait LoanTrait{
         try {
             $approvers = LoanManualApprover::where('application_id', $application_id)->get();
             $userPriority = $approvers->where('user_id', auth()->user()->id)->pluck('priority')->first();
-    
+
             // Leave current approver
             $update = $approvers->where('priority', $userPriority)->first();
             // dd($update);
@@ -438,11 +436,11 @@ trait LoanTrait{
             $update->is_active = 0;
             $update->is_processing = 0;
             $update->save();
-    
+
             // Elevate to the next priority
             $update = $approvers->where('priority', $userPriority + 1)->first();
             if($update){
-    
+
                 $update->complete = 1; //optional - remove
                 $update->is_active = 1;
                 $update->is_processing = 1;

@@ -46,16 +46,9 @@ class ApprovedLoansView extends Component
             // If an exception occurs, set $loan_requests to an empty array
             $this->loan_requests = [];
             $requests = [];
-            if (auth()->user()->hasRole('user')) {
-                return view('livewire.dashboard.loans.approved-loans-view',[
-                    'requests'=>$requests
-                ])->layout('layouts.dashboard');
-            }else{
-                dd($th);
-                return view('livewire.dashboard.loans.approved-loans-view',[
-                    'requests'=>$requests
-                ])->layout('layouts.admin');
-            }
+            return view('livewire.dashboard.loans.approved-loans-view',[
+                'requests'=>$requests
+            ])->layout('layouts.admin');
         }
     }
 }
