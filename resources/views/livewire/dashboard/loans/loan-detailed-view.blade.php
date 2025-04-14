@@ -133,14 +133,14 @@
                                                 <i class="ki-duotone ki-chart-simple fs-3 me-2 text-warning"></i>
                                                 <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{ App\Models\Application::loan_balance($loan->id) }}" data-kt-countup-prefix="K">0</div>
                                             </div>
-                                            <div class="text-gray-500 fw-bold fs-6">Pending Repayments</div>
+                                            <div class="text-gray-500 fw-bold fs-6">Pending Repayment</div>
                                         </div><div class="px-4 py-3 mb-3 overflow-hidden bg-white border border-gray-300 border-dashed shadow-sm rounded-3 min-w-150px position-relative">
                                             <div class="top-0 h-full position-absolute opacity-10 end-0 w-35px bg-warning"></div>
                                             <div class="mb-1 d-flex align-items-center">
                                                 <i class="ki-duotone ki-chart-simple fs-3 me-2 text-warning"></i>
                                                 <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{ App\Models\Application::monthInstallment($loan) }}" data-kt-countup-prefix="K">0</div>
                                             </div>
-                                            <div class="text-gray-500 fw-bold fs-6">Monthly Repayments</div>
+                                            <div class="text-gray-500 fw-bold fs-6">Monthly Repayment</div>
                                         </div>
                                     </div>
                                 </div>
@@ -177,12 +177,6 @@
                         Repayment Details
                     </h3>
                     <div class="d-flex align-items-center">
-                        {{-- <button class="btn btn-sm btn-primary me-2">
-                            <i class="ki-duotone ki-plus fs-5"></i>Add Payment
-                        </button>
-                        <button class="btn btn-sm btn-secondary">
-                            <i class="ki-duotone ki-document-download fs-5"></i>Export
-                        </button> --}}
                     </div>
                 </div>
 
@@ -196,7 +190,7 @@
                                         <span class="badge badge-light-primary fs-7 fw-bold me-2">MONTHLY</span>
                                         <span class="text-gray-500 fs-7">Next Payment: Mar 30, 2025</span>
                                     </div> --}}
-                                    <p class="mt-1 text-gray-800 fw-bold fs-3 mb-7">Monthly Repayments</p>
+                                    <p class="mt-1 text-gray-800 fw-bold fs-3 mb-7">Monthly Repayment</p>
                                     <div class="flex-wrap mb-5 d-flex">
                                         <div class="px-3 py-2 mb-2 border border-gray-300 border-dashed rounded me-3">
                                             <div class="text-gray-700 fs-6 fw-bold">K{{ number_format(App\Models\Application::monthInstallment($loan),2,'.',',') }}</div>
