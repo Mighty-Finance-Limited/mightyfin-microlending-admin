@@ -1,29 +1,54 @@
  <!--begin::Sidebar-->
- <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
-    <div class="card border-0 shadow-sm rounded-xl overflow-hidden">
-        <div class="card-body p-0">
+ <div class="mb-10 flex-column flex-lg-row-auto w-100 w-xl-350px">
+    <div class="overflow-hidden border-0 shadow-sm card rounded-xl">
+        <div class="p-0 card-body">
             <!-- User Profile Section -->
-            <div class="d-flex flex-column align-items-center px-6 py-6 border-bottom">
-                <div class="position-relative mb-5">
-                    <div class="symbol symbol-100px symbol-circle border border-4 border-white shadow-sm">
-                        @if ($loan->user->profile_photo_path)
-                            <img src="{{ '../public/'.Storage::url($loan->user->profile_photo_path) }}" alt="{{ $loan->user->fname }}"/>
-                        @else
-                            <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg" alt="default"/>
-                        @endif
-                    </div>
-                    <div class="position-absolute bottom-0 end-0 bg-success rounded-circle p-1">
-                        <div class="w-3 h-3"></div>
+            <div class="px-6 py-6 d-flex flex-column align-items-center border-bottom">
+                <!-- Update your HTML to make the image clickable with Lightbox -->
+                <div class="mb-5 position-relative">
+                    <div class="border border-4 border-white shadow-sm symbol symbol-100px symbol-circle">
+                        @php
+                        $photo = $loan->user->profile_photo_path;
+                            if ($photo && (Str::startsWith($photo, ['http://', 'https://']))) {
+                                $profilePhotoUrl = $photo;
+                            }
+                            elseif ($photo) {
+                                if (Storage::exists($photo)) {
+                                    $profilePhotoUrl = asset(Storage::url($photo));
+                                }else{
+                                    $profilePhotoUrl = Storage::disk('custom_public')->url(Str::replaceFirst('public/', '', $photo));
+                                }
+                            } else {
+                                $profilePhotoUrl = 'https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg';
+                            }
+                        @endphp
+                        <a class="border border-4 border-white shadow-sm symbol symbol-100px symbol-circle" href="{{ $profilePhotoUrl }}" data-lightbox="profile-image" data-title="{{ $loan->user->fname }}'s Profile Photo">
+                            <img src="{{ $profilePhotoUrl }}" alt="{{ $loan->user->fname }}"/>
+                        </a>
                     </div>
                 </div>
 
-                <h3 class="fs-3 fw-bold text-gray-900 text-center mb-1">{{ $loan->user->fname.' '.$loan->user->lname }}</h3>
-                <span class="fs-6 text-gray-500 mb-4">{{ $loan->user->occupation }}</span>
+                <!-- Add these in your layout's head section or at the bottom of the body -->
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+                <!-- Optional: Customize Lightbox behavior -->
+                <script>
+                    lightbox.option({
+                        'resizeDuration': 200,
+                        'wrapAround': true,
+                        'alwaysShowNavOnTouchDevices': true
+                    });
+                </script>
+
+                <h3 class="mb-1 text-center text-gray-900 fs-3 fw-bold">{{ $loan->user->fname.' '.$loan->user->lname }}</h3>
+                <span class="mb-4 text-gray-500 fs-6">{{ $loan->user->occupation }}</span>
             </div>
 
             <!-- Loan Summary Section -->
             <div class="px-6 py-6 border-bottom">
-                <h4 class="fs-6 fw-bold text-gray-800 mb-4">Loan Summary</h4>
+                <h4 class="mb-4 text-gray-800 fs-6 fw-bold">Loan Summary</h4>
                 <div class="loan-metrics">
                     <div class="loan-metric">
                         <div class="loan-metric-icon bg-primary-light text-primary">
@@ -82,8 +107,8 @@
 
             <!-- User Details Section -->
             <div class="px-6 py-6">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h4 class="fs-6 fw-bold text-gray-800 m-0">Customer Details</h4>
+                <div class="mb-4 d-flex align-items-center justify-content-between">
+                    <h4 class="m-0 text-gray-800 fs-6 fw-bold">Customer Details</h4>
                     <button type="button" class="btn btn-sm btn-icon" data-bs-toggle="collapse" href="#kt_customer_view_details">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
                             <polyline points="6 9 12 15 18 9"></polyline>
@@ -117,7 +142,7 @@
 
                         <div class="user-detail">
                             <span class="user-detail-label">Phone</span>
-                            <span class="user-detail-value">+260{{ $loan->phone ?? ' --' }}</span>
+                            <span class="user-detail-value">{{ $loan->phone ?? $loan->user->phone }}</span>
                         </div>
 
                         <div class="user-detail">

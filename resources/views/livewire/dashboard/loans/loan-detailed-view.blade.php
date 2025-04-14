@@ -8,23 +8,23 @@
                         <!-- Profile Image Section -->
                         <!-- Profile Image Section -->
                     @php
-                    $photo = $loan->user->profile_photo_path;
+                        $photo = $loan->user->profile_photo_path;
 
-                    // Check if it's a full URL already
-                    if ($photo && (Str::startsWith($photo, ['http://', 'https://']))) {
-                        $profilePhotoUrl = $photo;
-                    }
-                    // If not, assume it's a local path in the storage and generate full URL
-                    elseif ($photo) {
-                        if (Storage::exists($photo)) {
-                            $profilePhotoUrl = asset(Storage::url($photo));
-                        }else{
-                            $profilePhotoUrl = Storage::disk('custom_public')->url(Str::replaceFirst('public/', '', $photo));
+                        // Check if it's a full URL already
+                        if ($photo && (Str::startsWith($photo, ['http://', 'https://']))) {
+                            $profilePhotoUrl = $photo;
                         }
-                    } else {
-                        $profilePhotoUrl = 'https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg';
-                    }
-                @endphp
+                        // If not, assume it's a local path in the storage and generate full URL
+                        elseif ($photo) {
+                            if (Storage::exists($photo)) {
+                                $profilePhotoUrl = asset(Storage::url($photo));
+                            }else{
+                                $profilePhotoUrl = Storage::disk('custom_public')->url(Str::replaceFirst('public/', '', $photo));
+                            }
+                        } else {
+                            $profilePhotoUrl = 'https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg';
+                        }
+                    @endphp
 
                 <div class="mb-4 me-7">
                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
