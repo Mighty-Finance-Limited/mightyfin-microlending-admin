@@ -6,11 +6,11 @@
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->
-                <div class="card-header border-0 pt-6">
+                <div class="pt-6 border-0 card-header">
                     <!--begin::Card title-->
                     <div class="card-title">
                         <!--begin::Search-->
-                        {{-- <div class="d-flex align-items-center position-relative my-1">
+                        {{-- <div class="my-1 d-flex align-items-center position-relative">
                             <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
@@ -60,12 +60,12 @@
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-0">
+                <div class="pt-0 card-body">
                     @include('livewire.dashboard.__parts.dash-alerts')
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                         <thead>
-                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <tr class="text-gray-400 text-start fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
@@ -79,7 +79,7 @@
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="fw-semibold text-gray-600">
+                        <tbody class="text-gray-600 fw-semibold">
                             @forelse($users as $user)
                                 @if(!$user->hasRole('user'))
                                     <tr>
@@ -89,12 +89,12 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="text-gray-800 text-hover-primary mb-1">
+                                            <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="mb-1 text-gray-800 text-hover-primary">
                                                 {{ $user->fname.' '.$user->name.' '.$user->lname }}
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="mailto:{{$user->email}}" class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
+                                            <a href="mailto:{{$user->email}}" class="mb-1 text-gray-600 text-hover-primary">{{ $user->email }}</a>
                                         </td>
                                         <td>
                                             <!--begin::Badges-->
@@ -113,15 +113,15 @@
                                             <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                             <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
                                             <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                            <div class="py-4 menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px" data-kt-menu="true">
                                                 <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="menu-link px-3">View</a>
+                                                <div class="px-3 menu-item">
+                                                    <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="px-3 menu-link">View</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" wire:click="destory({{$user->id}})" onclick="confirm('Are you sure you want to permanently delete this account.') || event.stopImmediatePropagation();" class="menu-link px-3" data-kt-customer-table-filter="delete_row">Delete</a>
+                                                <div class="px-3 menu-item">
+                                                    <a href="#" wire:click="destory({{$user->id}})" onclick="confirm('Are you sure you want to permanently delete this account.') || event.stopImmediatePropagation();" class="px-3 menu-link" data-kt-customer-table-filter="delete_row">Delete</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>
@@ -130,8 +130,8 @@
                                     </tr>
                                 @endif
                             @empty
-                            <div class="intro-y col-span-12 md:col-span-6">
-                                <div class="box text-center">
+                            <div class="col-span-12 intro-y md:col-span-6">
+                                <div class="text-center box">
                                     <p>No User Found</p>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                             </div>
                             <!--end::Modal header-->
                             <!--begin::Modal body-->
-                            <div class="modal-body py-10 px-lg-17">
+                            <div class="py-10 modal-body px-lg-17">
                                 <!--begin::Scroll-->
                                 <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
                                     <!--begin::Input group-->
@@ -179,7 +179,7 @@
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Firstname</label>
+                                            <label class="mb-2 required fs-6 fw-semibold">Firstname</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input class="form-control form-control-solid" placeholder="Firstname" name="fname"/>
@@ -189,7 +189,7 @@
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Lastname</label>
+                                            <label class="mb-2 required fs-6 fw-semibold">Lastname</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input class="form-control form-control-solid" placeholder="Surname" name="lname"  />
@@ -201,10 +201,10 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-7">
                                         <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold mb-2">
+                                        <label class="mb-2 fs-6 fw-semibold">
                                             <span class="required">Email</span>
                                             <span class="ms-1" data-bs-toggle="tooltip" title="Email address must be active">
-                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                                <i class="text-gray-500 ki-duotone ki-information-5 fs-6">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
                                                     <span class="path3"></span>
@@ -220,7 +220,7 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-15">
                                         <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold mb-2">Password</label>
+                                        <label class="mb-2 fs-6 fw-semibold">Password</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="text" disabled class="form-control form-control-solid"  placeholder="mighty.@2023@" required />
@@ -232,7 +232,7 @@
                                     <!--begin::Billing toggle-->
                                     <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
                                         General Information
-                                        <span class="ms-2 rotate-180">
+                                        <span class="rotate-180 ms-2">
                                             <i class="ki-duotone ki-down fs-3"></i>
                                         </span>
                                     </div>
@@ -242,7 +242,7 @@
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Address Line 1</label>
+                                            <label class="mb-2 required fs-6 fw-semibold">Address Line 1</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input class="form-control form-control-solid" placeholder="" name="address1" value="101, Collins Street" />
@@ -252,7 +252,7 @@
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold mb-2">Active Phone Number</label>
+                                            <label class="mb-2 fs-6 fw-semibold">Active Phone Number</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input class="form-control form-control-solid" placeholder="" name="phone" />
@@ -262,7 +262,7 @@
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Town</label>
+                                            <label class="mb-2 required fs-6 fw-semibold">Town</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input class="form-control form-control-solid" placeholder="" name="city"/>
@@ -274,7 +274,7 @@
                                             <!--begin::Col-->
                                             <div class="col-md-6 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required fs-6 fw-semibold mb-2">National ID Type</label>
+                                                <label class="mb-2 required fs-6 fw-semibold">National ID Type</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input class="form-control form-control-solid" placeholder="" name="id_type" />
@@ -284,7 +284,7 @@
                                             <!--begin::Col-->
                                             <div class="col-md-6 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required fs-6 fw-semibold mb-2">National ID</label>
+                                                <label class="mb-2 required fs-6 fw-semibold">National ID</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input class="form-control form-control-solid" placeholder="" name="nrc_no" />
@@ -296,12 +296,12 @@
                                         <!--begin::Input group-->
                                         <div class="row g-9 mb-7">
                                             <!--begin::Label-->
-                                            
+
                                             <div class="col-md-6 fv-row">
-                                                <label class="fs-6 fw-semibold mb-2">
+                                                <label class="mb-2 fs-6 fw-semibold">
                                                     <span class="required">Gender</span>
                                                     <span class="ms-1" data-bs-toggle="tooltip" title="Sex of the employee">
-                                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                                        <i class="text-gray-500 ki-duotone ki-information-5 fs-6">
                                                             <span class="path1"></span>
                                                             <span class="path2"></span>
                                                             <span class="path3"></span>
@@ -314,14 +314,14 @@
                                                     <option value="">Select a gender...</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
-                                                    
+
                                                 </select>
                                             </div>
                                             <div class="col-md-6 fv-row">
-                                                <label class="fs-6 fw-semibold mb-2">
+                                                <label class="mb-2 fs-6 fw-semibold">
                                                     <span class="required">Role</span>
                                                     <span class="ms-1" data-bs-toggle="tooltip" title="User role & permissions">
-                                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                                        <i class="text-gray-500 ki-duotone ki-information-5 fs-6">
                                                             <span class="path1"></span>
                                                             <span class="path2"></span>
                                                             <span class="path3"></span>
@@ -379,10 +379,10 @@
                                 <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3">Discard</button>
                                 <!--end::Button-->
                                 <!--begin::Button-->
-                                <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
+                                <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary btnclicky">
                                     <span class="indicator-label">Submit</span>
                                     <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    <span class="align-middle spinner-border spinner-border-sm ms-2"></span></span>
                                 </button>
                                 <!--end::Button-->
                             </div>
@@ -416,13 +416,13 @@
                         </div>
                         <!--end::Modal header-->
                         <!--begin::Modal body-->
-                        <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                        <div class="mx-5 modal-body scroll-y mx-xl-15 my-7">
                             <!--begin::Form-->
                             <form id="kt_customers_export_form" class="form" action="#">
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-10">
+                                <div class="mb-10 fv-row">
                                     <!--begin::Label-->
-                                    <label class="fs-5 fw-semibold form-label mb-5">Select Export Format:</label>
+                                    <label class="mb-5 fs-5 fw-semibold form-label">Select Export Format:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <select data-control="select2" data-placeholder="Select a format" data-hide-search="true" name="format" class="form-select form-select-solid">
@@ -435,9 +435,9 @@
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-10">
+                                <div class="mb-10 fv-row">
                                     <!--begin::Label-->
-                                    <label class="fs-5 fw-semibold form-label mb-5">Select Date Range:</label>
+                                    <label class="mb-5 fs-5 fw-semibold form-label">Select Date Range:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <input class="form-control form-control-solid" placeholder="Pick a date" name="date" />
@@ -447,32 +447,32 @@
                                 <!--begin::Row-->
                                 <div class="row fv-row mb-15">
                                     <!--begin::Label-->
-                                    <label class="fs-5 fw-semibold form-label mb-5">Payment Type:</label>
+                                    <label class="mb-5 fs-5 fw-semibold form-label">Payment Type:</label>
                                     <!--end::Label-->
                                     <!--begin::Radio group-->
                                     <div class="d-flex flex-column">
                                         <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
+                                        <label class="mb-3 form-check form-check-custom form-check-sm form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="1" checked="checked" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">All</span>
+                                            <span class="text-gray-600 form-check-label fw-semibold">All</span>
                                         </label>
                                         <!--end::Radio button-->
                                         <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
+                                        <label class="mb-3 form-check form-check-custom form-check-sm form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="2" checked="checked" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">Visa</span>
+                                            <span class="text-gray-600 form-check-label fw-semibold">Visa</span>
                                         </label>
                                         <!--end::Radio button-->
                                         <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
+                                        <label class="mb-3 form-check form-check-custom form-check-sm form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="3" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">Mastercard</span>
+                                            <span class="text-gray-600 form-check-label fw-semibold">Mastercard</span>
                                         </label>
                                         <!--end::Radio button-->
                                         <!--begin::Radio button-->
                                         <label class="form-check form-check-custom form-check-sm form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="4" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">American Express</span>
+                                            <span class="text-gray-600 form-check-label fw-semibold">American Express</span>
                                         </label>
                                         <!--end::Radio button-->
                                     </div>
@@ -485,7 +485,7 @@
                                     <button type="submit" id="kt_customers_export_submit" class="btn btn-primary">
                                         <span class="indicator-label">Submit</span>
                                         <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        <span class="align-middle spinner-border spinner-border-sm ms-2"></span></span>
                                     </button>
                                 </div>
                                 <!--end::Actions-->
@@ -514,10 +514,10 @@
     $(document).ready(function (e) {
         $('#prof_image_create').change(function(){
             let reader = new FileReader();
-            reader.onload = (e) => { 
-                $('#preview-image-before-upload_create').attr('src', e.target.result); 
+            reader.onload = (e) => {
+                $('#preview-image-before-upload_create').attr('src', e.target.result);
             }
-            reader.readAsDataURL(this.files[0]); 
+            reader.readAsDataURL(this.files[0]);
         });
     });
 
@@ -533,8 +533,8 @@
             const imgData = canvas.toDataURL('image/png');
             // Add the image data URL to the PDF document
             doc.addImage(
-                imgData, 
-                'PNG', 
+                imgData,
+                'PNG',
                 2, // x-coordinate
                 2, // y-coordinate
             );

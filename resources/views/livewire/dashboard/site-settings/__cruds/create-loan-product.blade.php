@@ -15,20 +15,20 @@
         <!--begin::Container-->
         <form action="{{ route('create_loan_product') }}" method="POST"  id="kt_content_container" class="container-xxl">
             @csrf
-            <div class="card-header border-0 cursor-pointer">
-                <div class="alert alert-primary mt-2">
+            <div class="border-0 cursor-pointer card-header">
+                <div class="mt-2 alert alert-primary">
                     <small>
                         Please note that some of the fields below are optional. You can leave the fields empty if you do not want to place any restriction.
                     </small>
                 </div>
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan Description:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Loan Description:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -38,25 +38,25 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Name</label>
                                 <div class="col-lg-8 fv-row">
                                     <input type="text" name="new_loan_name" class="form-control form-control-lg form-control-solid" placeholder="E.g Business Loan" required/>
                                 </div>
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Description</label>
                                 <div class="col-lg-8 fv-row">
                                     <textarea type="text" name="new_loan_desc" class="form-control form-control-lg form-control-solid" placeholder="E.g Civil Servant Loan" required></textarea>
                                 </div>
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Icon (SVG)</label>
                                 <div class="col-lg-8 fv-row">
                                     <textarea type="text" name="new_loan_icon" class="form-control form-control-lg form-control-solid" placeholder="SVG code" required></textarea>
                                 </div>
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Icon Alternative (SVG)</label>
                                 <div class="col-lg-8 fv-row">
                                     <textarea type="text" name="new_loan_icon_alt" class="form-control form-control-lg form-control-solid" placeholder="SVG code" required></textarea>
@@ -70,12 +70,12 @@
                 </div>
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan Release:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Loan Release:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -83,14 +83,14 @@
                 <!--begin::Content-->
                 <div id="kt_account_settings_profile_details" class="collapse show">
                     <div class="card-body border-top p-9">
-                        <div class="row mb-6">
+                        <div class="mb-6 row">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Set Loan Release Date to Today's date</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
                                 <!--begin::Options-->
-                                <div class="d-flex align-items-center mt-3">
+                                <div class="mt-3 d-flex align-items-center">
                                     <!--begin::Option-->
                                     <label for="no" class="form-check form-check-custom form-check-inline form-check-solid me-5">
                                         <input class="form-check-input" id="no" name="loan_release_date" type="radio" value="0" />
@@ -115,12 +115,12 @@
                 </div>
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Principal Amount:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Principal Amount:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -132,10 +132,10 @@
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
 
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Disbursed By</label>
                                 <div class="col-lg-8 fv-row">
-                                    <div class="d-block mt-3">
+                                    <div class="mt-3 d-block">
                                         @forelse ($disbursements as $option)
                                         <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
                                             <input id="{{ $option->tag }}" class="form-check-input" name="loan_disbursed_by[]" type="checkbox" value="{{ $option->id }}" />
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Minimum Principal Amount</label>
                                 <!--end::Label-->
@@ -160,12 +160,12 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">
                                     <span class="required">Default Principal Amount</span>
                                     <span class="ms-1" data-bs-toggle="tooltip" title="Default amount the can be borrowed">
-                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                        <i class="text-gray-500 ki-duotone ki-information-5 fs-6">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                             <span class="path3"></span>
@@ -181,7 +181,7 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Maximum Principal Amount</label>
                                 <!--end::Label-->
@@ -193,7 +193,7 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            {{-- <div class="row mb-0">
+                            {{-- <div class="mb-0 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-semibold fs-6">Allow Marketing</label>
                                 <!--begin::Label-->
@@ -216,12 +216,12 @@
             </div>
 
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Interest:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Interest:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -235,7 +235,7 @@
 
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Interest Method</label>
                                 <!--end::Label-->
@@ -254,12 +254,12 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">
                                     <span class="required">Interest Type</span>
                                     <span class="ms-1" data-bs-toggle="tooltip" title="Phone number must be active">
-                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                        <i class="text-gray-500 ki-duotone ki-information-5 fs-6">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                             <span class="path3"></span>
@@ -269,7 +269,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <div class="d-block align-items-center mt-3">
+                                    <div class="mt-3 d-block align-items-center">
                                         @forelse ($interest_types as $option)
                                             <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
                                                 <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type[]" type="radio" value="{{ $option->id }}" />
@@ -284,7 +284,7 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Loan Interest Period</label>
                                 <!--end::Label-->
@@ -301,7 +301,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Minimum Loan Interest</label>
                                 <!--end::Label-->
@@ -311,7 +311,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Default Loan Interest</label>
                                 <!--end::Label-->
@@ -321,7 +321,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Maximum Loan Interest</label>
                                 <!--end::Label-->
@@ -339,12 +339,12 @@
                 <!--end::Content-->
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Duration:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Duration:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -355,7 +355,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Loan Duration Period</label>
                                 <!--end::Label-->
@@ -371,7 +371,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Minimum Loan Duration</label>
                                 <!--end::Label-->
@@ -393,7 +393,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Default Loan Duration</label>
                                 <!--end::Label-->
@@ -417,7 +417,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Maximum Loan Duration</label>
                                 <!--end::Label-->
@@ -450,12 +450,12 @@
             </div>
 
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="py-3 border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Repayments:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Repayments:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -466,7 +466,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Repayment Cycle</label>
                                 <!--end::Label-->
@@ -486,7 +486,7 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Minimum Number of Repayments</label>
                                 <!--end::Label-->
@@ -498,12 +498,12 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">
                                     <span class="required">Default Number of Repayments</span>
                                     <span class="ms-1" data-bs-toggle="tooltip" title="Default amount the can be borrowed">
-                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                        <i class="text-gray-500 ki-duotone ki-information-5 fs-6">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                             <span class="path3"></span>
@@ -519,7 +519,7 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Maximum Number of Repayments</label>
                                 <!--end::Label-->
@@ -537,14 +537,14 @@
                 </div>
                 <!--end::Content-->
             </div>
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="py-3 border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan Due and Loan Schedule Amount:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Loan Due and Loan Schedule Amount:</h3>
                     </div>
-                    <div class="alert alert-primary mt-2">
+                    <div class="mt-2 alert alert-primary">
                         <small>
                             If loan Due amount and/or Schedule amounts are in decimals for example K100.3333, the system will convert it based on the below option.
                         </small>
@@ -558,7 +558,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Decimal Places</label>
                                 <!--end::Label-->
@@ -585,14 +585,14 @@
                 </div>
                 <!--end::Content-->
             </div>
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="py-3 border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Application Wizard Steps:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Application Wizard Steps:</h3>
                     </div>
-                    <div class="alert alert-primary mt-2">
+                    <div class="mt-2 alert alert-primary">
                         <small>
                             The website loan application wizard is designed to present a specific count of steps, indicating the progression and stages involved in the application process for a loan. Select the number of steps to display on the website loan application wizard.
                         </small>
@@ -606,7 +606,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Number of Steps</label>
                                 <!--end::Label-->
@@ -624,14 +624,14 @@
                 </div>
                 <!--end::Content-->
             </div>
-            {{-- <div class="card mb-5 mb-xl-10">
+            {{-- <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="py-3 border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Repayment Order:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Repayment Order:</h3>
                     </div>
-                    <div class="alert alert-primary mt-2">
+                    <div class="mt-2 alert alert-primary">
                         <small>
                             If loan Due amount and/or Schedule amounts are in decimals for example K100.3333, the system will convert it based on the below option.
                         </small>
@@ -645,7 +645,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Repayment Order</label>
                                 <!--end::Label-->
@@ -662,12 +662,12 @@
                 <!--end::Content-->
             </div> --}}
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Extra Charges:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Extra Charges:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -679,10 +679,10 @@
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
 
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Service Charges</label>
                                 <div class="col-lg-8 fv-row">
-                                    <div class="d-block mt-3">
+                                    <div class="mt-3 d-block">
                                         @forelse ($service_charges as $option)
                                         <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
                                             <input id="{{ $option->tag }}" class="form-check-input" name="extra_fees[]" type="checkbox" value="{{ $option->id }}" />
@@ -703,12 +703,12 @@
                 <!--end::Content-->
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Institutions:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Institutions:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -719,7 +719,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            {{-- <div class="row mb-6">
+                            {{-- <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
                                     <select type="text" wire:model="sector" class="form-select form-control form-control-lg form-control-solid">
@@ -730,10 +730,10 @@
                                     </select>
                                 </div>
                             </div> --}}
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Institutions</label>
                                 <div class="col-lg-8 fv-row">
-                                    <div class="d-block mt-3">
+                                    <div class="mt-3 d-block">
                                         @forelse ($institutions as $key => $option)
                                         <label for="{{ $key }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
                                             <input id="{{ $key }}" class="form-check-input" name="loan_institution[]" type="checkbox" value="{{ $option->id }}" />
@@ -751,14 +751,14 @@
                 </div>
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan CRB:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Loan CRB:</h3>
                     </div>
-                    <div class="alert alert-primary mt-2">
+                    <div class="mt-2 alert alert-primary">
                         <small>
                             Please ensure to make a selection for the Credit Bureau (CRB) product to be linked with this specific loan product. This decision plays a critical role in shaping the credit assessment and reporting processes aligned with the loan.
                         </small>
@@ -772,7 +772,7 @@
                     <div id="kt_account_profile_details_form" class="form">
                         <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            {{-- <div class="row mb-6">
+                            {{-- <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
                                     <select type="text" wire:model="sector" class="form-select form-control form-control-lg form-control-solid">
@@ -783,10 +783,10 @@
                                     </select>
                                 </div>
                             </div> --}}
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">CRB Products</label>
                                 <div class="col-lg-8 fv-row">
-                                    <div class="d-block mt-3">
+                                    <div class="mt-3 d-block">
                                         @forelse ($crb_products as $k => $crbp)
                                         <label for="{{ $k.''.$crbp->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
                                             <input id="{{ $k.''.$crbp->name }}" class="form-check-input" name="crb_selected_products[]" type="checkbox" value="{{ $crbp->id }}" />
@@ -804,14 +804,14 @@
                 </div>
             </div>
 
-            <div class="card mb-5 mb-xl-10">
+            <div class="mb-5 card mb-xl-10">
                 <!--begin::Card header-->
-                <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <div class="py-3 border-0 cursor-pointer card-header" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Automated Payments:</h3>
+                    <div class="m-0 card-title">
+                        <h3 class="m-0 fw-bold text-info">Automated Payments:</h3>
                     </div>
-                    <div class="alert alert-primary mt-2">
+                    <div class="mt-2 alert alert-primary">
                         <small>
                             If you select YES below, the system will automatically add due payments on the schedule dates for loans added in this
                             loan product. This is useful if you expect to receive payments on time for the loans. For example, you may have direct deposit or payroll
@@ -829,14 +829,14 @@
                     <!--begin::Card body-->
                         <div class="card-body border-top p-9">
                             <!--begin::Col-->
-                            <div class="row mb-6">
+                            <div class="mb-6 row">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Add Automatic Payments</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
                                     <!--begin::Options-->
-                                    <div class="d-flex align-items-center mt-3">
+                                    <div class="mt-3 d-flex align-items-center">
                                         <!--begin::Option-->
                                         <label for="no" class="form-check form-check-custom form-check-inline form-check-solid me-5">
                                             <input class="form-check-input" id="no" name="add_automatic_payments" type="radio" value="0" />
@@ -857,10 +857,10 @@
                                     </div>
                                     <!--end::Options-->
                                 </div>
-                                <div class="row mb-6">
+                                <div class="mb-6 row">
                                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Cash/Bank</label>
                                     <div class="col-lg-8 fv-row">
-                                        <div class="d-block mt-3">
+                                        <div class="mt-3 d-block">
                                             @forelse ($company_accounts as $option)
                                                 <label for="{{ $option->id.''.$option->type }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
                                                     <input id="{{ $option->id.''.$option->type }}" class="form-check-input" name="auto_payment_sources[]" type="checkbox" value="{{ $option->id }}" />
@@ -890,8 +890,8 @@
             </div>
             <!--begin::Deactivate Account-->
             <div id="kt_account_settings_deactivate" class="collapse show">
-                <div class="card-footer d-flex justify-content-end py-6 px-9">
-                    <button id="kt_account_deactivate_account_submit" type="submit" class="btn btn-primary fw-semibold">
+                <div class="py-6 card-footer d-flex justify-content-end px-9">
+                    <button id="kt_account_deactivate_account_submit" type="submit" class="btn btn-primary fw-semibold btnclicky">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy2" viewBox="0 0 16 16">
                                 <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v3.5A1.5 1.5 0 0 1 11.5 6h-7A1.5 1.5 0 0 1 3 4.5V1H1.5a.5.5 0 0 0-.5.5m9.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
