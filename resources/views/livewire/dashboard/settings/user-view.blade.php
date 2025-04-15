@@ -45,7 +45,7 @@
                             </button> {{ Session::get('deteted') }}
                         </div>
                         @endif
-                        <table wire:ignore wire:poll id="example3" class="table align-middle table-row-bordered table-row-gray-100 gs-0 gy-3">
+                        <table id="example3" class="table align-middle table-row-bordered table-row-gray-100 gs-0 gy-3">
                             <thead>
                                 <tr class="fw-bold text-muted">
                                     {{-- <th></th> --}}

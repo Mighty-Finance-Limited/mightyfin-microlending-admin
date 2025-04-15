@@ -111,7 +111,7 @@
                     <div id="kt_account_settings_profile_details" class="collapse show">
                         <div id="kt_account_profile_details_form" class="form">
                             <div class="card-body border-top p-9">
-                                
+
                                 <!-- NOK First Name -->
                                 <div class="mb-6 row">
                                     <label class="col-lg-4 col-form-label required fw-bold fs-6">First Name</label>
@@ -238,7 +238,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                                 <div class="mb-6 row">
                                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Last Name</label>
                                     <div class="col-lg-8 fv-row">
@@ -309,7 +309,7 @@
                     </div>
                     <div class="py-6 card-footer d-flex justify-content-between px-9">
                         <button type="button" class="btn btn-light-primary prev-step">Previous</button>
-                        <button id="kt_account_deactivate_account_submit" type="submit" class="btn btn-primary fw-semibold">Submit</button>
+                        <button id="kt_account_deactivate_account_submit" type="submit" class="btn btn-primary fw-semibold btnclicky">Submit</button>
                     </div>
                 </div>
             </div>
