@@ -26,7 +26,7 @@
                             <div class="col-md-3">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="image-input image-input-outline" data-kt-image-input="true">
-                                        <div class="image-input-wrapper w-100px h-100px" id="passport1Preview" style="background-image: url('{{ asset('default-avatar.png') }}')"></div>
+                                        <div class="image-input-wrapper w-100px h-100px" id="passport1Preview" style="background-image: url('https://thumbs.dreamstime.com/b/vector-upload-icon-cloud-arrow-loading-concept-isalated-white-background-flat-design-element-127011477.jpg')"></div>
                                         <label class="shadow btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body" data-kt-image-input-action="change">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
                                                 <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>
@@ -44,7 +44,7 @@
                             <div class="col-md-3">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="image-input image-input-outline" data-kt-image-input="true">
-                                        <div class="image-input-wrapper w-100px h-100px" id="passport2Preview" style="background-image: url('{{ asset('default-avatar.png') }}')"></div>
+                                        <div class="image-input-wrapper w-100px h-100px" id="passport2Preview" style="background-image: url('https://thumbs.dreamstime.com/b/vector-upload-icon-cloud-arrow-loading-concept-isalated-white-background-flat-design-element-127011477.jpg')"></div>
                                         <label class="shadow btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body" data-kt-image-input-action="change">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
                                                 <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>
@@ -62,7 +62,7 @@
                             <div class="col-md-3">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="image-input image-input-outline" data-kt-image-input="true">
-                                        <div class="image-input-wrapper w-100px h-100px" id="nrcFrontPreview" style="background-image: url('{{ asset('id-placeholder.png') }}')"></div>
+                                        <div class="image-input-wrapper w-100px h-100px" id="nrcFrontPreview" style="background-image: url('https://thumbs.dreamstime.com/b/vector-upload-icon-cloud-arrow-loading-concept-isalated-white-background-flat-design-element-127011477.jpg')"></div>
                                         <label class="shadow btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body" data-kt-image-input-action="change">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
                                                 <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>
@@ -80,7 +80,7 @@
                             <div class="col-md-3">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="image-input image-input-outline" data-kt-image-input="true">
-                                        <div class="image-input-wrapper w-100px h-100px" id="nrcBackPreview" style="background-image: url('{{ asset('id-placeholder.png') }}')"></div>
+                                        <div class="image-input-wrapper w-100px h-100px" id="nrcBackPreview" style="background-image: url('https://thumbs.dreamstime.com/b/vector-upload-icon-cloud-arrow-loading-concept-isalated-white-background-flat-design-element-127011477.jpg')"></div>
                                         <label class="shadow btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body" data-kt-image-input-action="change">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
                                                 <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>

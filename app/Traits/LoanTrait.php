@@ -451,12 +451,9 @@ trait LoanTrait{
         }
     }
     public function final_upvote($application_id){
-
-        // dd($application_id);
         $approvers = LoanManualApprover::where('application_id', $application_id)->get();
         $userPriority = $approvers->where('user_id', auth()->user()->id)->pluck('priority')->first();
 
-        // dd($userPriority);
         // Leave current approver
         $update = $approvers->where('priority', $userPriority)->first();
         // dd($update);
