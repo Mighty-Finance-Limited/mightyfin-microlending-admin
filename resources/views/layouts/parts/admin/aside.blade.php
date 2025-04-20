@@ -1,4 +1,5 @@
-<div id="kt_aside" class="aside" data-kt-drawer="true" data-kt-drawer-name="aside"
+
+<div  data-aos="fade-right" id="kt_aside" class="aside" data-kt-drawer="true" data-kt-drawer-name="aside"
     data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
     data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start"
     data-kt-drawer-toggle="#kt_aside_mobile_toggle">
@@ -258,7 +259,7 @@
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                         <span class="menu-link">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-abstract-28 fs-2">
+                                <i class="ki-duotone ki-user fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -266,6 +267,7 @@
                             <span class="menu-title">Employees</span>
                             <span class="menu-arrow"></span>
                         </span>
+                        
 
                         <div class="menu-sub menu-sub-accordion">
                             <div  class="mb-1 menu-item menu-accordion">
@@ -284,7 +286,7 @@
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                         <span class="menu-link">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-abstract-28 fs-2">
+                                <i class="ki-duotone ki-wallet fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -292,6 +294,7 @@
                             <span class="menu-title">Accounting</span>
                             <span class="menu-arrow"></span>
                         </span>
+                        
 
                         <div class="menu-sub menu-sub-accordion">
                             @can('view transactions')
@@ -363,16 +366,50 @@
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('sys-settings') }}">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-abstract-26 fs-2">
+                            <i class="ki-duotone ki-setting fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
                         </span>
                         <span class="menu-title">System Settings</span>
                     </a>
+                    
                 </div>
                 @endcan
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentUrl = window.location.href;
+    
+        // Get all menu links
+        document.querySelectorAll('.menu-link[href]').forEach(link => {
+            if (currentUrl.startsWith(link.href)) {
+                const menuItem = link.closest('.menu-item');
+    
+                if (menuItem) {
+                    // Mark the current menu item
+                    menuItem.classList.add('here');
+                    menuItem.classList.add('show');
+    
+                    // Also add 'show' to all parent accordions to expand the hierarchy
+                    let parent = menuItem.parentElement;
+                    while (parent && !parent.classList.contains('menu')) {
+                        if (parent.classList.contains('menu-sub')) {
+                            const parentAccordion = parent.closest('.menu-item.menu-accordion');
+                            if (parentAccordion) {
+                                parentAccordion.classList.add('show');
+                                parentAccordion.classList.add('here');
+                            }
+                        }
+                        parent = parent.parentElement;
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    
