@@ -28,15 +28,8 @@
                     </a>
                 </div>
 
-                <div class="pt-5 menu-item">
-                    <div class="menu-content">
-                        <span class="menu-heading fw-bold text-uppercase fs-7">Sections</span>
-                    </div>
-                </div>
-
                 @can('view clientele')
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-address-book fs-2">
@@ -45,7 +38,7 @@
                                 <span class="path3"></span>
                             </i>
                         </span>
-                        <span class="menu-title">Clientele</span>
+                        <span class="menu-title">Customers</span>
                         <span class="menu-arrow"></span>
                     </span>
 
@@ -56,7 +49,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Manage Borrowers</span>
+                                <span class="menu-title">Borrowers</span>
                             </a>
                         </div>
                         @endcan
@@ -64,6 +57,12 @@
                 </div>
                 @endcan
 
+
+                <div class="pt-5 menu-item">
+                    <div class="menu-content">
+                        <span class="menu-heading fw-bold text-uppercase fs-7">Management</span>
+                    </div>
+                </div>
 
                 @can('view loans')
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -78,7 +77,7 @@
                                 <span class="path5"></span>
                             </i>
                         </span>
-                        <span class="menu-title">Loans</span>
+                        <span class="menu-title">Loan Applications</span>
                         <span class="menu-arrow"></span>
                     </span>
 
@@ -139,7 +138,7 @@
 
                         @can('view pending repayments')
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('repayments') }}">
+                            <a class="menu-link" href="{{ route('pending-repayments') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -267,7 +266,7 @@
                             <span class="menu-title">Employees</span>
                             <span class="menu-arrow"></span>
                         </span>
-                        
+
 
                         <div class="menu-sub menu-sub-accordion">
                             <div  class="mb-1 menu-item menu-accordion">
@@ -294,7 +293,7 @@
                             <span class="menu-title">Accounting</span>
                             <span class="menu-arrow"></span>
                         </span>
-                        
+
 
                         <div class="menu-sub menu-sub-accordion">
                             @can('view transactions')
@@ -337,7 +336,7 @@
                         <span class="menu-title">User Management</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    
+
                     <div class="menu-sub menu-sub-accordion">
                         <div data-kt-menu-trigger="click" class="mb-1 menu-item menu-accordion">
                             <span class="menu-link">
@@ -347,7 +346,7 @@
                                 <span class="menu-title">Users</span>
                                 <span class="menu-arrow"></span>
                             </span>
-                            
+
                             <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
                                     <a class="menu-link" href="{{ route('users') }}">
@@ -362,7 +361,7 @@
                     </div>
                 </div>
                 @endcan
-                
+
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('sys-settings') }}">
                         <span class="menu-icon">
@@ -373,7 +372,6 @@
                         </span>
                         <span class="menu-title">System Settings</span>
                     </a>
-                    
                 </div>
                 @endcan
             </div>
@@ -384,17 +382,17 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const currentUrl = window.location.href;
-    
+
         // Get all menu links
         document.querySelectorAll('.menu-link[href]').forEach(link => {
             if (currentUrl.startsWith(link.href)) {
                 const menuItem = link.closest('.menu-item');
-    
+
                 if (menuItem) {
                     // Mark the current menu item
                     menuItem.classList.add('here');
                     menuItem.classList.add('show');
-    
+
                     // Also add 'show' to all parent accordions to expand the hierarchy
                     let parent = menuItem.parentElement;
                     while (parent && !parent.classList.contains('menu')) {
@@ -412,4 +410,4 @@
         });
     });
     </script>
-    
+

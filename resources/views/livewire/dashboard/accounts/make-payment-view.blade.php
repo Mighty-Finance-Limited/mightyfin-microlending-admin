@@ -53,40 +53,29 @@
                                 Over {{$transactions->count()}} {{ Str::plural('Transaction', $transactions->count()) }}
                             </span>
                         </h3><div class="card-toolbar">
-                            <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            {{-- <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                 <i class="ki-duotone ki-category fs-6">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
                                     <span class="path4"></span>
                                 </i>
+                            </button> --}}
+                            <a href="#" title="Export to Excel" wire:click="exportTransanctions()" class="px-3 btn-info btn btn-sm me-2 menu-link">
+                                Export to Excel &nbsp;
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z"/>
+                                </svg>
+                            </a>
+                            <button data-bs-toggle="modal" data-bs-target="#makeLoanRepayment"  href="#" title="Make a loan repayment" class="px-3 text-white btn btn-primary btn-sm">
+                                Make Loan Repayment &nbsp;
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                                    <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                                </svg>
                             </button>
 
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
 
-                                <div class="px-3 menu-item">
-                                    <div class="px-3 py-4 menu-content fs-6 text-dark fw-bold">Quick Actions</div>
-                                </div>
-
-                                <div class="mb-3 opacity-75 separator"></div>
-
-                                <div class="px-3 menu-item">
-                                    <a href="#" title="Export to Excel" wire:click="exportTransanctions()" class="px-3 menu-link">
-                                        Export to Excel &nbsp;
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">
-                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z"/>
-                                        </svg>
-                                    </a>
-                                </div>
-
-                                <div class="px-3 menu-item">
-                                    <button data-bs-toggle="modal" data-bs-target="#makeLoanRepayment"  href="#" title="Make a loan repayment" class="px-3 text-white btn btn-primary btn-sm">
-                                        Make Loan Repayment &nbsp;
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
-                                            <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
-                                        </svg>
-                                    </button>
-                                </div>
 
                             </div>
 
@@ -183,7 +172,7 @@
 
         <div wire:ignore class="modal fade" id="makeLoanRepayment" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 650px;">
-                <form wire:submit.prevent="makepayment()" class="modal-content shadow">
+                <form wire:submit.prevent="makepayment()" class="shadow modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header bg-light">
                         <h5 class="modal-title fw-bold">
@@ -193,34 +182,34 @@
                     </div>
 
                     <!-- Modal Body -->
-                    <div class="modal-body p-4">
+                    <div class="p-4 modal-body">
                         <!-- Payment Method Section -->
                         <div class="mb-4">
-                            <label class="form-label fw-bold mb-3">Payment Method</label>
+                            <label class="mb-3 form-label fw-bold">Payment Method</label>
                             <div class="row gx-3">
                                 <div class="col-md-4">
-                                    <div class="card payment-option mb-2">
-                                        <input type="radio" wire:model.defer="payment_method" id="checkbox1" name="payment_method" value="bank" class="position-absolute invisible">
-                                        <label for="checkbox1" class="card-body py-3 text-center payment-label">
-                                            <i class="fas fa-university fs-4 mb-2 d-block"></i>
+                                    <div class="mb-2 card payment-option">
+                                        <input type="radio" wire:model.defer="payment_method" id="checkbox1" name="payment_method" value="bank" class="invisible position-absolute">
+                                        <label for="checkbox1" class="py-3 text-center card-body payment-label">
+                                            <i class="mb-2 fas fa-university fs-4 d-block"></i>
                                             <span class="fw-medium">Bank Transfer</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card payment-option mb-2">
-                                        <input type="radio" wire:model.defer="payment_method" id="checkbox2" name="payment_method" value="card" class="position-absolute invisible">
-                                        <label for="checkbox2" class="card-body py-3 text-center payment-label">
-                                            <i class="fas fa-credit-card fs-4 mb-2 d-block"></i>
+                                    <div class="mb-2 card payment-option">
+                                        <input type="radio" wire:model.defer="payment_method" id="checkbox2" name="payment_method" value="card" class="invisible position-absolute">
+                                        <label for="checkbox2" class="py-3 text-center card-body payment-label">
+                                            <i class="mb-2 fas fa-credit-card fs-4 d-block"></i>
                                             <span class="fw-medium">Credit Card</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card payment-option mb-2">
-                                        <input type="radio" wire:model.defer="payment_method" id="checkbox3" name="payment_method" value="mobile" class="position-absolute invisible">
-                                        <label for="checkbox3" class="card-body py-3 text-center payment-label">
-                                            <i class="fas fa-mobile-alt fs-4 mb-2 d-block"></i>
+                                    <div class="mb-2 card payment-option">
+                                        <input type="radio" wire:model.defer="payment_method" id="checkbox3" name="payment_method" value="mobile" class="invisible position-absolute">
+                                        <label for="checkbox3" class="py-3 text-center card-body payment-label">
+                                            <i class="mb-2 fas fa-mobile-alt fs-4 d-block"></i>
                                             <span class="fw-medium">Mobile Money</span>
                                         </label>
                                     </div>
@@ -230,8 +219,8 @@
 
                         <!-- Loan Application Section -->
                         <div class="mb-4">
-                            <label class="form-label fw-bold mb-2">Loan Application</label>
-                            <select wire:model.defer="loan_id" class="form-select py-2" id="loanSelect">
+                            <label class="mb-2 form-label fw-bold">Loan Application</label>
+                            <select wire:model.defer="loan_id" class="py-2 form-select" id="loanSelect">
                                 <option value="">--Select a loan application--</option>
                                 @forelse ($loans as $item)
                                     <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Application::loan_balance($item->id).' - '.$item->loan_product?->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
@@ -239,12 +228,12 @@
                                     <option disabled>No Active Loans Found</option>
                                 @endforelse
                             </select>
-                            <div class="loan-details mt-3 p-3 bg-light rounded d-none" id="loanDetails">
-                                <div class="row mb-2">
+                            <div class="p-3 mt-3 rounded loan-details bg-light d-none" id="loanDetails">
+                                <div class="mb-2 row">
                                     <div class="col-6 text-muted">Loan Balance:</div>
                                     <div class="col-6 text-end fw-bold loan-balance">K0.00</div>
                                 </div>
-                                <div class="row mb-2">
+                                <div class="mb-2 row">
                                     <div class="col-6 text-muted">Next Payment:</div>
                                     <div class="col-6 text-end loan-payment">-</div>
                                 </div>
@@ -258,10 +247,10 @@
 
                         <!-- Amount Section -->
                         <div class="mb-2">
-                            <label class="form-label fw-bold mb-2">Amount</label>
+                            <label class="mb-2 form-label fw-bold">Amount</label>
                             <div class="input-group">
                                 <span class="input-group-text">K</span>
-                                <input wire:model.defer="amount" type="number" step="0.01" class="form-control py-2" id="amountInput" required placeholder="Enter payment amount">
+                                <input wire:model.defer="amount" type="number" step="0.01" class="py-2 form-control" id="amountInput" required placeholder="Enter payment amount">
                             </div>
                         </div>
 
