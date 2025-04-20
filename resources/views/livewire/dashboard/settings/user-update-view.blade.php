@@ -1,188 +1,294 @@
-<div class="content d-flex flex-column flex-column-fluid m-6 py-4">
+<div class="py-4 m-6 content d-flex flex-column flex-column-fluid">
     <div class="content-body">
-        <div class="card pb-5">
-            <form method="POST" action="{{ route('update-user') }}"  class="needs-validation" validate enctype="multipart/form-data">
+        <div class="overflow-hidden rounded-lg shadow-sm card">
+            <div class="p-4 card-header bg-light border-bottom">
+                <h4 class="mb-0 fw-bold text-primary">User Profile Details</h4>
+            </div>
+            
+            <form method="POST" action="{{ route('update-user') }}" class="needs-validation" validate enctype="multipart/form-data">
                 @csrf
-                <div class="modal-body">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                
-                                <div class="form-validation">
-                                        <div class="row">
-                                            
-                                            <div class="col-xl-6 col-xxl-6 col-lg-6">
-                                                <div class="mb-2">
-                                                    <div class="col-6">
-                                                        
-                                                        <div class="border-2 border-dashed shadow-xs border-slate-200/60 dark:border-darkmode-400 rounded-md p-0">
-                                                            <div class="h-20 relative image-fit cursor-pointer zoom-in mx-auto">
-                                                                <img class="col-12" alt="" id="preview-image-before-upload_create" src="{{ 'public/'.Storage::url($user->profile_photo_path) }}">
-                                                                {{-- <div title="Remove this profile photo?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"> <i data-lucide="x" class="w-4 h-4"></i> </div> --}}
-                                                            </div>
-                                                            <div class="mx-auto cursor-pointer relative mt-5">
-                                                                {{-- <button type="button" class="btn btn-square btn-primary">Add Photo</button> --}}
-                                                                <input type="file" id="prof_image_create" name="image_path" class="w-full h-full top-0 left-0"> 
-                                                                {{-- <input type="file" name="image_path" class="w-full h-full"> --}}
-                                                            </div>
-                                                            <small>
-                                                                {{-- @if ($errors->has('image_path'))
-                                                                    <span class="text-danger text-left">{{ $errors->first('image_path') }}</span>
-                                                                @endif --}}
-                                                            </small>
-                                                        </div>
-                                                    </div>                                                        
-                                                </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom01">Firstname 
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
+                <div class="p-4 modal-body">
+                    <!-- Profile Picture Section -->
+                    <div class="mb-4 row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="text-center profile-upload-container">
+                                <div class="position-relative d-inline-block">
+                                    <img class="border shadow rounded-circle" id="preview-image-before-upload_create" 
+                                         src="{{ !empty($user->profile_photo_path) ? 'public/' . Storage::url($user->profile_photo_path) : '/api/placeholder/150/150' }}" 
+                                         width="150" height="150" style="object-fit: cover;">
+                                    <div class="bottom-0 position-absolute end-0">
+                                        <label for="prof_image_create" class="btn btn-sm btn-primary rounded-circle">
+                                            <i class="fas fa-camera"></i>
+                                        </label>
+                                        <input type="file" id="prof_image_create" name="image_path" class="form-control d-none">
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-muted small">Click to upload profile photo</div>
+                                @error('image_path') <small class="text-danger">{{ $message }}</small> @enderror
+                            </div>
+                        </div>
+                    </div>
 
-                                                        <input type="text" class="form-control" value="{{ $user->fname }}" id="validationCustom01" name="fname"  placeholder="Enter a firstname.." required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a name.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom01">Surname
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" class="form-control" value="{{ $user->lname }}" id="validationCustom01" name="lname"  placeholder="Enter a surname.." required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a surname.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom02">Email <span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" class="form-control" value="{{ $user->email }}" name="email" id="validationCustom02"  placeholder="Your valid email.." required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter an Email.
-                                                        </div>
-                                                    </div>
+                    <div class="row g-4">
+                        <!-- Personal Information Section -->
+                        <div class="col-12">
+                            <div class="mb-4 card bg-light">
+                                <div class="card-header bg-light border-bottom">
+                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>Personal Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <!-- Left Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Firstname <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <input type="text" name="fname" value="{{ $user->fname }}" class="form-control" required>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6">
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom05">Gender
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <select name="gender" class="default-select wide form-control" id="validationCustom05">
-                                                            <option value="{{ $user->gender }}">{{ $user->gender }}</option>
-                                                            <option value="Male">Male</option>
-                                                            <option value="Female">Female</option>
-                                                            <option value="Other">Other</option>
-                                                        </select>
-                                                        <div class="invalid-feedback">
-                                                            Please select a one.
-                                                        </div>
-                                                    </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Middle Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <input type="text" name="mname" value="{{ $user->mname }}" class="form-control">
                                                 </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom06">Basic Pay
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="basic_pay" value="{{ $user->basic_pay }}" class="form-control" id="validationCustom06" placeholder="21.60" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a Basic Pay.
-                                                        </div>
-                                                    </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Surname <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <input type="text" name="lname" value="{{ $user->lname }}" class="form-control" required>
                                                 </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom06">Net Pay
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="net_pay" value="{{ $user->net_pay }}" class="form-control" id="validationCustom06" placeholder="21.60" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a Basic Pay.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom07">NRC
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" class="form-control" value="{{ $user->nrc_no }}" name="nrc_no" id="validationCustom07"  placeholder="999999/99/9" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter an NRC.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom08">Phone (ZM)
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" class="form-control" value="{{ $user->phone }}" name="phone" id="validationCustom08" placeholder="097-999-8888" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a phone no.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom09">Occupation <span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" class="form-control" name="occupation"  value="{{ $user->occupation }}" id=""  placeholder="Ex. Business Administrator" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter an Occupation.
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom05">User Role
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <select name="assigned_role" class="default-select wide form-control" id="validationCustom05">
-                                                            <option  data-display="Select">Please select</option>
-                                                            @foreach($roles as $role)
-                                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <div class="invalid-feedback">
-                                                            Please select a one.
-                                                        </div>
-                                                    </div>
-                                                </div>                                                
-                                                <input type="hidden" value="{{$user->id}}" name="user_edit_id" class="default-select wide form-control" placeholder="Borrower" id="validationCustom05">
-                                                 
-                                                <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom04">Address<span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <textarea name="address" class="form-control" value="{{ $user->address }}" id="validationCustom04"  rows="5" placeholder="Where does the person stay?" required>
-                                                            {{ $user->address }}
-                                                        </textarea>
-                                                        <div class="invalid-feedback">
-                                                            Please enter an Address.
-                                                        </div>
-                                                    </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Email <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                    <input type="email" name="email" value="{{ $user->email }}" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
+                            
+                                        <!-- Right Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Phone <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                    <input type="text" name="phone" value="{{ $user->phone }}" class="form-control" required>
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Alternate Phone</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                    <input type="text" name="phone2" value="{{ $user->phone2 }}" class="form-control">
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Date of Birth</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                    <input type="date" name="dob" value="{{ $user->dob }}" class="form-control">
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Gender <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                                                    <select name="gender" class="form-select">
+                                                        <option value="{{ $user->gender }}">{{ $user->gender }}</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Employment Information Section -->
+                        <div class="col-12">
+                            <div class="mb-4 card bg-light">
+                                <div class="card-header bg-light border-bottom">
+                                    <h5 class="mb-0"><i class="fas fa-briefcase me-2"></i>Employment Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <!-- Left Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Occupation <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                                                    <input type="text" name="occupation" value="{{ $user->occupation }}" class="form-control" required>
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Job Title</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+                                                    <input type="text" name="jobTitle" value="{{ $user->jobTitle }}" class="form-control">
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Employee No.</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                                    <input type="text" name="employeeNo" value="{{ $user->employeeNo }}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- Right Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Ministry</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                    <input type="text" name="ministry" value="{{ $user->ministry }}" class="form-control">
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Department</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-sitemap"></i></span>
+                                                    <input type="text" name="department" value="{{ $user->department }}" class="form-control">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label">User Role <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                                                    <select name="assigned_role" class="form-select">
+                                                        <option value="">Select</option>
+                                                        @foreach($roles as $role)
+                                                            <option value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
+                                                                {{ $role->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Financial & Address Information Section -->
+                        <div class="col-12">
+                            <div class="mb-4 card bg-light">
+                                <div class="card-header bg-light border-bottom">
+                                    <h5 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i>Financial & Address Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <!-- Left Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Basic Pay <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-money-bill"></i></span>
+                                                    <input type="number" step="0.01" name="basic_pay" value="{{ $user->basic_pay }}" class="form-control" required>
+                                                </div>
+                                            </div>
+                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Net Pay <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-coins"></i></span>
+                                                    <input type="number" step="0.01" name="net_pay" value="{{ $user->net_pay }}" class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- Right Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Address <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                                    <textarea name="address" class="form-control" rows="3" required>{{ $user->address }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Identity Information Section -->
+                        <div class="col-12">
+                            <div class="mb-4 card bg-light">
+                                <div class="card-header bg-light border-bottom">
+                                    <h5 class="mb-0"><i class="fas fa-id-card me-2"></i>Identity Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">ID Type</label>
+                                                <select name="id_type" class="mb-2 form-select">
+                                                    <option value="NRC" {{ $user->id_type == 'NRC' ? 'selected' : '' }}>National Registration Card (NRC)</option>
+                                                    <option value="Passport" {{ $user->id_type == 'Passport' ? 'selected' : '' }}>Passport</option>
+                                                    <option value="Drivers License" {{ $user->id_type == 'Drivers License' ? 'selected' : '' }}>Driver's License</option>
+                                                    <option value="Other" {{ $user->id_type == 'Other' ? 'selected' : '' }}>Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">NRC Number <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-fingerprint"></i></span>
+                                                    <input type="text" name="nrc_no" value="{{ $user->nrc_no }}" class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <input type="hidden" name="user_edit_id" value="{{ $user->id }}">
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>  
+            
+                <div class="p-4 text-center card-footer bg-light">
+                    <button type="submit" class="px-5 py-2 btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+// Profile image preview script
+$(document).ready(function() {
+    $('#prof_image_create').change(function(){
+        let reader = new FileReader();
+        reader.onload = (e) => { 
+            $('#preview-image-before-upload_create').attr('src', e.target.result); 
+        }
+        reader.readAsDataURL(this.files[0]); 
+    });
+});
+</script>

@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <h3 class="card-title align-items-start flex-column">
                         <span class="mb-1 card-label fw-bold fs-3">User Accounts</span>
-                        <span class="mt-1 text-muted fw-semibold fs-7">Over {{$users->count()}} records of every user account account on the platform</span>
+                        <span class="mt-1 text-muted fw-semibold fs-7">Over {{$users->count()}} {{ Str::plural('User', $users->count()) }} records of every user account account on the platform</span>
                     </h3>
                     {{-- <div>
                         @can('view all loan requests')

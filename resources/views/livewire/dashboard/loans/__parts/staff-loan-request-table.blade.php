@@ -1,4 +1,4 @@
-<div class="content d-flex flex-column flex-column-fluid w-full" id="kt_content">
+<div class="w-full content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container">
             <div class="mb-5 card mb-xl-8">
@@ -43,6 +43,7 @@
                             <div class="px-3 menu-item">
                                 <a href="{{ route('create.loan') }}" class="px-3 text-white btn btn-primary menu-link">Create New Loan</a>
                             </div>
+                            @if(Route::currentRouteName() === 'view-loan-requests')
                             <div class="px-3 menu-item">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#export_loans_panel" class="px-3 menu-link">Export</a>
                             </div>
@@ -50,6 +51,7 @@
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#import_loans_panel" class="px-3 menu-link">Import</a>
                             </div>
                             <div class="mt-3 opacity-75 separator"></div>
+                            @endif
                         </div>
 
                     </div>
