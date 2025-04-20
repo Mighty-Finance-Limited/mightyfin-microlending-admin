@@ -200,7 +200,7 @@
 
         </div>
 
-        <div class="tab-pane fade" id="kt_customer_view_overview_risk" role="tabpanel">
+        <div class="tab-pane fade show active" id="kt_customer_view_overview_risk" role="tabpanel">
 
             <div class="row g-5 g-xl-12">
                 <div class="col-xl-12">

@@ -264,7 +264,7 @@ Route::get('/loans/{loan}/download-balance-statement', [DownloaderController::cl
 
 
 // Route::get('/', [BalanceStatementController::class, 'index'])->name('balance-statement.index'); // List all statements
-Route::post('/store', [BalanceStatementController::class, 'store'])->name('balance-statement.store'); // Store a new statement
+Route::post('balance-statement', [BalanceStatementController::class, 'store'])->name('balance-statement.store'); // Store a new statement
 // Route::get('/{id}/edit', [BalanceStatementController::class, 'edit'])->name('balance-statement.edit'); // Edit form (if needed)
 // Route::put('/balance-statement/{id}', [BalanceStatementController::class, 'update'])
 // ->name('balance-statement.update');

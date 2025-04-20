@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Status;
 use App\Models\ApplicationStage;
 use App\Models\LoanBalanceStatement;
+use App\Models\LoanInstallment;
 use Livewire\Component;
 
 class LoanDetailedView extends Component
@@ -41,6 +42,6 @@ class LoanDetailedView extends Component
 
     public function getLoanRepaymentTable()
     {
-        $this->repayment_schedule = LoanBalanceStatement::where('loan_id', $this->loan->id)->get();
+        $this->repayment_schedule = LoanInstallment::where('loan_id', $this->loan->id)->get();
     }
 }

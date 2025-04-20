@@ -242,11 +242,8 @@ class LoanDetailView extends Component
             $application->status = 1;
             $application->complete = 1;
             $application->save();
-
-            // Enter statement entry
-            $this->sheet_disburse_entry($application, $application->amount, 'cash');
-            // dd('here');
             $this->calculateAmortizationScheduleTable($application);
+            $this->sheet_disburse_first_entry($application, $application->amount, 'cash');
             session()->flash('success', "Successfully disbursed K{$application->amount} to {$application->user->fname} {$application->user->lname} 🎉");
         } catch (\Throwable $th) {
             dd($th);

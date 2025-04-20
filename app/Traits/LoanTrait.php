@@ -21,19 +21,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
-trait LoanTrait{
+trait LoanTrait
+{
     use EmailTrait;
     public $application;
 
-    public function get_all_loan_products(){
+    public function get_all_loan_products()
+    {
         return LoanProduct::with([
             'disbursed_by.disbursed_by',
             'interest_methods.interest_method',
             'interest_types.interest_type',
-            ])->get();
+        ])->get();
     }
 
-    public function get_loan_product($id){
+    public function get_loan_product($id)
+    {
         return LoanProduct::where('id', $id)->with([
             'disbursed_by.disbursed_by',
             'interest_methods.interest_method',
@@ -47,22 +50,25 @@ trait LoanTrait{
         ])->first();
     }
 
-    public function get_loan_statuses($id){
+    public function get_loan_statuses($id)
+    {
         return LoanStatus::with('status')->where('loan_product_id', $id)
-                        ->get();
+            ->get();
     }
-    public function get_loan_current_stage($id){
+    public function get_loan_current_stage($id)
+    {
         return LoanStatus::with('status')->where('loan_product_id', $id)
-                        ->first();
+            ->first();
     }
 
-    public function getAllLoanRequests($type){
+    public function getAllLoanRequests($type)
+    {
         $userId = auth()->user()->id;
 
-        if(auth()->user()->hasRole('admin')){
+        if (auth()->user()->hasRole('admin')) {
             // dd('here');
             return Application::with('loan_product')->get();
-        }else{
+        } else {
             switch ($type) {
                 case 'spooling':
                     return Application::with('loan_product')->get();
@@ -76,7 +82,7 @@ trait LoanTrait{
                         $query->where('user_id', $userId);
                         $query->where('is_active', 1);
                     })
-                    ->get();
+                        ->get();
                     break;
 
                 case 'auto':
@@ -85,18 +91,19 @@ trait LoanTrait{
 
                 default:
                     # code...
-                break;
+                    break;
             }
         }
     }
 
-    public function getLoanRequests($type){
+    public function getLoanRequests($type)
+    {
         $userId = auth()->user()->id;
 
-        if(auth()->user()->hasRole('admin')){
+        if (auth()->user()->hasRole('admin')) {
             // dd('here');
             return Application::orWhere('status', 0)->orWhere('status', 2)->with('loan_product')->get();
-        }else{
+        } else {
             switch ($type) {
                 case 'spooling':
                     return Application::orWhere('status', 0)->orWhere('status', 2)->with('loan_product')->get();
@@ -110,8 +117,8 @@ trait LoanTrait{
                         $query->where('user_id', $userId);
                         $query->where('is_active', 1);
                     })
-                    ->orWhere('status', 2)->orWhere('status', 0)
-                    ->get();
+                        ->orWhere('status', 2)->orWhere('status', 0)
+                        ->get();
                     break;
 
                 case 'auto':
@@ -120,16 +127,17 @@ trait LoanTrait{
 
                 default:
                     # code...
-                break;
+                    break;
             }
         }
     }
-    public function getOpenLoanRequests($type){
+    public function getOpenLoanRequests($type)
+    {
         $userId = auth()->user()->id;
-        if(auth()->user()->hasRole('admin')){
+        if (auth()->user()->hasRole('admin')) {
             $app = Application::with('loan_product')->where('closed', 0)->where('status', 1)->get();
             return $app;
-        }else{
+        } else {
             switch ($type) {
                 case 'spooling':
                     return Application::with('loan_product')->where('closed', 0)->where('status', 1)->get();
@@ -142,8 +150,8 @@ trait LoanTrait{
                         $query->where('user_id', $userId);
                         $query->where('is_active', 1);
                     })
-                    ->where('closed', 0)->where('status', 1)
-                    ->get();
+                        ->where('closed', 0)->where('status', 1)
+                        ->get();
 
                     break;
                 case 'auto':
@@ -152,19 +160,20 @@ trait LoanTrait{
 
                 default:
                     # code...
-                break;
+                    break;
             }
         }
     }
-    public function getDueLoanRequests($type){
+    public function getDueLoanRequests($type)
+    {
         $userId = auth()->user()->id;
-        if(auth()->user()->hasRole('admin')){
+        if (auth()->user()->hasRole('admin')) {
             return Application::with('loan_product')->where('complete', 1)->where('status', 1)->get();
-        }else{
+        } else {
             switch ($type) {
                 case 'spooling':
                     return Application::with('loan_product')->where('complete', 1)
-                    ->where('status', 1)->get();
+                        ->where('status', 1)->get();
                     break;
                 case 'manual':
                     return Application::with('loan_product')->with(['manual_approvers' => function ($query) use ($userId) {
@@ -174,9 +183,9 @@ trait LoanTrait{
                         $query->where('user_id', $userId);
                         $query->where('is_active', 1);
                     })
-                    ->where('status', 1)
-                    ->where('complete', 1)
-                    ->get();
+                        ->where('status', 1)
+                        ->where('complete', 1)
+                        ->get();
 
                     break;
                 case 'auto':
@@ -185,16 +194,18 @@ trait LoanTrait{
 
                 default:
                     # code...
-                break;
+                    break;
             }
         }
     }
 
-    public function getLoanPackages(){
+    public function getLoanPackages()
+    {
         return LoanPackage::orderBy('created_at', 'desc')->get();
     }
 
-    public function removeLoanPackage($id){
+    public function removeLoanPackage($id)
+    {
         $package = LoanPackage::find($id);
         if ($package) {
             $package->delete();
@@ -204,88 +215,98 @@ trait LoanTrait{
         }
     }
 
-    public function getCurrentLoan(){
+    public function getCurrentLoan()
+    {
         return Application::with('loan')
-        ->where('email', auth()->user()->email)
-        ->orWhere('user_id', auth()->user()->id)
-        ->orderBy('created_at', 'desc') // Add this line to order by 'created_at' column in descending order
-        ->first();
-    }
-    public function get_loan_details($id){
-        $data = Application::with('user.nextkin')
-        ->with('user.uploads')->where('id', $id)->first();
-        return $data;
+            ->where('email', auth()->user()->email)
+            ->orWhere('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc') // Add this line to order by 'created_at' column in descending order
+            ->first();
     }
 
-    public function apply_loan($data){
-            try {
-                $check = Application::where('status', 0)
-                                    ->where('complete', 0)
-                                    ->where('user_id', $data['user_id'])
-                                    ->orderBy('created_at', 'desc')->get();
+    public function get_loan_details($id)
+    {
+        return Application::with([
+            'user.nextkin',
+            'user.uploads',
+            'loan_product.service_fees.service_charge',
+            'balance_statement'
+        ])->where('id', $id)->first();
+    }
 
-                if(empty($check->toArray())){
-                    $item = Application::create($data);
-                    // Fetch the loan status with relationships.
-                    $status = DB::table('loan_statuses')
-                        ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
-                        ->select('loan_statuses.*', 'statuses.*')
-                        ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
-                        ->orderBy('loan_statuses.id', 'asc')
-                        ->first();
 
-                    // dd($status->status);
-                    // Create a new application stage.
-                    DB::table('application_stages')->insert([
-                        'application_id' => $item->id,
-                        'loan_status_id' => 1,
-                        'state' => 'current',
-                        'status' => $status->name ?? 'verification', // Using the status retrieved from the query
-                        'stage' => $status->stage ?? 'processing',
-                        'prev_status' => 'current',
-                        'curr_status' => '',
-                        'position' => 1
-                    ]);
+    public function apply_loan($data)
+    {
+        try {
+            $check = Application::where('status', 0)
+                ->where('complete', 0)
+                ->where('user_id', $data['user_id'])
+                ->orderBy('created_at', 'desc')->get();
 
-                    return $item->id;
-                }else{
-                    // redirect to you already have loan request
-                    return 'exists';
-                }
+            if (empty($check->toArray())) {
+                $item = Application::create($data);
+                // Fetch the loan status with relationships.
+                $status = DB::table('loan_statuses')
+                    ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
+                    ->select('loan_statuses.*', 'statuses.*')
+                    ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
+                    ->orderBy('loan_statuses.id', 'asc')
+                    ->first();
 
-            } catch (\Throwable $th) {
-                dd($th);
+                // dd($status->status);
+                // Create a new application stage.
+                DB::table('application_stages')->insert([
+                    'application_id' => $item->id,
+                    'loan_status_id' => 1,
+                    'state' => 'current',
+                    'status' => $status->name ?? 'verification', // Using the status retrieved from the query
+                    'stage' => $status->stage ?? 'processing',
+                    'prev_status' => 'current',
+                    'curr_status' => '',
+                    'position' => 1
+                ]);
+
+                return $item->id;
+            } else {
+                // redirect to you already have loan request
+                return 'exists';
             }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
-    public function apply_update_loan($data, $loan_id){
-            try {
-                // check if user already created a loan application that is not approved yet and not complete
-                $check = Application::where('id', $loan_id)->first();
-                $check->update($data);
-
-            } catch (\Throwable $th) {
-                return 0;
-            }
+    public function apply_update_loan($data, $loan_id)
+    {
+        try {
+            // check if user already created a loan application that is not approved yet and not complete
+            $check = Application::where('id', $loan_id)->first();
+            $check->update($data);
+        } catch (\Throwable $th) {
+            return 0;
+        }
     }
 
-    public function updateGuarantors($data){
+    public function updateGuarantors($data)
+    {
         $application = Application::where('id', $data['application_id'])->first();
         $application->update($data);
     }
 
 
-    public function remake_loan($loan_id, $new_due_date){
+    public function remake_loan($loan_id, $new_due_date)
+    {
         $x = Application::where('id', $loan_id)->first();
         Loans::where('application_id', '=', $loan_id)->delete();
         $this->make_loan($x, $new_due_date);
     }
 
-    public function make_loan($x, $due_date){
+    public function make_loan($x, $due_date)
+    {
         try {
-            if($due_date !== null){
-                $due = $due_date.' 00:00:00';
-            }else{
+            if ($due_date !== null) {
+                $due = $due_date . ' 00:00:00';
+            } else {
                 $due = Carbon::now()->addMonth($x->repayment_plan);
             }
             $loan = Loans::create([
@@ -302,16 +323,15 @@ trait LoanTrait{
             $payback_amount = Application::payback($x);
             $installments = $payback_amount / $x->repayment_plan;
 
-            for ($i=0; $i < $x->repayment_plan; $i++) {
-                if($x->doa !== null){
+            for ($i = 0; $i < $x->repayment_plan; $i++) {
+                if ($x->doa !== null) {
                     $date_str = $x->doa;
                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $date_str);
-                    $moths = 'P'. $i+1 .'M';
+                    $moths = 'P' . $i + 1 . 'M';
                     $next_due = $date->add(new DateInterval($moths));
-
-                }else{
+                } else {
                     $due = Carbon::now()->addMonth($x->repayment_plan);
-                    $next_due = Carbon::now()->addMonth($i+1);
+                    $next_due = Carbon::now()->addMonth($i + 1);
                 }
 
                 LoanInstallment::create([
@@ -325,7 +345,8 @@ trait LoanTrait{
         }
     }
 
-    public function notify_loan_request($data){
+    public function notify_loan_request($data)
+    {
 
         $admin = User::where('id', $data['user_id']);
         try {
@@ -336,12 +357,14 @@ trait LoanTrait{
         }
     }
 
-    public function payback_ammount($amount, $duration){
+    public function payback_ammount($amount, $duration)
+    {
         $interest_rate = 20 / 100;
         return $amount * (1 + ($interest_rate * (int)$duration));
     }
 
-    public function missed_repayments(){
+    public function missed_repayments()
+    {
         if (auth()->user()->hasRole('user')) {
             return DB::table('applications')
                 ->join('users', 'users.id', '=', 'applications.user_id')
@@ -352,9 +375,9 @@ trait LoanTrait{
                 ->where('applications.user_id', '=', auth()->user()->id)
                 ->where('loan_installments.next_dates', '<', now())
                 ->whereNotNull('applications.type')
-                ->select('loans.id','users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
+                ->select('loans.id', 'users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
                 ->get();
-        }else{
+        } else {
             return DB::table('applications')
                 ->join('users', 'users.id', '=', 'applications.user_id')
                 ->join('loans', 'applications.id', '=', 'loans.application_id')
@@ -363,23 +386,23 @@ trait LoanTrait{
                 ->where('applications.complete', '=', 1)
                 ->where('loan_installments.next_dates', '<', now())
                 ->whereNotNull('applications.type')
-                ->select('loans.id','users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
+                ->select('loans.id', 'users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
                 ->get();
         }
     }
-    public function past_maturity_date(){
+    public function past_maturity_date()
+    {
         if (auth()->user()->hasRole('user')) {
             return Application::with(['loan' => function ($query) {
                 $query->where('final_due_date', '<', now());
             }])->with('user')
-            ->where('user_id', auth()->user()->id)
-            ->where('status', 1)->where('complete', 1)->get();
-        }else{
+                ->where('user_id', auth()->user()->id)
+                ->where('status', 1)->where('complete', 1)->get();
+        } else {
             return Application::with(['loan' => function ($query) {
                 $query->where('final_due_date', '<', now());
             }])->with('user')->where('status', 1)->where('complete', 1)->get();
         }
-
     }
 
 
@@ -399,7 +422,7 @@ trait LoanTrait{
                 'status' => true,
                 'priority' => $userPriority,
                 'total_approvers' => $approvers->count(),
-                'is_passed' =>$is_passed
+                'is_passed' => $is_passed
             ];
         } else {
             return [
@@ -411,19 +434,22 @@ trait LoanTrait{
         }
     }
 
-    public function my_approval_status($application_id){
+    public function my_approval_status($application_id)
+    {
         return LoanManualApprover::where('user_id', auth()->user()->id)
-                        ->where('application_id', $application_id)
-                        ->pluck('is_passed')->first();
+            ->where('application_id', $application_id)
+            ->pluck('is_passed')->first();
     }
 
-    public function my_review_status($application_id){
+    public function my_review_status($application_id)
+    {
         return LoanManualApprover::where('user_id', auth()->user()->id)
-                        ->where('application_id', $application_id)
-                        ->pluck('is_processing')->first();
+            ->where('application_id', $application_id)
+            ->pluck('is_processing')->first();
     }
 
-    public function upvote($application_id){
+    public function upvote($application_id)
+    {
         try {
             $approvers = LoanManualApprover::where('application_id', $application_id)->get();
             $userPriority = $approvers->where('user_id', auth()->user()->id)->pluck('priority')->first();
@@ -439,7 +465,7 @@ trait LoanTrait{
 
             // Elevate to the next priority
             $update = $approvers->where('priority', $userPriority + 1)->first();
-            if($update){
+            if ($update) {
 
                 $update->complete = 1; //optional - remove
                 $update->is_active = 1;
@@ -450,7 +476,8 @@ trait LoanTrait{
             return true;
         }
     }
-    public function final_upvote($application_id){
+    public function final_upvote($application_id)
+    {
         $approvers = LoanManualApprover::where('application_id', $application_id)->get();
         $userPriority = $approvers->where('user_id', auth()->user()->id)->pluck('priority')->first();
 
@@ -470,7 +497,23 @@ trait LoanTrait{
     }
 
 
-    public function sheet_disburse_entry($loan, $amount, $method){
+    public function sheet_disburse_first_entry($loan, $amount, $method)
+    {
+        LoanBalanceStatement::create([
+            'loan_id' => $loan->id,
+            'payment_date' => $loan->start_schedule_date ?? now(),
+            'description' => "Loan Disbursed to Customer",
+            'debit' => $amount,
+            'credit' => null,
+            'principal_paid' => null,
+            'interest_paid' => null,
+            'balance_after_payment' => Application::payback($loan),
+            'payment_method' => $method, // Can be dynamic
+        ]);
+    }
+
+    public function sheet_disburse_entry($loan, $amount, $method)
+    {
         LoanBalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
@@ -484,7 +527,8 @@ trait LoanTrait{
         ]);
     }
 
-    public function sheet_penalty_entry($loan, $amount, $method){
+    public function sheet_penalty_entry($loan, $amount, $method)
+    {
         LoanBalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
@@ -498,7 +542,8 @@ trait LoanTrait{
         ]);
     }
 
-    public function sheet_installment_entry($loan, $amount, $method){
+    public function sheet_installment_entry($loan, $amount, $method)
+    {
         LoanBalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),

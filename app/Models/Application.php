@@ -78,7 +78,9 @@ class Application extends Model
         'is_zambian',
         'nationality',
         'continue',
-        'is_assigned'
+        'is_assigned',
+        'start_schedule_date',
+        'closed_at'
     ];
     protected $appends = [
         'done_by',
@@ -153,6 +155,71 @@ class Application extends Model
     {
         return $this->hasMany(LoanBalanceStatement::class, 'loan_id');
     }
+
+
+
+    // COUNTS
+    public static function totalLoansCount()
+    {
+        return Application::whereNotIn('status', [100, 3])->get();
+    }
+    public static function totalApprovedLoans()
+    {
+        return Application::where('status', 1)->get()->count();
+    }
+    public static function totalOpenCount()
+    {
+        return Application::where('status', 1)->where('closed', 0)->get()->count();
+    }
+    public static function totalPendingLoans()
+    {
+        return Application::whereIn('status', [0, 2])->count();
+    }
+    public static function totalAmountClosedCount()
+    {
+        // Total amount for complete and under review / pending approval
+        return Application::whereNotIn('status', [100, 3])->where('closed', 1)->count();
+    }
+    public static function totalDeclinedLoansCount()
+    {
+        // Total amount for complete and under review / pending approval
+        return Application::where('status', 3)->count();
+    }
+
+
+    // FUNDS
+    public static function totalAmountLoans()
+    {
+        // Total amount for all loans with complete KYC
+        return Application::whereNotIn('status', [100, 3])->sum('amount');
+    }
+    public static function totalOpenAmount()
+    {
+        return Application::where('status', 1)->where('closed', 0)->sum('amount');
+    }
+    public static function totalAmountLoanedOut()
+    {
+        //  Total amount for complete and approved loans
+        return Application::where('status', 1)->sum('amount');
+    }
+    public static function totalAmountPending()
+    {
+        // Total amount for complete and under review / pending approval
+        return Application::whereIn('status', [0, 2])->sum('amount');
+    }
+    public static function totalAmountClosed()
+    {
+        // Total amount for complete and under review / pending approval
+        return Application::whereNotIn('status', [100, 3])->where('closed', 1)->sum('amount');
+    }
+    public static function totalDeclinedLoans()
+    {
+        // Total amount for complete and under review / pending approval
+        return Application::where('status', 3)->sum('amount');
+    }
+
+
+
     // Pending for approval
     public static function currentApplication()
     {
@@ -170,7 +237,6 @@ class Application extends Model
 
     public static function payback($loan = null)
     {
-        // dd($loan);
         if ($loan->amount) {
             $instance = new self();
             if ($loan) {
@@ -181,6 +247,28 @@ class Application extends Model
             return $data['total_repayment'];
         }
         return 0;
+    }
+
+    public static function receive($loan){
+
+        // Deduct fee from repayment total
+        $net_repayment = $loan->amount - self::service_pay($loan);
+
+        return $net_repayment;
+    }
+
+    public static function service_pay($loan)
+    {
+        $repayment_total = self::payback($loan); // e.g. 4000
+        $service_fee_percentage = self::service_charge($loan); // e.g. 3.5
+
+        // Calculate fee amount
+        return ($service_fee_percentage / 100) * $repayment_total;
+    }
+
+
+    public static function service_charge($loan){
+        return $loan->loan_product?->service_fees?->first()->service_charge->value ?? 0;
     }
 
     public static function monthInstallment($loan)
@@ -304,77 +392,6 @@ class Application extends Model
         } catch (\Throwable $th) {
             return 0;
         }
-    }
-
-    // COUNTS
-    public static function totalLoans()
-    {
-        return Application::get()->count();
-    }
-    public static function totalApprovedLoans()
-    {
-        return Application::where('status', 1)->get()->count();
-    }
-    public static function totalPendingLoans()
-    {
-        return Application::where('status', 0)->where('complete', 1)->get()->count();
-    }
-
-
-    // FUNDS
-    public static function totalAmountLoans()
-    {
-        //  Total amount for all loans with complete KYC
-        return Application::where('complete', 1)->sum('amount');
-    }
-    public static function totalAmountLoanedOut()
-    {
-        //  Total amount for complete and approved loans
-        return Application::where('complete', 1)->where('status', 1)->whereNotNull('due_date')->sum('amount');
-    }
-    public static function totalAmountPending()
-    {
-        // Total amount for complete and under review / pending approval
-        return Application::where('complete', 1)->where('status', [0, 2])->sum('amount');
-    }
-
-
-    // ELIGIBILITY
-    public static function loan_assemenent_table($loan)
-    {
-        $basic_pay = $loan->user->basic_pay; // Clear
-        $net_pay = $loan->user->net_pay; //Unclear //Net Pay Before Loan Recovery
-        $principal = $loan->amount; // Clear
-        $interest = $loan->interest; // Clear
-        $total_collectable = Application::payback($loan->amount, $loan->repayment_plan); // Clear
-        $payment_period = $loan->repayment_plan; // Clear
-        $monthly_payment = Application::monthly_installment($loan->amount, $loan->repayment_plan); // Clear
-        $maximum_deductable_amount = $net_pay * 0.75; // Clear
-        $net_pay_alr = $net_pay * 0.25;; //Net Pay After Loan Recovery //Clear
-
-        // if($maximum_deductable_amount > 0){
-        $credit_score = $monthly_payment < $maximum_deductable_amount;
-        // }else{
-        //     $credit_score = false;
-        // }
-
-        $data = [
-            'borrower' => $loan->user->fname . ' ' . $loan->user->lname,
-            'basic_pay' => $basic_pay, // Clear
-            'net_pay_blr' => $net_pay, //Unclear //Net Pay Before Loan Recovery
-            'principal' => $principal, // Clear
-            'interest' => $payment_period < 2 ? '20%' : '44%', // Clear
-            'total_collectable' =>  $total_collectable, // Clear
-            'payment_period' => $payment_period, // Clear
-            'monthly_payment' =>  $monthly_payment, // Clear
-            'maximum_deductable_amount' => $maximum_deductable_amount, // Clear
-            'net_pay_alr' => $net_pay_alr, //Net Pay After Loan Recovery //Clear
-            'dob' => $loan->user->dob,
-            'doa' => $loan->created_at->toFormattedDateString(), //Date of Application
-            'dop' => '',
-            'credit_score' => $credit_score
-        ];
-        return $data;
     }
 
     public static function loanPaidSofar($application_id)
