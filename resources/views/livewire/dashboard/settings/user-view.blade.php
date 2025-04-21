@@ -1,4 +1,5 @@
 <div class="content d-flex flex-column flex-column-fluid">
+    @include('livewire.dashboard.settings.breadcrums.index-user-crums')
     <div class="container-fluid">
         <div class="col-12">
             <div class="card">
