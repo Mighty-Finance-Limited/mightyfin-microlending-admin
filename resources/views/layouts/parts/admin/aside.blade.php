@@ -121,7 +121,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
 
-                                <span class="menu-title">Add Loan</span>
+                                <span class="menu-title">Add a Loan</span>
                             </a>
                         </div>
                         {{-- @endcan --}}
@@ -274,7 +274,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">All Staff</span>
+                                    <span class="menu-title">Staff Members</span>
                                 </a>
                             </div>
                         </div>

@@ -1,4 +1,6 @@
 <div class="content d-flex flex-column flex-column-fluid">
+    @include('livewire.dashboard.accounts.breadcrums.index-transaction-crum')
+
         <style>
             /* Hide the default checkbox */
             input[type="radio"] {
@@ -53,14 +55,7 @@
                                 Over {{$transactions->count()}} {{ Str::plural('Transaction', $transactions->count()) }}
                             </span>
                         </h3><div class="card-toolbar">
-                            {{-- <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                <i class="ki-duotone ki-category fs-6">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </button> --}}
+
                             <a href="#" title="Export to Excel" wire:click="exportTransanctions()" class="px-3 btn-info btn btn-sm me-2 menu-link">
                                 Export to Excel &nbsp;
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">

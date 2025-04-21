@@ -1,22 +1,16 @@
 @if($createModal)
 <div wire:ignore class="modal fade" id="kt_modal_add_customer" tabindex="-1" aria-hidden="true">
-    <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <!--begin::Modal content-->
         <div class="modal-content">
-            <!--begin::Form-->
             <form class="form" method="POST" action="{{ route('create-user') }}" id="kt_modal_add_customer_form" validate enctype="multipart/form-data">
                 @csrf
-                <!--begin::Modal header-->
                 <div class="pb-0 border-0 modal-header">
                     <h2 class="fw-bold text-dark">Add a Customer</h2>
                     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" aria-label="Close">
                         <i class="ki-duotone ki-cross fs-1"></i>
                     </div>
                 </div>
-                <!--end::Modal header-->
 
-                <!--begin::Modal body-->
                 <div class="py-5 modal-body">
                     <!-- Photo Uploads Section -->
                     <div class="mb-5">
@@ -32,29 +26,11 @@
                                                 <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>
                                                 <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5"/>
                                               </svg>
-                                            <input type="file" name="passport_photo1" accept="image/*" class="photo-upload" data-preview="passport1Preview"/>
+                                            <input type="file" name="primary_image_path" accept="image/*" class="photo-upload" data-preview="passport1Preview"/>
                                         </label>
                                     </div>
                                     <span class="mt-2 text-gray-600 fs-7">Passport Photo 1</span>
-                                    <div class="text-center form-text">Passport sized photo with white background</div>
-                                </div>
-                            </div>
-
-                            <!-- Passport Photo 2 -->
-                            <div class="col-md-3">
-                                <div class="d-flex flex-column align-items-center">
-                                    <div class="image-input image-input-outline" data-kt-image-input="true">
-                                        <div class="image-input-wrapper w-100px h-100px" id="passport2Preview" style="background-image: url('https://thumbs.dreamstime.com/b/vector-upload-icon-cloud-arrow-loading-concept-isalated-white-background-flat-design-element-127011477.jpg')"></div>
-                                        <label class="shadow btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body" data-kt-image-input-action="change">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
-                                                <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>
-                                                <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5"/>
-                                              </svg>
-                                            <input type="file" name="passport_photo2" accept="image/*" class="photo-upload" data-preview="passport2Preview"/>
-                                        </label>
-                                    </div>
-                                    <span class="mt-2 text-gray-600 fs-7">Passport Photo 2</span>
-                                    <div class="text-center form-text">Alternative passport photo</div>
+                                    <div class="text-center form-text">Passport sized photo with white background as profile picture</div>
                                 </div>
                             </div>
 

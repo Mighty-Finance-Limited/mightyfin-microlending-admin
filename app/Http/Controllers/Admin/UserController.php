@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\BTFAccount;
 use App\Models\Wallet;
 use App\Traits\UserTrait;
+use App\Traits\FileTrait;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
-    use EmailTrait, UserTrait;
+    use EmailTrait, UserTrait, FileTrait;
     // public function __construct()
     // {
     //     $this->middleware('can:admin.users.index')->only('index');
@@ -39,18 +40,17 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
+            $this->uploadCommonFiles($request);
             if ($request->file('primary_image_path')) {
                 $url = Storage::put('public/users', $request->file('primary_image_path'));
             }
-
             $u = $user->create(array_merge($request->all(), [
                 'password' => bcrypt('mighty.@2023@'),
                 'active' => 1,
                 'profile_photo_path' => $url ?? '',
                 'jobTitle'=> $request->input('JobTitle') ?? '',
-                'occupation'=> $request->input('JobTitle') ?? '',
+                'occupation'=> $request->input('occupation') ?? '',
             ]));
-
             $this->uploadUserPhotos($request, $u);
             $u->syncRoles($request->assigned_role);
             try {
@@ -62,7 +62,6 @@ class UserController extends Controller
                 }else{
                     Session::flash('success', "User created successfully.");
                 }
-
                 DB::commit();
                 return back();
             } catch (\Throwable $th) {

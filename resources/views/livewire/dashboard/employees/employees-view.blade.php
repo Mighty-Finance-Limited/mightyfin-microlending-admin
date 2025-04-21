@@ -1,4 +1,5 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    @include('livewire.dashboard.employees.breadcrums.index-employees-crum')
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" class="container-xxl">
             <div class="card">
@@ -7,7 +8,7 @@
                         <span class="mb-1 card-label fw-bold fs-3">Employee Accounts</span>
                         <span class="mt-1 text-muted fw-semibold fs-7">Over {{$users->count()}} {{ Str::plural('User', $users->count()) }} records of every user account account on the platform</span>
                     </h3>
-                    
+
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             <button type="button" class="text-sm btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">
@@ -20,10 +21,10 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="pt-0 card-body">
                     @include('livewire.dashboard.__parts.dash-alerts')
-                    
+
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                         <thead>
                             <tr class="text-gray-400 text-start fw-bold fs-7 text-uppercase gs-0">
@@ -122,10 +123,10 @@
                                     <i class="fas fa-times fs-5"></i>
                                 </div>
                             </div>
-                            
+
                             <div class="px-4 py-4 modal-body">
                                 <div class="scroll-y me-n4 pe-4" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-                                    
+
                                     <!-- Basic Information Card -->
                                     <div class="mb-4 shadow-sm card">
                                         <div class="py-3 card-header bg-light">
@@ -147,7 +148,7 @@
                                                         <input class="form-control" placeholder="Enter firstname" name="fname" required />
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-6 fv-row">
                                                     <label class="form-label fw-semibold">
                                                         Lastname <span class="text-danger">*</span>
@@ -159,7 +160,7 @@
                                                         <input class="form-control" placeholder="Enter surname" name="lname" required />
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-12 fv-row">
                                                     <label class="form-label fw-semibold">
                                                         Email <span class="text-danger">*</span>
@@ -174,7 +175,7 @@
                                                         <input type="email" class="form-control" placeholder="employee@example.com" name="email" required />
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-12 fv-row">
                                                     <label class="form-label fw-semibold">
                                                         Default Password
@@ -193,7 +194,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- General Information Card -->
                                     <div class="mb-4 shadow-sm card">
                                         <div class="py-3 card-header bg-light">
@@ -203,7 +204,7 @@
                                                 <i class="fas fa-chevron-down ms-2 fs-6"></i>
                                             </h4>
                                         </div>
-                                        
+
                                         <div id="kt_modal_add_customer_billing_info" class="collapse show">
                                             <div class="p-4 card-body">
                                                 <div class="row g-4">
@@ -218,7 +219,7 @@
                                                             <input class="form-control" placeholder="Enter address" name="address1" value="101, Collins Street" required />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-6 fv-row">
                                                         <label class="form-label fw-semibold">
                                                             Town <span class="text-danger">*</span>
@@ -230,7 +231,7 @@
                                                             <input class="form-control" placeholder="Enter town or city" name="city" required />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-12 fv-row">
                                                         <label class="form-label fw-semibold">
                                                             Active Phone Number
@@ -242,7 +243,7 @@
                                                             <input class="form-control" placeholder="Enter phone number" name="phone" />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-6 fv-row">
                                                         <label class="form-label fw-semibold">
                                                             National ID Type <span class="text-danger">*</span>
@@ -260,7 +261,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-6 fv-row">
                                                         <label class="form-label fw-semibold">
                                                             National ID <span class="text-danger">*</span>
@@ -272,7 +273,7 @@
                                                             <input class="form-control" placeholder="Enter ID number" name="nrc_no" required />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-6 fv-row">
                                                         <label class="form-label fw-semibold">
                                                             Gender <span class="text-danger">*</span>
@@ -291,7 +292,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-6 fv-row">
                                                         <label class="form-label fw-semibold">
                                                             Role <span class="text-danger">*</span>
@@ -311,7 +312,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="mt-2 col-12">
                                                         <div class="border card bg-light">
                                                             <div class="py-3 card-body">
@@ -337,12 +338,12 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="py-3 modal-footer bg-light">
                                 <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light btn-active-light-primary me-3">
                                     <i class="fas fa-times-circle me-1"></i> Discard
                                 </button>
-                                
+
                                 <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary btnclicky">
                                     <span class="indicator-label">
                                         <i class="fas fa-check-circle me-1"></i> Submit
@@ -357,7 +358,7 @@
                 </div>
             </div>
             @endif
-            
+
             <div class="modal fade" id="kt_customers_export_modal" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-650px">

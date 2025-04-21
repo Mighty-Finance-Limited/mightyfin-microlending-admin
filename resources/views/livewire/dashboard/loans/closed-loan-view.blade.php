@@ -1,4 +1,5 @@
 <div class="content d-flex flex-column flex-column-fluid">
+    @include('livewire.dashboard.borrowers.breadcrums.index-borrowers-crum')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -15,7 +16,7 @@
                             @endcan
                         </div>
                     </div>
-                    <div class="card-body pb-0" style="padding-bottom: 30%">
+                    <div class="pb-0 card-body">
                         <div id="pm_table_print_view" class="table-responsive patient">
                             <div wire:ignore class="actions-btns col-xl-12">
                                 <div class="alert alert-dark alert-dismissible fade show">
@@ -27,7 +28,7 @@
                                 </div>
                             </div>
 
-                            <table wire:ignore.self wire:poll.1000000ms id="example3" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <table wire:ignore.self wire:poll.1000000ms id="example3" class="table align-middle table-row-bordered table-row-gray-100 gs-0 gy-3">
                                 <thead>
                                     <tr class="fw-bold text-muted">
                                         <th>Loan #.</th>
@@ -54,7 +55,7 @@
                                             <td style=""><b>K{{ number_format(App\Models\Loans::loan_settled($loan->id),2,'.',',') }}</b></td>
                                             <td>
                                                 <span class="badge badge-sm light badge-info">
-                                                    <i class="fa fa-circle text-white me-1"></i>
+                                                    <i class="text-white fa fa-circle me-1"></i>
                                                     Closed
                                                 </span>
                                             </td>
@@ -71,8 +72,8 @@
                                             </td>
                                         </tr>
                                     @empty
-                                    <div class="intro-y col-span-12 md:col-span-6">
-                                        <div class="box text-center">
+                                    <div class="col-span-12 intro-y md:col-span-6">
+                                        <div class="text-center box">
                                             <p>Nothing Found.</p>
                                         </div>
                                     </div>

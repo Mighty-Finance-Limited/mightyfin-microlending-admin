@@ -1,10 +1,11 @@
-<div class="py-4 m-6 content d-flex flex-column flex-column-fluid">
+<div class="m-6 content d-flex flex-column flex-column-fluid">
+    @include('livewire.dashboard.settings.breadcrums.update-user-crums')
     <div class="content-body">
         <div class="overflow-hidden rounded-lg shadow-sm card">
             <div class="p-4 card-header bg-light border-bottom">
                 <h4 class="mb-0 fw-bold text-primary">User Profile Details</h4>
             </div>
-            
+
             <form method="POST" action="{{ route('update-user') }}" class="needs-validation" validate enctype="multipart/form-data">
                 @csrf
                 <div class="p-4 modal-body">
@@ -13,12 +14,12 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="text-center profile-upload-container">
                                 <div class="position-relative d-inline-block">
-                                    <img class="border shadow rounded-circle" id="preview-image-before-upload_create" 
-                                         src="{{ !empty($user->profile_photo_path) ? 'public/' . Storage::url($user->profile_photo_path) : '/api/placeholder/150/150' }}" 
+                                    <img class="border shadow rounded-circle" id="preview-image-before-upload_create"
+                                         src="{{ !empty($user->profile_photo_path) ? 'public/' . Storage::url($user->profile_photo_path) : '/api/placeholder/150/150' }}"
                                          width="150" height="150" style="object-fit: cover;">
                                     <div class="bottom-0 position-absolute end-0">
-                                        <label for="prof_image_create" class="btn btn-sm btn-primary rounded-circle">
-                                            <i class="fas fa-camera"></i>
+                                        <label for="prof_image_create" class="rounded-circle btn btn-xs btn-primary">
+                                            <i class="text-xl fas fa-camera"></i>
                                         </label>
                                         <input type="file" id="prof_image_create" name="image_path" class="form-control d-none">
                                     </div>
@@ -33,9 +34,7 @@
                         <!-- Personal Information Section -->
                         <div class="col-12">
                             <div class="mb-4 card bg-light">
-                                <div class="card-header bg-light border-bottom">
-                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>Personal Information</h5>
-                                </div>
+
                                 <div class="card-body">
                                     <div class="row g-3">
                                         <!-- Left Column -->
@@ -47,7 +46,7 @@
                                                     <input type="text" name="fname" value="{{ $user->fname }}" class="form-control" required>
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Middle Name</label>
                                                 <div class="input-group">
@@ -55,7 +54,7 @@
                                                     <input type="text" name="mname" value="{{ $user->mname }}" class="form-control">
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Surname <span class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -63,7 +62,7 @@
                                                     <input type="text" name="lname" value="{{ $user->lname }}" class="form-control" required>
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Email <span class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -72,7 +71,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                            
+
                                         <!-- Right Column -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -82,7 +81,7 @@
                                                     <input type="text" name="phone" value="{{ $user->phone }}" class="form-control" required>
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Alternate Phone</label>
                                                 <div class="input-group">
@@ -90,7 +89,7 @@
                                                     <input type="text" name="phone2" value="{{ $user->phone2 }}" class="form-control">
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Date of Birth</label>
                                                 <div class="input-group">
@@ -98,7 +97,7 @@
                                                     <input type="date" name="dob" value="{{ $user->dob }}" class="form-control">
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Gender <span class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -120,9 +119,6 @@
                         <!-- Employment Information Section -->
                         <div class="col-12">
                             <div class="mb-4 card bg-light">
-                                <div class="card-header bg-light border-bottom">
-                                    <h5 class="mb-0"><i class="fas fa-briefcase me-2"></i>Employment Information</h5>
-                                </div>
                                 <div class="card-body">
                                     <div class="row g-3">
                                         <!-- Left Column -->
@@ -134,7 +130,7 @@
                                                     <input type="text" name="occupation" value="{{ $user->occupation }}" class="form-control" required>
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Job Title</label>
                                                 <div class="input-group">
@@ -142,7 +138,7 @@
                                                     <input type="text" name="jobTitle" value="{{ $user->jobTitle }}" class="form-control">
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Employee No.</label>
                                                 <div class="input-group">
@@ -151,7 +147,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                            
+
                                         <!-- Right Column -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -161,7 +157,7 @@
                                                     <input type="text" name="ministry" value="{{ $user->ministry }}" class="form-control">
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Department</label>
                                                 <div class="input-group">
@@ -169,7 +165,7 @@
                                                     <input type="text" name="department" value="{{ $user->department }}" class="form-control">
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">User Role <span class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -193,9 +189,6 @@
                         <!-- Financial & Address Information Section -->
                         <div class="col-12">
                             <div class="mb-4 card bg-light">
-                                <div class="card-header bg-light border-bottom">
-                                    <h5 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i>Financial & Address Information</h5>
-                                </div>
                                 <div class="card-body">
                                     <div class="row g-3">
                                         <!-- Left Column -->
@@ -207,7 +200,7 @@
                                                     <input type="number" step="0.01" name="basic_pay" value="{{ $user->basic_pay }}" class="form-control" required>
                                                 </div>
                                             </div>
-                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Net Pay <span class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -216,7 +209,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                            
+
                                         <!-- Right Column -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -235,9 +228,6 @@
                         <!-- Identity Information Section -->
                         <div class="col-12">
                             <div class="mb-4 card bg-light">
-                                <div class="card-header bg-light border-bottom">
-                                    <h5 class="mb-0"><i class="fas fa-id-card me-2"></i>Identity Information</h5>
-                                </div>
                                 <div class="card-body">
                                     <div class="row g-3">
                                         <div class="col-md-6">
@@ -251,7 +241,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">NRC Number <span class="text-danger">*</span></label>
@@ -266,12 +256,12 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <input type="hidden" name="user_edit_id" value="{{ $user->id }}">
                 </div>
-            
+
                 <div class="p-4 text-center card-footer bg-light">
-                    <button type="submit" class="px-5 py-2 btn btn-primary">
+                    <button type="submit" class="px-5 py-2 btn btn-primary btnclicky">
                         <i class="fas fa-save me-2"></i>Save Changes
                     </button>
                 </div>
@@ -285,10 +275,10 @@
 $(document).ready(function() {
     $('#prof_image_create').change(function(){
         let reader = new FileReader();
-        reader.onload = (e) => { 
-            $('#preview-image-before-upload_create').attr('src', e.target.result); 
+        reader.onload = (e) => {
+            $('#preview-image-before-upload_create').attr('src', e.target.result);
         }
-        reader.readAsDataURL(this.files[0]); 
+        reader.readAsDataURL(this.files[0]);
     });
 });
 </script>
