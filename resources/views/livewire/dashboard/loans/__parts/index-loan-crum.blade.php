@@ -9,7 +9,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item" active aria-current="page">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-file"></i>
                     <span>{{ $title }}</span>
                 </li>
             </ol>

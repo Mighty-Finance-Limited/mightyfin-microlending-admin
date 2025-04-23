@@ -156,8 +156,6 @@ class Application extends Model
         return $this->hasMany(LoanBalanceStatement::class, 'loan_id');
     }
 
-
-
     // COUNTS
     public static function totalLoansCount()
     {
