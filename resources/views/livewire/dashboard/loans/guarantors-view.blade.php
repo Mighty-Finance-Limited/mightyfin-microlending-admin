@@ -1,9 +1,9 @@
-<div class="content-body">
+<div class=" content">
     <div class="container-fluid">
         <div class="col-12">
-            <div class="card">
+            <div class="py-4 card">
                 <div class="card-header">
-                    <h4 class="card-title">Guarantors</h4>  
+                    <h4 class="card-title">Guarantors</h4>
                     <div>
                         <button wire:click="exportGuarantors()" title="Export to Excel" class="btn btn-square btn-success">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">
@@ -14,12 +14,11 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
                               </svg>
-                        </button>  
+                        </button>
                     </div>
                 </div>
 
-                <div class="card-body pb-0">
-
+                <div class="py-2 card-body">
                     <div id="guarantor_table_print_view" class="table-responsive">
                         <div wire:ignore class="actions-btns col-xl-12">
                             <div class="alert alert-dark alert-dismissible fade show">
@@ -32,61 +31,38 @@
                                 </div>
                             </div>
                         </div>
-                        <table wire:ignore id="example3" class="display" style="min-width: 845px">
+                        <table class="table w-full align-middle table-row-bordered table-row-gray-100 gs-0 gy-3 display" style="min-width: 845px">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Fullname</th>
                                     <th>Gender</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
+                                    <th>Contact Phone Number</th>
                                     <th>Client</th>
-                                    <th>Relation</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                @forelse($guarantors as $user)
-                                    @if ($user->gfname != null && $user->g2fname != null)
-                                        <tr>
-                                            <td>{{ $user->gfname.' '.$user->glname }} </td>
-                                            <td>{{ $user->g_gender }}</td>
-                                            <td>{{ $user->gphone ?? '--' }}</td>
-                                            <td><a href="javascript:void(0);"><strong>{{ $user->gemail }}</strong></a></td>
-                                            <td><a href="javascript:void(0);"><strong>{{ $user->fname.' '.$user->lname }}</strong></a></td>
-                                            <td>{{ $user->g_relation }}</td>												 
-                                        </tr>
-                                        <tr>
-                                            <td>{{ $user->g2fname.' '.$user->g2lname }} </td>
-                                            <td>{{ $user->g2_gender }}</td>
-                                            <td>{{ $user->g2phone ?? '--' }}</td>
-                                            <td><a href="javascript:void(0);"><strong>{{ $user->g2email }}</strong></a></td>
-                                            <td><a href="javascript:void(0);"><strong>{{ $user->fname.' '.$user->lname }}</strong></a></td>
-                                            <td>{{ $user->g2_relation }}</td>											 
-                                        </tr>
-                                    @endif
+                                @forelse($references as $user)
+                                    <tr>
+                                        <td>{{ $user->hrFname.' '.$user->hrLname }} </td>
+                                        <td>{{ $user->gender }}</td>
+                                        <td>{{ $user->hrContactNumber ?? '--' }}</td>
+                                        <td><a href="javascript:void(0);"><strong>{{ $user->hrFname.' '.$user->hrLname }}</strong></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ $user->supervisorFirstName.' '.$user->supervisorLastName }} </td>
+                                        <td>{{ $user->gender }}</td>
+                                        <td>{{ $user->hrContactNumber ?? '--' }}</td>
+                                        <td><a href="javascript:void(0);"><strong>{{ $user->supervisorFirstName.' '.$user->supervisorLastName }}</strong></a></td>
+                                    </tr>
                                 @empty
-                                <div class="intro-y col-span-12 md:col-span-6">
-                                    <div class="box text-center">
+                                <div class="col-span-12 intro-y md:col-span-6">
+                                    <div class="text-center box">
                                         <p>No User Found</p>
                                     </div>
                                 </div>
                                 @endforelse
                             </tbody>
                         </table>
-                        @if (Session::has('attention'))
-                        <div class="actions-btns alert alert-info solid alert-end-icon alert-dismissible fade show">
-                            <span><i class="mdi mdi-check"></i></span>
-                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="btn-close">
-                            </button> {{ Session::get('attention') }}
-                        </div>
-                        @elseif (Session::has('error_msg'))
-                        <div class="actions-btns alert alert-danger solid alert-end-icon alert-dismissible fade show">
-                            <span><i class="mdi mdi-help"></i></span>
-                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="btn-close">
-                            </button>
-                            <strong>Error!</strong> {{ Session::get('error_msg') }}
-                        </div
-                        @endif
                     </div>
                 </div>
             </div>
@@ -102,10 +78,10 @@
     $(document).ready(function (e) {
         $('#prof_image_create').change(function(){
             let reader = new FileReader();
-            reader.onload = (e) => { 
-                $('#preview-image-before-upload_create').attr('src', e.target.result); 
+            reader.onload = (e) => {
+                $('#preview-image-before-upload_create').attr('src', e.target.result);
             }
-            reader.readAsDataURL(this.files[0]); 
+            reader.readAsDataURL(this.files[0]);
         });
     });
 
@@ -121,15 +97,15 @@
             const imgData = canvas.toDataURL('image/png');
             // Add the image data URL to the PDF document
             doc.addImage(
-                imgData, 
-                'PNG', 
+                imgData,
+                'PNG',
                 2, // x-coordinate
                 2, // y-coordinate
             );
 
             // Save the PDF document
             doc.save('Guarantors.pdf');
-            
+
             $('.actions-btns').show();
         });
     }

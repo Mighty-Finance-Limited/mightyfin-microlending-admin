@@ -53,6 +53,17 @@
                             </a>
                         </div>
                         @endcan
+                        @can('view clientele')
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('guarantors') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Guarantors</span>
+                            </a>
+                        </div>
+                        @endcan
+
                     </div>
                 </div>
                 @endcan
@@ -223,16 +234,6 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Loan Calculator</span>
-                            </a>
-                        </div>
-                        @endcan
-                        @can('view pending')
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('approved-loans') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Guarantors</span>
                             </a>
                         </div>
                         @endcan

@@ -64,7 +64,14 @@ trait FileTrait{
                 ['path' => $loi_file]
             );
         }
-
-        
+    }
+    public function getUserFiles($user_id)
+    {
+        $files = UserFile::where('user_id', $user_id)->get();
+        $fileArray = [];
+        foreach ($files as $file) {
+            $fileArray[$file->name] = asset('storage/' . $file->path);
+        }
+        return $fileArray;
     }
 }

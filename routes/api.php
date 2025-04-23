@@ -116,3 +116,4 @@ Route::get('/v2/loan-repayment-schedule', function (Request $request) {
 
     return response()->json(['payback' => $paybackAmount]);
 });
+Route::post('/api/submit-risk-assessment', [RiskAssessmentController::class, 'store']);

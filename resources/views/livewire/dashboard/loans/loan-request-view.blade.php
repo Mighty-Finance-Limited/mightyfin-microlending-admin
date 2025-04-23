@@ -1,5 +1,5 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    @include('livewire.dashboard.borrowers.breadcrums.index-borrowers-crum')
+    @include('livewire.dashboard.loans.__parts.index-loan-crum')
     @if(!empty($loan_requests->toArray()))
         <div class="pb-0 card-body">
             @include('livewire.dashboard.loans.__parts.staff-loan-request-table')

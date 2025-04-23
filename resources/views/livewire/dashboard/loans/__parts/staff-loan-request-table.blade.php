@@ -3,7 +3,7 @@
     <div class="card-header">
         <h3 class="card-title align-items-start flex-column">
             <span class="mb-1 card-label fw-bold fs-3">{{ $this->title }}</span>
-            <span class="mt-1 text-muted fw-semibold fs-7">Over {{$requests->count()}} loans</span>
+            <span class="mt-1 text-muted fw-semibold fs-7">Over {{$requests?->count()}} loans</span>
         </h3>
 
         <div class="card-toolbar">

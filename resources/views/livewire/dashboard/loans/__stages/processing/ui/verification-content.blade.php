@@ -1,15 +1,7 @@
 <div class="ms-lg-15">
-    <!-- Enhanced Navigation Tabs -->
     <div class="d-flex">
         <div class="loan-tabs-container">
             <nav class="loan-tabs">
-                {{-- <div class="loan-tab active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                    </svg>
-                    <span class="loan-tab-text">CRB Checks & Assessments</span>
-                </div> --}}
-
                 <div class="loan-tab" data-bs-toggle="tab" href="#kt_customer_view_overview_risk">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loan-tab-icon">
                         <polygon points="12 2 22 20 2 20"></polygon>
@@ -60,7 +52,6 @@
                 </button>
             @endif
 
-            <!-- Action Dropdown Menu -->
             <div class="action-dropdown-menu" data-kt-menu="true">
                 <div class="action-dropdown-item" onclick="location.href='#'" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})">
                     <div class="action-icon bg-light-warning">
@@ -105,12 +96,12 @@
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="kt_customer_view_overview_tab" role="tabpanel">
-            <div class="card shadow-sm border-0 p-4 rounded">
-                <div class="card-header border-bottom pb-3">
-                    <h4 class="fw-bold mb-0 text-primary">Check CRB information</h4>
+            <div class="p-4 border-0 rounded shadow-sm card">
+                <div class="pb-3 card-header border-bottom">
+                    <h4 class="mb-0 fw-bold text-primary">Check CRB information</h4>
                 </div>
 
-                <div class="card-body p-3">
+                <div class="p-3 card-body">
                     <div class="pt-0">
                         <div class="py-0" data-kt-customer-payment-method="row">
                             <div id="kt_customer_view_payment_method_1"
@@ -157,7 +148,6 @@
                                                 Invalid report reason
                                             @break
                                             @default
-
                                         @endswitch
                                     </h6>
                                 </div>
@@ -196,14 +186,14 @@
         <div class="tab-pane fade show active" id="kt_customer_view_overview_risk" role="tabpanel">
             <div class="row g-5 g-xl-12">
                 <div class="col-xl-12">
-                    <div class="card shadow-sm border-0 p-4 rounded">
-                        <div class="card-header border-bottom pb-3">
-                            <h4 class="fw-bold mb-0 text-primary">Loan Risk Assessment</h4>
+                    <div class="p-4 border-0 rounded shadow-sm card">
+                        <div class="pb-3 card-header border-bottom">
+                            <h4 class="mb-0 fw-bold text-primary">Loan Risk Assessment</h4>
                         </div>
-                        <div class="card-body p-3">
+                        <div class="p-3 card-body">
                             <div class="py-0">
                                 <div id="kt_customer_view_payment_method_1" class="collapse show fs-6 ps-10" data-bs-parent="#kt_customer_view_payment_method">
-                                    <div class="d-flex gap-10 flex-wrap py-5">
+                                    <div class="flex-wrap gap-10 py-5 d-flex">
                                         <div class="w-full">
                                             <span class="font-bold"><b>Debt Ratio (%)</b></span>
                                             <input type="number" value="40" class="form-control" placeholder="{{$debt_ratio}}" id="debt_ratio">
@@ -233,15 +223,13 @@
             </div>
         </div>
 
-        <!--begin:::Tab pane-->
         <div class="tab-pane fade" id="kt_customer_view_overview_loan_details" role="tabpanel">
-
             <div class="row g-5 g-xl-12">
                 <div class="col-xl-12">
-                    <div class="card shadow-sm border-0 p-4 rounded">
-                        <div class="card-body p-3">
+                    <div class="p-4 border-0 rounded shadow-sm card">
+                        <div class="p-3 card-body">
                             <div class="table-responsive">
-                                <table class="table table-borderless align-middle">
+                                <table class="table align-middle table-borderless">
                                     <tbody>
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">Amount</td>
@@ -251,16 +239,6 @@
                                             <td class="text-muted fw-semibold w-50">Loan Product</td>
                                             <td class="text-gray-800">{{ $loan_product->name }}</td>
                                         </tr>
-                                        {{-- <tr>
-                                            <td class="text-muted fw-semibold w-50">KYC</td>
-                                            <td>
-                                                @if($loan->complete == 1)
-                                                    <span class="badge bg-success p-2">Completed</span>
-                                                @else
-                                                    <span class="badge bg-danger p-2">Incomplete</span>
-                                                @endif
-                                            </td>
-                                        </tr> --}}
                                         <tr>
                                             <td class="text-muted fw-semibold w-50">Created On</td>
                                             <td class="text-dark fw-bold">
@@ -273,21 +251,19 @@
                         </div>
                     </div>
 
-
-                    <br>
-                    <div class="card shadow-sm border-0 p-4 rounded">
-                        <div class="card-header border-0">
+                    <div class="p-4 border-0 rounded shadow-sm card">
+                        <div class="border-0 card-header">
                             <div class="card-title">
-                                <h4 class="fw-bold mb-0">Repayment Methods</h4>
+                                <h4 class="mb-0 fw-bold">Repayment Methods</h4>
                             </div>
                         </div>
 
-                        <div id="kt_customer_view_payment_method" class="card-body pt-0">
+                        <div id="kt_customer_view_payment_method" class="pt-0 card-body">
                             <div class="py-0" data-kt-customer-payment-method="row">
                                 <div id="kt_customer_view_payment_method_1"
                                     class="collapse show fs-6 ps-10"
                                     data-bs-parent="#kt_customer_view_payment_method">
-                                    <div class="d-flex flex-wrap py-5">
+                                    <div class="flex-wrap py-5 d-flex">
                                         <div class="flex-equal me-5">
                                             <table class="table table-flush fw-semibold gy-1">
                                                 @if($data->bank !== null)
@@ -316,17 +292,14 @@
                 </div>
             </div>
         </div>
-        <!--end:::Tab pane-->
-        <!--begin:::Tab pane-->
+
         <div class="tab-pane fade" id="kt_customer_view_documents" role="tabpanel">
-            <!--begin::Earnings-->
-            <div class="card pt-4 mb-6 mb-xl-9">
-                <div class="card-body py-0">
+            <div class="pt-4 mb-6 card mb-xl-9">
+                <div class="py-0 card-body">
 
                     <div class="">
                         <h6 class="mb-3 fw-semibold text-warning text-uppercase">Uploaded Attachments</h6>
                         <div class="gap-2 p-4 d-flex">
-                            <!-- end col -->
                             @php
                                 function getFileUrl($upload) {
                                     return $upload->source === 'admin'
@@ -379,16 +352,10 @@
                             @if ($loan->user->uploads->where('name', 'bankstatement')->isNotEmpty())
                                 {!! renderFileBlock($loan->user->uploads->where('name', 'bankstatement')->first(), 'Bank Statement', $loan->user) !!}
                             @endif
-
-                            <!-- end col -->
                         </div>
-                        <!-- end row -->
                     </div>
                 </div>
-
             </div>
         </div>
-        <!--end:::Tab pane-->
     </div>
-    <!--end:::Tab content-->
 </div>

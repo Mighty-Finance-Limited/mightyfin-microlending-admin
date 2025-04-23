@@ -6,12 +6,13 @@
                     <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
                 </div>
             </th>
+            <th class="min-w-0px">User</th>
             <th class="min-w-5px">Profile</th>
-            <th class="min-w-125px">Customer Name</th>
-            <th class="min-w-125px">Email</th>
-            <th class="min-w-125px">Job Title</th>
+            <th class="min-w-120px">Fullname</th>
+            <th class="min-w-120px">Email</th>
+            <th class="min-w-120px">Job title</th>
             <th class="min-w-120px">National ID</th>
-            <th class="min-w-125px">Added On</th>
+            <th class="min-w-125px">Added on</th>
             <th class="text-end min-w-0px"></th>
         </tr>
     </thead>
@@ -23,6 +24,9 @@
                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                     <input class="form-check-input" type="checkbox" value="1" />
                 </div>
+            </td>
+            <td>
+                {{ $user->customer_number }}
             </td>
             <td>
                 @if($user->profile_photo_path == null)
