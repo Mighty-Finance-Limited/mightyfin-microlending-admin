@@ -24,22 +24,11 @@ class PastMaturityDateView extends Component
 
     public function render()
     {
-        if (auth()->user()->hasRole('user')) {
-            $this->loan_requests = Loans::with(['application' => function($q){
-                $q->where('user_id', auth()->user()->id);
-            }])->where('final_due_date', '<', now())
-            ->orderBy('id', 'desc')->get();
-            return view('livewire.dashboard.loans.past-maturity-date-view')
-            ->layout('layouts.dashboard');
-        }else{
-            $this->loan_requests = Loans::with('application')
-            ->where('final_due_date', '<', now())
-            ->orderBy('id', 'desc')->get();
-            return view('livewire.dashboard.loans.past-maturity-date-view')
-            ->layout('layouts.admin');
-        }
-        
-
+        $this->loan_requests = Loans::with('application')
+        ->where('final_due_date', '<', now())
+        ->orderBy('id', 'desc')->get();
+        return view('livewire.dashboard.loans.past-maturity-date-view')
+        ->layout('layouts.admin');
     }
 
     public function exportPMLoans(){

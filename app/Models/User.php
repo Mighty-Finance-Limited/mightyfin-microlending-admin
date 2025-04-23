@@ -97,6 +97,10 @@ class User extends Authenticatable
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
 
+    public function getCustomerNumberAttribute()
+    {
+        return str_pad($this->id, 3, '0', STR_PAD_LEFT);
+    }
 
     public function getBorrowedTotalAttribute()
     {

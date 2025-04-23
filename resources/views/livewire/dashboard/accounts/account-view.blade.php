@@ -1,6 +1,6 @@
 <div class="content-body bg-light">
     <div class="py-4 container-fluid">
-        @if($data != null)
+        @if($user != null)
         <div class="row g-4">
             <!-- Profile Card -->
             <div class="col-xl-12">
@@ -9,28 +9,39 @@
                         <div class="p-4 text-white bg-gradient-primary">
                             <div class="d-flex align-items-center">
                                 <div class="bg-white profile-photo rounded-circle d-flex align-items-center justify-content-center text-primary" style="width: 100px; height: 100px; font-size: 2rem; font-weight: bold;">
-                                    @if($data->profile_photo_path == null)
-                                        @if($data->fname != null && $data->lname != null)
-                                            <span>{{ $data->fname[0].' '.$data->lname[0] }}</span>
-                                        @else
-                                            <span>{{ $data->name[0] }}</span>
-                                        @endif
-                                    @else
-                                        @if($data->fname != null && $data->lname != null)
-                                            <span>{{ $data->fname[0].' '.$data->lname[0] }}</span>
-                                        @else
-                                            <span>{{ $data->name[0] }}</span>
-                                        @endif
-                                        {{-- <img class="object-cover rounded-circle w-100 h-100" src="{{ 'public/'.Storage::url($data->profile_photo_path) }}" alt="Profile Photo" /> --}}
-                                    @endif
+                                    @php
+                                    $photo = $user->profile_photo_path;
+                                        // Check if it's a full URL already
+                                        if ($photo && (Str::startsWith($photo, ['http://', 'https://']))) {
+                                            $profilePhotoUrl = $photo;
+                                        }
+                                        // If not, assume it's a local path in the storage and generate full URL
+                                        elseif ($photo) {
+                                            if (Storage::exists($photo)) {
+                                                $profilePhotoUrl = 'public/'.Storage::url($photo);
+                                            } else {
+                                                $profilePhotoUrl = Storage::disk('custom_public')->url(Str::replaceFirst('public/', '', $photo));
+                                            }
+                                        } else {
+                                            $profilePhotoUrl = 'https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg';
+                                        }
+                                    @endphp
+                
+                                    <img
+                                        class="cursor-pointer rounded-circle preview-image" width="100"
+                                        src="{{ $profilePhotoUrl }}"
+                                        alt="{{ $user->fname.' '.$user->lname }}"
+                                        data-original="{{ $profilePhotoUrl }}"
+                                        onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDqZLNNtpV-cNZfqbScWb3_Ny0C15rPO9mgg&s';"
+                                    />
                                 </div>
 
                                 <div class="ms-4 flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h1 class="mb-0 text-white fw-bold">{{ $data->fname.' '.$data->lname }}</h1>
+                                            <h1 class="mb-0 text-white fw-bold">{{ $user->fname.' '.$user->lname }}</h1>
                                             <div class="px-3 py-2 my-2 badge bg-light text-primary rounded-pill">
-                                                @foreach ($data->roles as $role)
+                                                @foreach ($user->roles as $role)
                                                     @if($role->name == 'user')
                                                     Borrower
                                                     @else
@@ -38,10 +49,10 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-                                            <p class="mb-0 text-white-50">Joined {{ $data->created_at->diffForHumans() ?? 'Not Set' }}</p>
+                                            <p class="mb-0 text-white-50">Joined {{ $user->created_at->diffForHumans() ?? 'Not Set' }}</p>
                                         </div>
 
-                                        @if($data->blacklist != null)
+                                        @if($user->blacklist != null)
                                         <div class="px-3 py-2 mb-0 alert alert-danger d-flex align-items-center">
                                             <i class="fas fa-exclamation-triangle me-2"></i>
                                             <strong>BLACKLISTED</strong>
@@ -53,7 +64,7 @@
                                                 <i class="text-white fas fa-ellipsis-v"></i>
                                             </button>
                                             <ul class="shadow-sm dropdown-menu dropdown-menu-end">
-                                                @if($data->blacklist != null)
+                                                @if($user->blacklist != null)
                                                 <li class="dropdown-item">
                                                     <button wire:click="unblockUser" class="p-0 btn btn-link text-danger"><i class="fa fa-unlock me-2"></i> Unblock</button>
                                                 </li>
@@ -80,7 +91,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Gender</div>
-                                                <div class="fw-medium">{{ $data->gender ?? 'Not Set' }}</div>
+                                                <div class="fw-medium">{{ $user->gender ?? 'Not Set' }}</div>
                                             </div>
                                         </div>
                                         <div class="mb-3 d-flex">
@@ -89,7 +100,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">NRC#</div>
-                                                <div class="fw-medium">{{ $data->nrc_no ?? 'Not Set' }}</div>
+                                                <div class="fw-medium">{{ $user->nrc_no ?? 'Not Set' }}</div>
                                             </div>
                                         </div>
                                         <div class="d-flex">
@@ -98,7 +109,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Occupation</div>
-                                                <div class="fw-medium">{{ $data->occupation ?? 'Not Set' }}</div>
+                                                <div class="fw-medium">{{ $user->occupation ?? 'Not Set' }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +124,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Email</div>
-                                                <div class="fw-medium">{{ $data->email }}</div>
+                                                <div class="fw-medium">{{ $user->email }}</div>
                                             </div>
                                         </div>
                                         <div class="mb-3 d-flex">
@@ -122,7 +133,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Primary Phone</div>
-                                                <div class="fw-medium">{{ $data->phone ?? 'Not Set' }}</div>
+                                                <div class="fw-medium">{{ $user->phone ?? 'Not Set' }}</div>
                                             </div>
                                         </div>
                                         <div class="d-flex">
@@ -131,7 +142,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Secondary Phone</div>
-                                                <div class="fw-medium">{{ $data->phone2 ?? 'Not Set' }}</div>
+                                                <div class="fw-medium">{{ $user->phone2 ?? 'Not Set' }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +157,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Basic Pay</div>
-                                                <div class="fw-medium">K {{ $data->basic_pay ?? 0 }}</div>
+                                                <div class="fw-medium">K {{ $user->basic_pay ?? 0 }}</div>
                                             </div>
                                         </div>
                                         <div class="mb-3 d-flex">
@@ -155,7 +166,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Net Pay</div>
-                                                <div class="fw-medium">K {{ $data->net_pay ?? 0 }}</div>
+                                                <div class="fw-medium">K {{ $user->net_pay ?? 0 }}</div>
                                             </div>
                                         </div>
                                         <div class="d-flex">
@@ -164,7 +175,7 @@
                                             </div>
                                             <div>
                                                 <div class="text-muted small">Address</div>
-                                                <div class="fw-medium">{{ $data->address ?? 'No Address' }}</div>
+                                                <div class="fw-medium">{{ $user->address ?? 'No Address' }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,14 +188,14 @@
 
             <!-- Financial Overview Section -->
             <div class="col-xl-8">
-                @if($data->hasRole('user'))
+                @if($user->hasRole('user'))
                 <!-- Owing Balance Card -->
                 <div class="mb-4 overflow-hidden border-0 rounded-lg shadow-sm card">
                     <div class="py-3 bg-white card-header border-bottom-0 d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="mb-1 fw-bold">Owing Balance</h5>
-                            @if($data->loans->first() != null && $data->loans->first()->status == 1)
-                            <span class="text-muted small">Loaned out on {{ $data->loans->first()->created_at->toFormattedDateString() }}</span>
+                            @if($user->loans->first() != null && $user->loans->first()->status == 1)
+                            <span class="text-muted small">Loaned out on {{ $user->loans->first()->created_at->toFormattedDateString() }}</span>
                             @endif
                         </div>
                     </div>
@@ -192,11 +203,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-5">
-                                @if($data->loans->first() != null)
-                                    @if($data->loans->first()->status == 1)
+                                @if($user->loans->first() != null)
+                                    @if($user->loans->first()->status == 1)
                                     <div class="mb-4 border-4 border-start border-primary ps-3">
-                                        <span class="mb-1 text-muted d-block">{{ $data->loans->first()->type }} Loan</span>
-                                        <h3 class="mb-0">K {{ $data->loans->first()->amount }}</h3>
+                                        <span class="mb-1 text-muted d-block">{{ $user->loans->first()->type }} Loan</span>
+                                        <h3 class="mb-0">K {{ $user->loans->first()->amount }}</h3>
                                     </div>
 
                                     <div class="p-3 mb-4 rounded-lg bg-light">
@@ -206,7 +217,7 @@
                                             </div>
                                             <div>
                                                 <span class="text-danger d-block small">Current Loan Owing Balance</span>
-                                                <h4 class="mb-0">K {{ App\Models\Application::loan_balance($data->loans->first()->id) }}</h4>
+                                                <h4 class="mb-0">K {{ App\Models\Application::loan_balance($user->loans->first()->id) }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -226,7 +237,7 @@
                                               </svg>                                        </div>
                                         <div>
                                             <span class="text-danger d-block small">Total Outstanding Balance</span>
-                                            <h4 class="mb-0">K {{ App\Models\Loans::customer_balance($data->id) }}</h4>
+                                            <h4 class="mb-0">K {{ App\Models\Loans::customer_balance($user->id) }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +267,7 @@
                         <div class="table-responsive">
                             <table class="table pl-4 mb-0 align-middle table-hover">
                                 <tbody class="container pl-4" style="margin-left: 4px">
-                                    @forelse($data->loans as $loan)
+                                    @forelse($user->loans as $loan)
                                     <tr style="padding-left:4%">
                                         <td>
                                             <div class="d-flex align-items-center">
@@ -319,7 +330,7 @@
 
             <!-- Side Cards -->
             <div class="col-xl-4">
-                @if($data->hasRole('user'))
+                @if($user->hasRole('user'))
                 <!-- Wallet Balance Card -->
                 <div class="mb-4 overflow-hidden border-0 rounded-lg shadow-sm card">
                     <div class="card-body">
@@ -334,10 +345,10 @@
                             <div class="col-6">
                                 <div class="p-3 rounded-lg bg-light h-100">
                                     <span class="mb-1 text-muted d-block small">Current Balance</span>
-                                    @if($data->wallet->first() == null)
+                                    @if($user->wallet->first() == null)
                                     <h4 class="mb-0">K 0.00</h4>
                                     @else
-                                    <h4 class="mb-0">K {{ $data->wallet->first()->deposit ?? 0 }}</h4>
+                                    <h4 class="mb-0">K {{ $user->wallet->first()->deposit ?? 0 }}</h4>
                                     @endif
                                 </div>
                             </div>
@@ -345,10 +356,10 @@
                             <div class="col-6">
                                 <div class="p-3 rounded-lg bg-light h-100">
                                     <span class="mb-1 text-muted d-block small">Total Withdrawn</span>
-                                    @if($data->wallet->first() == null)
+                                    @if($user->wallet->first() == null)
                                     <h4 class="mb-0">K 0.00</h4>
                                     @else
-                                    <h4 class="mb-0">K {{ $data->wallet->first()->withdraw ?? 0 }}</h4>
+                                    <h4 class="mb-0">K {{ $user->wallet->first()->withdraw ?? 0 }}</h4>
                                     @endif
                                 </div>
                             </div>
@@ -357,7 +368,7 @@
                         <div class="mt-4">
                             <div class="mb-2 d-flex justify-content-between">
                                 <span class="text-muted small">Wallet ID</span>
-                                <span class="text-dark small fw-medium">{{ $data->id }}-WALLET</span>
+                                <span class="text-dark small fw-medium">{{ $user->id }}-WALLET</span>
                             </div>
                             <div class="progress" style="height: 6px;">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
@@ -408,18 +419,18 @@
 <!-- Add required CSS -->
 <style>
 :root {
-    --primary: rgb(161, 67, 238);
+    --primary: #6a3093;
     --secondary: rgb(125, 108, 124);
     --success: #2ecc71;
     --danger: #e74c3c;
     --warning: #f39c12;
-    --info: #3498db;
+    --info: #6a3093;
     --light: #f8f9fa;
     --dark: #343a40;
 }
 
 .bg-gradient-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, #a32adb 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, #6a3093 100%);
 }
 
 .text-primary { color: var(--primary) !important; }

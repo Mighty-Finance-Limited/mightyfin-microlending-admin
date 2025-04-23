@@ -5,26 +5,25 @@ namespace App\Http\Livewire\Dashboard\Accounts;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\BlackList;
 use App\Models\User;
+use App\Traits\FileTrait;
 use Illuminate\Http\Client\Request;
 use Livewire\Component;
 use App\Classes\Exports\AccountDetailExportExport;
 
 class AccountView extends Component
 {
-    public $data, $key;
+    use FileTrait;
+    public $user, $key;
     public function mount(){
         $this->key = $_GET['key'];
     }
     public function render()
     {
-        $this->data = $this->searchAccount($this->key);
-        if (auth()->user()->hasRole('user')) {
-            return view('livewire.dashboard.accounts.account-view')
-            ->layout('layouts.dashboard');
-        }else{
-            return view('livewire.dashboard.accounts.account-view')
-            ->layout('layouts.admin');
-        }
+        $this->user = $this->searchAccount($this->key);
+        $this->user_files = $this->getUserFiles($this->user->id);
+        // dd($this->user_files);
+        return view('livewire.dashboard.accounts.account-view')
+        ->layout('layouts.admin');
     }
 
     public function searchAccount($key){
@@ -34,11 +33,7 @@ class AccountView extends Component
               ->orWhere('email', $key)
               ->orWhere('nrc', $key)->with('loans')->with('wallet')->with('blacklist')->get()->first();
     }
-
-    // public function exportPDF(){
-    //     return Excel::download(new AccountDetailExportExport, 'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
-    // }
-
+    
     public function blockUser(){
         try {
             BlackList::create([
