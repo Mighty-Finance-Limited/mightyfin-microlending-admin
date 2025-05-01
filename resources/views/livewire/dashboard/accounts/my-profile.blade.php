@@ -1,153 +1,119 @@
-<div>
-    <div class="content-body">
-        <div class="container">
-          <div class="row">
-            <div class="col-xxl-6 col-xl-6 col-lg-6">
-              <div class="card welcome-profile">
-                <div class="card-body">
-                    @if($data->profile_photo_path == null)
-                        @if($data->fname != null && $data->lname != null)
-                            <span class="text-white">{{ $data->fname[0].' '.$data->lname[0] }}</span>
+<!-- Tailwind CSS CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #6a3093;
+        --secondary: #a044ff;
+    }
+
+    .bg-primary {
+        background-color: var(--primary);
+    }
+
+    .text-primary {
+        color: var(--primary);
+    }
+
+    .bg-gradient-purple {
+        background: linear-gradient(135deg, #6a3093, #a044ff);
+    }
+
+    .profile-transition {
+        transition: all 0.3s ease;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-3px);
+    }
+</style>
+
+<div class="w-full bg-gray-50">
+    <div class="container px-4 py-6 mx-auto">
+        <div class="flex flex-col gap-6 lg:flex-row">
+            <!-- Profile Card -->
+            <div class="w-full overflow-hidden bg-white shadow-md profile-card lg:w-1/3 rounded-2xl profile-transition">
+                <!-- Profile Photo Section -->
+                <div class="flex items-center justify-center p-8 bg-gradient-purple">
+                    <div class="flex items-center justify-center overflow-hidden bg-white border-4 border-white rounded-full w-36 h-36 bg-opacity-20 border-opacity-30">
+                        @if($data->profile_photo_path == null)
+                            @if($data->fname != null && $data->lname != null)
+                                <span class="text-4xl font-bold text-white">{{ $data->fname[0].' '.$data->lname[0] }}</span>
+                            @else
+                                <span class="text-4xl font-bold text-white">{{ $data->name[0] }}</span>
+                            @endif
                         @else
-                            <span>{{ $data->name[0] }}</span>
+                            <img src="{{ 'public/'.Storage::url($data->profile_photo_path) }}" alt="Profile Photo" class="object-cover w-full h-full" />
                         @endif
-                    @else
-                        <img src="{{ 'public/'.Storage::url($data->profile_photo_path) }}" />
-                    @endif
-                  {{-- <img src="https://www.seekpng.com/png/detail/72-729756_how-to-add-a-new-user-to-your.png" alt="" /> --}}
-                  <h4>{{ $data->fname.' '.$data->lname }}</h4>
-                  <p>
-                    Looks like you are not verified yet. Verify yourself to use the
-                    full potential of Mighty Finance Soultion.
-                  </p>
-    
-                  <ul>
-                    <li>
-                      <a href="{{ route('profile.show') }}">
-                        <span class="verified"
-                          ><i class="icofont-check-alt"></i
-                        ></span>
-                        Verify account
-                      </a>
-                    </li>
-                    {{-- <li>
-                      <a href="#">
-                        <span class="not-verified"
-                          ><i class="icofont-close-line"></i
-                        ></span>
-                        Two-factor authentication (2FA)
-                      </a>
-                    </li> --}}
-                  </ul>
+                    </div>
                 </div>
-              </div>
+
+                <!-- Profile Details -->
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="mb-1 text-2xl font-semibold text-primary">
+                        @if($data->fname != null && $data->lname != null)
+                            {{ $data->fname.' '.$data->lname }}
+                        @else
+                            {{ $data->name }}
+                        @endif
+                    </h2>
+                    <p class="text-gray-500">{{ $data->occupation ?? 'Member' }}</p>
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="grid grid-cols-2 gap-4 p-6">
+                    <div class="text-center">
+                        <div class="text-xl font-semibold text-primary">{{ $data->created_at->diffForHumans(null, true) }}</div>
+                        <div class="mt-1 text-xs tracking-wider text-gray-500 uppercase">Member For</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-semibold text-primary">{{ $data->deprtment ?? 'N/A' }}</div>
+                        <div class="mt-1 text-xs tracking-wider text-gray-500 uppercase">Department</div>
+                    </div>
+                </div>
             </div>
-            <div class="col-xxl-6 col-xl-6 col-lg-6">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Download App</h4>
-                </div>
-                <div class="card-body">
-                  <div class="app-link">
-                    <h5>Get Verified On Our Mobile App</h5>
-                    <p>
-                      Verifying your identity on our mobile app more secure, faster,
-                      and reliable.
-                    </p>
-                    <a href="#" class="btn btn-primary">
-                      <img src="{{ asset('public/mfs/images/android.svg')}}" alt="" />
+
+            <!-- Information Card -->
+            <div class="w-full overflow-hidden bg-white shadow-md profile-card lg:w-2/3 rounded-2xl profile-transition">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+                    <h3 class="text-xl font-semibold text-primary">Information</h3>
+                    <a href="{{ route('profile.show') }}" class="flex items-center px-4 py-2 space-x-2 text-white transition-opacity rounded-lg btnclicky bg-gradient-purple hover:opacity-90">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        <span>Edit</span>
                     </a>
-                    <br />
-                    <div class="mt-3"></div>
-                    <a href="#" class="btn btn-primary">
-                      <img src="{{ asset('public/mfs/images/apple.svg')}}" alt="" />
-                    </a>
-                  </div>
                 </div>
-              </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="flex flex-col">
+                            <span class="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">USER ID</span>
+                            <span class="font-medium text-gray-800">{{ $data->id }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">EMAIL ADDRESS</span>
+                            <span class="font-medium text-gray-800">{{ $data->email }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">RESIDENTIAL ADDRESS</span>
+                            <span class="font-medium text-gray-800">{{ $data->address ?? 'No Address' }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">JOINED SINCE</span>
+                            <span class="font-medium text-gray-800">{{ $data->created_at->toFormattedDateString() }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">DEPARTMENT</span>
+                            <span class="font-medium text-gray-800">{{ $data->deprtment ?? 'Not set' }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">OCCUPATION</span>
+                            <span class="font-medium text-gray-800">{{ $data->occupation ?? 'Not set' }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-    
-            <div class="col-xxl-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Information</h4>
-                  <a href="{{ route('profile.show') }}" class="btn btn-primary">Edit</a>
-                </div>
-                <div class="card-body">
-                  <form class="row">
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                      <div class="user-info">
-                        <span>USER ID</span>
-                        <h4>{{ $data->id }}</h4>
-                      </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                      <div class="user-info">
-                        <span>EMAIL ADDRESS</span>
-                        <h4>{{ $data->email }}</h4>
-                      </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                      <div class="user-info">
-                        <span>RESIDENCIAL ADDRESS</span>
-                        <h4>{{ $data->address ?? 'No Address' }}</h4>
-                      </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                      <div class="user-info">
-                        <span>JOINED SINCE</span>
-                        <h4>{{ $data->created_at->toFormattedDateString() }}</h4>
-                      </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                      <div class="user-info">
-                        <span>DEPARTMENT</span>
-                        <h4>{{ $data->deprtment ?? 'Not set' }}</h4>
-                      </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                      <div class="user-info">
-                        <span>OCCUPATION</span>
-                        <h4>{{ $data->occupation ?? 'Not set' }}</h4>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-    
-            {{-- <div class="col-xxl-8 col-xl-6">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">VERIFY & UPGRADE</h4>
-                </div>
-                <div class="card-body">
-                  <h5>
-                    Account Status :
-                    <span class="text-warning"
-                      >Pending <i class="icofont-warning"></i
-                    ></span>
-                  </h5>
-                  <p>
-                    Your account is unverified. Get verified to enable funding,
-                    trading, and withdrawal.
-                  </p>
-                  <a href="#" class="btn btn-primary"> Get Verified</a>
-                </div>
-              </div>
-            </div> --}}
-            {{-- <div class="col-xxl-4 col-xl-6">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Earn 30% Commission</h4>
-                </div>
-                <div class="card-body">
-                  <p>Refer your friends and earn 30% of their trading fees.</p>
-                  <a href="#" class="btn btn-primary"> Referral Program</a>
-                </div>
-              </div>
-            </div> --}}
-          </div>
         </div>
-      </div>
+    </div>
 </div>
