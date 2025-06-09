@@ -7,7 +7,7 @@
     </div>
     
     @if(true)
-    {{-- @if($loan->complete == 1) --}}
+    {{-- @dd(strtolower($current->status)) --}}
     @switch(strtolower($current->stage))
         @case('processing')
             @switch(strtolower($current->status))
@@ -64,10 +64,10 @@
         <div class="modal fade show" id="kt_modal_decline_warning" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <div class="modal-content">
-                    <div class="modal-body py-2">
-                        <div class="settings mb-2">
+                    <div class="py-2 modal-body">
+                        <div class="mb-2 settings">
                             <div class="text-danger">
-                                <h1 class="text-info fw-bold font-bold">No Loan Products or Loan Product has no statuses </h1>
+                                <h1 class="font-bold text-info fw-bold">No Loan Products or Loan Product has no statuses </h1>
                                 <p>Note: This loan is current active and is pending for repayment has collection.</p>
                             </div>
                         </div>
@@ -75,6 +75,7 @@
                 </div>
             </div>
         </div>
+        @break
     @endswitch
     @else
     @include('livewire.dashboard.loans.__stages.denied.incomplete-kyc')

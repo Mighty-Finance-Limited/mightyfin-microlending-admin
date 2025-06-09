@@ -79,14 +79,14 @@
                     </div>
                 </div>
 
-                <div class="action-dropdown-item" onclick="location.href='#'" wire:click="accept({{$loan->id}})">
+                <div class="action-dropdown-item" onclick="location.href='#'" wire:click="accept({{$loan->id}}, '')">
                     <div class="action-icon bg-light-success">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                     </div>
                     <div class="action-content">
-                        <span class="action-label">Approve</span>
+                        <span class="action-label">Verify Now</span>
                         <span class="action-description">Approve this loan application</span>
                     </div>
                 </div>
@@ -182,7 +182,6 @@
             </div>
 
         </div>
-
         <div class="tab-pane fade show active" id="kt_customer_view_overview_risk" role="tabpanel">
             <div class="row g-5 g-xl-12">
                 <div class="col-xl-12">

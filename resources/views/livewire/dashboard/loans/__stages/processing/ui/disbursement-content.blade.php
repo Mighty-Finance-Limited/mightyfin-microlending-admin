@@ -87,7 +87,7 @@
                         </svg>
                     </div>
                     <div class="action-content">
-                        <span class="action-label">Approve</span>
+                        <span class="action-label">Disburse</span>
                         <span class="action-description">Approve this loan application</span>
                     </div>
                 </div>

@@ -66,12 +66,11 @@ trait LoanTrait
         $userId = auth()->user()->id;
 
         if (auth()->user()->hasRole('admin')) {
-            // dd('here');
-            return Application::with('loan_product')->get();
+            return Application::with('loan_product')->orderBy('created_at', 'desc')->get();
         } else {
             switch ($type) {
                 case 'spooling':
-                    return Application::with('loan_product')->get();
+                    return Application::with('loan_product')->orderBy('created_at', 'desc')->get();
                     break;
 
                 case 'manual':
@@ -82,6 +81,7 @@ trait LoanTrait
                         $query->where('user_id', $userId);
                         $query->where('is_active', 1);
                     })
+                        ->orderBy('created_at', 'desc')
                         ->get();
                     break;
 
@@ -101,12 +101,11 @@ trait LoanTrait
         $userId = auth()->user()->id;
 
         if (auth()->user()->hasRole('admin')) {
-            // dd('here');
-            return Application::orWhere('status', 0)->orWhere('status', 2)->with('loan_product')->get();
+            return Application::orWhere('status', 0)->orWhere('status', 2)->with('loan_product')->orderBy('created_at', 'desc')->get();
         } else {
             switch ($type) {
                 case 'spooling':
-                    return Application::orWhere('status', 0)->orWhere('status', 2)->with('loan_product')->get();
+                    return Application::orWhere('status', 0)->orWhere('status', 2)->with('loan_product')->orderBy('created_at', 'desc')->get();
                     break;
 
                 case 'manual':
@@ -118,6 +117,7 @@ trait LoanTrait
                         $query->where('is_active', 1);
                     })
                         ->orWhere('status', 2)->orWhere('status', 0)
+                        ->orderBy('created_at', 'desc')
                         ->get();
                     break;
 
@@ -135,12 +135,12 @@ trait LoanTrait
     {
         $userId = auth()->user()->id;
         if (auth()->user()->hasRole('admin')) {
-            $app = Application::with('loan_product')->where('closed', 0)->where('status', 1)->get();
+            $app = Application::with('loan_product')->where('closed', 0)->where('status', 1)->orderBy('created_at', 'desc')->get();
             return $app;
         } else {
             switch ($type) {
                 case 'spooling':
-                    return Application::with('loan_product')->where('closed', 0)->where('status', 1)->get();
+                    return Application::with('loan_product')->where('closed', 0)->where('status', 1)->orderBy('created_at', 'desc')->get();
                     break;
                 case 'manual':
                     return Application::with('loan_product')->with(['manual_approvers' => function ($query) use ($userId) {
@@ -151,6 +151,7 @@ trait LoanTrait
                         $query->where('is_active', 1);
                     })
                         ->where('closed', 0)->where('status', 1)
+                        ->orderBy('created_at', 'desc')
                         ->get();
 
                     break;
@@ -168,12 +169,12 @@ trait LoanTrait
     {
         $userId = auth()->user()->id;
         if (auth()->user()->hasRole('admin')) {
-            return Application::with('loan_product')->where('complete', 1)->where('status', 1)->get();
+            return Application::with('loan_product')->where('complete', 1)->where('status', 1)->orderBy('created_at', 'desc')->get();
         } else {
             switch ($type) {
                 case 'spooling':
                     return Application::with('loan_product')->where('complete', 1)
-                        ->where('status', 1)->get();
+                        ->where('status', 1)->orderBy('created_at', 'desc')->get();
                     break;
                 case 'manual':
                     return Application::with('loan_product')->with(['manual_approvers' => function ($query) use ($userId) {
@@ -185,6 +186,7 @@ trait LoanTrait
                     })
                         ->where('status', 1)
                         ->where('complete', 1)
+                        ->orderBy('created_at', 'desc')
                         ->get();
 
                     break;
@@ -212,6 +214,7 @@ trait LoanTrait
                 ->where('loan_installments.next_dates', '<', now())
                 ->whereNotNull('applications.type')
                 ->select('loans.id', 'users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
+                ->orderBy('applications.created_at', 'desc')
                 ->get();
         } else {
             return DB::table('applications')
@@ -223,6 +226,7 @@ trait LoanTrait
                 ->where('loan_installments.next_dates', '<', now())
                 ->whereNotNull('applications.type')
                 ->select('loans.id', 'users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
+                ->orderBy('applications.created_at', 'desc')
                 ->get();
         }
     }

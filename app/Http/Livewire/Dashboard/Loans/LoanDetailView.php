@@ -27,6 +27,7 @@ class LoanDetailView extends Component
     public $amortizationSchedule, $amo_principal, $amo_duration;
     public $debt_ratio, $gross_pay, $net_pay, $result_amount;
     public $crb_selected_products;
+   
 
     public function mount($id)
     {
@@ -151,32 +152,32 @@ class LoanDetailView extends Component
 
     // This method is the actual approval process - Recommended
     // This method is the actual approval process - Recommended
-    public function accept($id, $type = null)
+    public function accept($id, $type)
     {
+        // dd($type);
         // DB::beginTransaction();
         try {
             $application = Application::find($id);
-            $this->change_stage();
-            // dd($this->final_approver($id)['status']);
-            if ($this->final_approver($id)['status']) {
-
-                if (strtolower($type) == 'disburse') {
-                    $this->current->update([
-                        'state' => 'current',
-                        'status' => 'Current Loan',
-                        'stage' => 'open',
-                        'prev_status' => 'complete',
-                        'curr_status' => 'bg-white',
-                        'position' => 4,
-                    ]);
-                    $this->disburse($application);
-                    Redirect::route('detailed', ['id' => $this->loan_id]);
+            if($this->change_stage()){
+                if ($this->final_approver($id)['status']) {
+                    if (strtolower($type) == 'disburse') {
+                        $this->current->update([
+                            'state' => 'current',
+                            'status' => 'Current Loan',
+                            'stage' => 'open',
+                            'prev_status' => 'complete',
+                            'curr_status' => 'bg-white',
+                            'position' => 4,
+                        ]);
+                        $this->disburse($application);
+                        Redirect::route('detailed', ['id' => $this->loan_id]);
+                    } else {
+                        $this->continue_assessment($id);
+                        Redirect::route('loan-details', ['id' => $this->loan_id]);
+                    }
                 } else {
-                    // $this->continue_assessment($id);
-                    Redirect::route('loan-details', ['id' => $this->loan_id]);
+                    $this->continue_assessment($id);
                 }
-            } else {
-                $this->continue_assessment($id);
             }
             Redirect::route('loan-details', ['id' => $this->loan_id])->with(['success', 'Successfully approved stage']);
         } catch (\Throwable $th) {
@@ -192,7 +193,7 @@ class LoanDetailView extends Component
     {
         try {
             $next_status = LoanStatus::with('status')
-                ->where('loan_product_id', $this->loan_product->id)
+                ->where('loan_product_id', 1)
                 ->orderBy('id', 'asc')
                 ->skip($this->current->position) // $this->current is 0-indexed, no need to subtract 1
                 ->take(1)
@@ -200,12 +201,15 @@ class LoanDetailView extends Component
 
             $this->current->update([
                 'state' => 'current',
-                'status' => $next_status->status->name,
-                'stage' => $next_status->stage,
+                'status' => $next_status->status->name ?? 'processing',
+                // 'status' => $next_status->status->name,
+                'stage' => $next_status->stage ?? 'processing',
+                // 'stage' => $next_status->stage,
                 'prev_status' => 'complete',
                 'curr_status' => 'bg-white',
                 'position' => $this->current->position + 1,
             ]);
+            return true;
         } catch (\Throwable $th) {
             dd($th);
         }

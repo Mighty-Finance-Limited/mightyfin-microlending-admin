@@ -1,8 +1,21 @@
 <div class="content d-flex flex-column flex-column-fluid bg-light" id="kt_content">
+    @include('livewire.dashboard.loans.__parts.index-loan-details-crum')
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" class="container-xxl">
             <div class="mb-6 shadow-sm card rounded-3">
                 <div class="pb-0 card-body pt-9">
+                    <!-- Add shortcut button -->
+                    @if ($loan->status == 0 || $loan->status == 2)
+                    <div class="mb-5 d-flex justify-content-end">
+                        <button wire:click="change_stage" class="btn btn-sm btn-light-primary">
+                            <i class="ki-duotone ki-external-link fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            Proceed to Loan Approval
+                        </button>
+                    </div>
+                    @endif
                     <div class="flex-wrap d-flex flex-sm-nowrap">
                     @php
                         $photo = $loan->user->profile_photo_path;
@@ -99,28 +112,28 @@
                             <div class="flex-wrap d-flex flex-stack">
                                 <div class="d-flex flex-column flex-grow-1 pe-8">
                                     <div class="flex-wrap gap-4 d-flex">
-                                        <div class="px-4 py-3 mb-3 overflow-hidden bg-primary border border-gray-300 border-dashed shadow-sm rounded-3 min-w-150px position-relative">
+                                        <div class="px-4 py-3 mb-3 overflow-hidden border border-gray-300 border-dashed shadow-sm bg-primary rounded-3 min-w-150px position-relative">
                                             <div class="top-0 h-full position-absolute opacity-10 end-0 w-35px bg-primary"></div>
                                             <div class="mb-1 d-flex align-items-center">
-                                                <i class="ki-duotone ki-dollar fs-3 me-2 text-white"></i>
-                                                <div class="fs-2 fw-bolder text-white" data-kt-countup="true" data-kt-countup-value="{{ $loan->amount }}" data-kt-countup-prefix="K">0</div>
+                                                <i class="text-white ki-duotone ki-dollar fs-3 me-2"></i>
+                                                <div class="text-white fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{ $loan->amount }}" data-kt-countup-prefix="K">0</div>
                                             </div>
                                             <div class="text-white fw-bold fs-6">Principal Amount</div>
                                         </div>
 
-                                        <div class="px-4 py-3 mb-3 overflow-hidden bg-success border border-gray-300 border-dashed shadow-sm rounded-3 min-w-150px position-relative">
+                                        <div class="px-4 py-3 mb-3 overflow-hidden border border-gray-300 border-dashed shadow-sm bg-success rounded-3 min-w-150px position-relative">
                                             <div class="top-0 h-full position-absolute opacity-10 end-0 w-35px bg-success"></div>
                                             <div class="mb-1 d-flex align-items-center">
-                                                <i class="ki-duotone ki-arrow-right-square fs-3 me-2 text-white"></i>
-                                                <div class="fs-2 fw-bolder text-white" data-kt-countup="true" data-kt-countup-prefix="K" data-kt-countup-value="{{ App\Models\Application::payback($loan) }}">0</div>
+                                                <i class="text-white ki-duotone ki-arrow-right-square fs-3 me-2"></i>
+                                                <div class="text-white fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-prefix="K" data-kt-countup-value="{{ App\Models\Application::payback($loan) }}">0</div>
                                             </div>
                                             <div class="text-white fw-bold fs-6">Est. Repayment</div>
                                         </div>
 
-                                        <div class="px-4 py-3 mb-3 overflow-hidden bg-warning border border-gray-300 border-dashed shadow-sm rounded-3 min-w-150px position-relative">
+                                        <div class="px-4 py-3 mb-3 overflow-hidden border border-gray-300 border-dashed shadow-sm bg-warning rounded-3 min-w-150px position-relative">
                                             <div class="top-0 h-full position-absolute opacity-10 end-0 w-35px bg-warning"></div>
                                             <div class="mb-1 d-flex align-items-center">
-                                                <i class="ki-duotone ki-chart-simple fs-3 me-2 text-white"></i>
+                                                <i class="text-white ki-duotone ki-chart-simple fs-3 me-2"></i>
                                                 <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{ App\Models\Application::loan_balance($loan->id) }}" data-kt-countup-prefix="K">0</div>
                                             </div>
                                             <div class="text-white fw-bold fs-6">Pending Repayment</div>

@@ -18,6 +18,7 @@ class LoanDetailedView extends Component
     use EmailTrait, WalletTrait, LoanTrait, AuthorizesRequests;
     public $loan, $user, $loan_id, $msg, $due_date, $reason, $loan_product;
     public $loan_stage, $denied_status, $picked_status, $current, $balance_statement, $repayment_schedule;
+    public $title = 'Loan Details';
     public function mount($id){
         $this->loan_id = $id;
     }
@@ -43,5 +44,58 @@ class LoanDetailedView extends Component
     public function getLoanRepaymentTable()
     {
         $this->repayment_schedule = LoanInstallment::where('loan_id', $this->loan->id)->get();
+    }
+
+    public function change_stage($type = null)
+    {
+        try {
+            // Get the current stage
+            $current_stage = ApplicationStage::where('application_id', $this->loan->id)
+                ->where('state', 'current')
+                ->first();
+
+            if ($current_stage) {
+                // Update current stage to completed
+                $current_stage->update([
+                    'state' => 'completed',
+                    'prev_status' => 'current',
+                    'curr_status' => 'completed'
+                ]);
+
+                // Get the next stage
+                $next_stage = ApplicationStage::where('application_id', $this->loan->id)
+                    ->where('position', $current_stage->position + 1)
+                    ->first();
+
+                if ($next_stage) {
+                    // Update next stage to current
+                    $next_stage->update([
+                        'state' => 'current',
+                        'prev_status' => 'pending',
+                        'curr_status' => 'current'
+                    ]);
+                }
+
+                // Update application status if needed
+                if ($this->loan->status == 0) {
+                    $this->loan->update(['status' => 1]);
+                }
+
+                // Handle disbursement case
+                if ($type === 'disburse') {
+                    // Update application status to disbursed
+                    $this->loan->update(['status' => 1, 'complete' => 1]);
+                    
+                    // Create loan record if it doesn't exist
+                    if (!$this->loan->loan) {
+                        $this->make_loan($this->loan, null);
+                    }
+                }
+
+                session()->flash('message', 'Loan stage updated successfully.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error updating loan stage: ' . $e->getMessage());
+        }
     }
 }
